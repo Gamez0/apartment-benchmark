@@ -19,6 +19,7 @@ context.tradeRows=[{date:'2026-01-01',price:10,floor:3},{date:'2026-01-01',price
 el('period').value='1';el('region').value='서울';el('dong').value='신도림동';el('areaScope').value='similar';vm.runInContext('load(fixture)',context);
 for(const [id,value] of Object.entries({switchSale:'20',switchDebt:'0',switchSaleCost:'0',switchExtra:'0',switchLoan:'0',switchBuyCost:'0'}))el(id).value=value;
 el('switchCalculate').onclick();assert.match(el('switchResult').innerHTML,/20.00억/);
+assert.match(el('switchResult').innerHTML,/동아2차 \/ BM 대비/);assert.match(el('switchResult').innerHTML,/동아2차 거래 부족/);
 vm.runInContext('render()',context);assert.match(el('switchResult').innerHTML,/20.00억/); // same context preserves results
 el('period').value='5';vm.runInContext('render()',context);assert.equal(el('switchResult').innerHTML,'');assert.match(el('switchError').textContent,/다시/);
 el('switchCalculate').onclick();assert.ok(el('switchResult').innerHTML);el('switchExtra').value='2';el('switchExtra').oninput();assert.equal(el('switchResult').innerHTML,'');assert.match(el('switchError').textContent,/예산/);
