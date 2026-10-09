@@ -26,8 +26,14 @@ jobs:
         with:
           python-version: "3.12"
       - run: python tests/import.test.py
-      - run: python scripts/prepare_data.py
       - run: node tests/app.test.cjs
+      - run: python tests/molit.test.py
+      - name: Collect official Sindorim transactions
+        env:
+          MOLIT_API_KEY: ${{ secrets.MOLIT_API_KEY }}
+          MOLIT_API_ENDPOINT: ${{ secrets.MOLIT_API_ENDPOINT }}
+        run: python scripts/collect_molit.py
+      - run: python scripts/prepare_data.py
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
