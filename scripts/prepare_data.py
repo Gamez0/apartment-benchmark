@@ -1,4 +1,4 @@
-"""Build official market snapshot and a separately labelled demonstration."""
+"""Build the official market snapshot for the public service."""
 import csv,json,calendar,subprocess,sys
 from pathlib import Path
 root=Path(__file__).resolve().parents[1]
@@ -14,5 +14,5 @@ if (root/'data/transactions.csv').exists():
  subprocess.run([sys.executable,str(root/'scripts/build_data.py'),'--transactions',str(root/'data/transactions.csv'),'--benchmark',str(root/'data/benchmark.csv'),'--rates',str(root/'data/rates.csv'),'--as-of',date,'--source','정규화된 거래 CSV / 한국부동산원 / 한국은행'],check=True)
 else:
  (root/'site/data.json').write_text(json.dumps(d,ensure_ascii=False),encoding='utf-8')
-subprocess.run([sys.executable,str(root/'scripts/demo.py')],check=True)
+(root/'site/demo.json').unlink(missing_ok=True)
 print(f'Official snapshot: {date}, {len(b)} index observations, {len(r)} rate changes')

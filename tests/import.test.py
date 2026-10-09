@@ -17,5 +17,5 @@ with tempfile.TemporaryDirectory() as tmp:
  subprocess.run([sys.executable,str(p/'scripts/import_seoul.py'),str(raw)],check=True,stdout=subprocess.DEVNULL)
  subprocess.run([sys.executable,str(p/'scripts/prepare_data.py')],check=True,stdout=subprocess.DEVNULL)
  d=json.loads((p/'site/data.json').read_text());assert not d['demo'] and len(d['transactions'])==1 and d['transactions'][0]['price']==10
- assert len(d['benchmark'])==1235;assert json.loads((p/'site/demo.json').read_text())['demo']
+ assert len(d['benchmark'])==1235;assert not (p/'site/demo.json').exists()
 print('Official CSV: units, cancellation, rights, direct trades, identity, dates, CP949 and build preservation passed')
