@@ -13,5 +13,13 @@ const accepted=rows.filter(r=>r['건물용도']==='아파트'&&!r['권리구분'
 const converted=accepted.map(r=>{const location=['자치구코드','법정동코드','본번','부번'].map(k=>r[k]);if(location.some(x=>!x))throw Error('거래 주소 코드가 누락되었습니다.');const d=r['계약일'];if(!/^\d{8}$/.test(d))throw Error('계약일 형식을 확인하세요.');return {id:'seoul:'+location.join(':')+':'+r['건물명'],name:r['건물명'],region:'서울',district:r['자치구명'],dong:r['법정동명'],area:Number(r['건물면적(㎡)'].replaceAll(',','')),date:d.slice(0,4)+'-'+d.slice(4,6)+'-'+d.slice(6),price:Number(r['물건금액(만원)'].replaceAll(',',''))/10000,floor:r['층'],cancelled:false};});
 return {rows:converted,excluded:rows.length-converted.length,official:true};
 }
-const api={median,windowPrice,compare,benchmark,csv,normalizeTrades};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
+function holding(rows,asOf,buyDate,buyPrice){
+const validDate=s=>/^\d{4}-\d{2}-\d{2}$/.test(s)&&!isNaN(Date.parse(s))&&new Date(s+'T00:00:00Z').toISOString().slice(0,10)===s;
+if(!validDate(buyDate)||!validDate(asOf)||buyDate>=asOf||!Number.isFinite(buyPrice)||buyPrice<=0)throw Error('매입일은 기준일 이전, 매입가는 양수여야 합니다.');
+let current=windowPrice(rows,asOf,3);if(current.count<3)current=windowPrice(rows,asOf,6);
+if(current.count<3)return {current,rate:null,gain:null,annual:null};
+const years=(Date.parse(asOf)-Date.parse(buyDate))/(365.2425*86400000);
+return {current,rate:(current.price/buyPrice-1)*100,gain:current.price-buyPrice,annual:(Math.pow(current.price/buyPrice,1/years)-1)*100};
+}
+const api={median,windowPrice,compare,benchmark,csv,normalizeTrades,holding};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
 })(typeof window==='undefined'?globalThis:window);

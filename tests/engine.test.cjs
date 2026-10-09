@@ -14,3 +14,5 @@ assert.equal(E.windowPrice([], '2024-05-31',3).start,'2024-02-29');
 console.log('Calculation checks passed, including month-end regression');
 const officialRow={'자치구코드':'11680','법정동코드':'10300','본번':'0010','부번':'0000','건물명':'검증단지','계약일':'20260701','물건금액(만원)':'100,000','건물면적(㎡)':'84.9','건물용도':'아파트','신고구분':'중개거래','권리구분':'','취소일':''};
 const normalized=E.normalizeTrades([officialRow,{...officialRow,'취소일':'20260702'},{...officialRow,'권리구분':'분양권'},{...officialRow,'신고구분':'직거래'},{...officialRow,'건물용도':'오피스텔'}]);assert.equal(normalized.rows.length,1);assert.equal(normalized.excluded,4);assert.equal(normalized.rows[0].price,10);assert.equal(normalized.rows[0].date,'2026-07-01');
+
+const h=E.holding(rows,'2026-09-30','2016-09-30',5);assert.equal(h.gain,6);assert.ok(Math.abs(h.rate-120)<1e-9);assert.ok(Math.abs(h.annual-8.2)<.1);assert.equal(E.holding([],'2026-09-30','2016-09-30',5).rate,null);assert.throws(()=>E.holding(rows,'2026-09-30','2026-09-30',5));assert.throws(()=>E.holding(rows,'2026-09-30','2025-02-30',5));assert.throws(()=>E.holding(rows,'2026-09-30','2016-09-30',0));
