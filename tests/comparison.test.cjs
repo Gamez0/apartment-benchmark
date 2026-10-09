@@ -14,3 +14,15 @@ assert.match(vm.runInContext("multiChart([{label:'gap',color:'blue',points:[{val
 assert.equal(vm.runInContext('relativeLabel(30.6,27.1)',context),'동아2차보다 3.5%p 더 상승');assert.match(vm.runInContext('relativeLabel(20,27.1)',context),/7.1%p 낮은/);assert.match(vm.runInContext('relativeLabel(20,null)',context),/거래 부족/);
 
 context.tradeRows=[{date:'2026-01-01',price:10,floor:3},{date:'2026-01-01',price:12,floor:5},{date:'2026-05-01',price:14,floor:9},{date:'2026-02-01',price:999,cancelled:true},{date:'2027-01-01',price:999}];const raw=vm.runInContext("tradeChart(tradeRows,'2026-01-01','2026-07-31')",context);assert.equal((raw.match(/data-trade-label=/g)||[]).length,3);assert.match(raw,/stroke-dasharray="5 5"/);assert.match(raw,/2026-01-01 · 12.00억 · 5층/);assert.ok(!raw.includes('999'));assert.ok(!raw.includes('NaN'));console.log('Trade chart: individual transactions, same-day aggregation, long gaps and exclusions passed');
+
+// Synthetic regression: displayed results must track the inputs that produced them.
+el('period').value='1';el('region').value='서울';el('dong').value='신도림동';el('areaScope').value='similar';vm.runInContext('load(fixture)',context);
+for(const [id,value] of Object.entries({switchSale:'20',switchDebt:'0',switchSaleCost:'0',switchExtra:'0',switchLoan:'0',switchBuyCost:'0'}))el(id).value=value;
+el('switchCalculate').onclick();assert.match(el('switchResult').innerHTML,/20.00억/);
+vm.runInContext('render()',context);assert.match(el('switchResult').innerHTML,/20.00억/); // same context preserves results
+el('period').value='5';vm.runInContext('render()',context);assert.equal(el('switchResult').innerHTML,'');assert.match(el('switchError').textContent,/다시/);
+el('switchCalculate').onclick();assert.ok(el('switchResult').innerHTML);el('switchExtra').value='2';el('switchExtra').oninput();assert.equal(el('switchResult').innerHTML,'');assert.match(el('switchError').textContent,/예산/);
+el('period').value='1';el('holdingDate').value='2025-07-03';el('holdingPrice').value='10';el('holdingCalculate').onclick();assert.ok(el('holdingResult').innerHTML);
+el('holdingPrice').value='11';el('holdingPrice').oninput();assert.equal(el('holdingResult').innerHTML,'');assert.equal(el('holdingAlternatives').innerHTML,'');
+el('holdingCalculate').onclick();assert.ok(el('holdingResult').innerHTML);el('areaScope').value='all';vm.runInContext('render()',context);assert.equal(el('holdingResult').innerHTML,'');
+console.log('Result freshness: context changes and financial edits invalidate stale results; unchanged renders preserve them (synthetic inputs)');
