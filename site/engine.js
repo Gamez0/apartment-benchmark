@@ -22,5 +22,11 @@ const years=(Date.parse(asOf)-Date.parse(buyDate))/(365.2425*86400000);
 return {current,rate:(current.price/buyPrice-1)*100,gain:current.price-buyPrice,annual:(Math.pow(current.price/buyPrice,1/years)-1)*100};
 }
 function switchBudget({sale,debt,saleCost,extra,loan,buyCost}){const values=[sale,debt,saleCost,extra,loan,buyCost];if(values.some(x=>!Number.isFinite(x)||x<0)||sale<=0)throw Error('가격은 양수, 대출·자금·비용은 0 이상이어야 합니다.');const net=sale-debt-saleCost;return {net,budget:net+extra+loan-buyCost};}
-const api={median,windowPrice,compare,benchmark,csv,normalizeTrades,holding,switchBudget};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
+// Exploration priority, not a calibrated forecast or suitability score.
+function priorities(groups,asOf){
+ const end=Date.parse(asOf+'T00:00:00Z');
+ return groups.filter(g=>Number.isFinite(g.rate)&&g.rate>0&&Number.isFinite(g.excess)&&g.excess>0&&g.current.count>=5&&g.previous.count>=5&&g.rows.some(r=>!r.cancelled&&r.date<=asOf&&end-Date.parse(r.date+'T00:00:00Z')<=90*86400000))
+ .sort((a,b)=>b.excess-a.excess||a.key.localeCompare(b.key)).slice(0,3).map(g=>g.key);
+}
+const api={priorities,median,windowPrice,compare,benchmark,csv,normalizeTrades,holding,switchBudget};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
 })(typeof window==='undefined'?globalThis:window);
