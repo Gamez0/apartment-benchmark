@@ -26,6 +26,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python scripts/prepare_data.py
+      - run: node tests/app.test.cjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
