@@ -10,6 +10,9 @@ for x in r:x['value']=float(x['value'])
 month=min(max(x['month'] for x in b if x['region']==region) for region in {x['region'] for x in b})
 y,m=map(int,month.split('-'));date=f'{month}-{calendar.monthrange(y,m)[1]}'
 d=dict(asOf=date,demo=False,source='한국부동산원 아파트 실거래가격지수 · 한국은행 기준금리',transactions=[],benchmark=b,rates=r)
-(root/'site/data.json').write_text(json.dumps(d,ensure_ascii=False),encoding='utf-8')
+if (root/'data/transactions.csv').exists():
+ subprocess.run([sys.executable,str(root/'scripts/build_data.py'),'--transactions',str(root/'data/transactions.csv'),'--benchmark',str(root/'data/benchmark.csv'),'--rates',str(root/'data/rates.csv'),'--as-of',date,'--source','정규화된 거래 CSV / 한국부동산원 / 한국은행'],check=True)
+else:
+ (root/'site/data.json').write_text(json.dumps(d,ensure_ascii=False),encoding='utf-8')
 subprocess.run([sys.executable,str(root/'scripts/demo.py')],check=True)
 print(f'Official snapshot: {date}, {len(b)} index observations, {len(r)} rate changes')
