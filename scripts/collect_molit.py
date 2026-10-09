@@ -43,9 +43,13 @@ def collect():
   page=1
   while True:
    query=urllib.parse.urlencode(dict(serviceKey=key,LAWD_CD='11530',DEAL_YMD=month,pageNo=page,numOfRows=1000))
-   try:
-    with urllib.request.urlopen(endpoint+'?'+query,timeout=30) as response:raw=response.read()
-   except Exception:raise CollectionError('API network request failed for '+month) from None
+   for attempt in range(3):
+    try:
+     with urllib.request.urlopen(endpoint+'?'+query,timeout=30) as response:raw=response.read()
+     break
+    except Exception:
+     if attempt==2:raise CollectionError('API network request failed for '+month+' after 3 attempts') from None
+     time.sleep(2*(attempt+1))
    part,total=parse_page(raw);rows.extend(part)
    if page*1000>=total:break
    page+=1
