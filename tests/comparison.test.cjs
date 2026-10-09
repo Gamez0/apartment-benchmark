@@ -20,6 +20,7 @@ el('period').value='1';el('region').value='서울';el('dong').value='신도림�
 for(const [id,value] of Object.entries({switchSale:'20',switchDebt:'0',switchSaleCost:'0',switchExtra:'0',switchLoan:'0',switchBuyCost:'0'}))el(id).value=value;
 el('switchCalculate').onclick();assert.match(el('switchResult').innerHTML,/20.00억/);
 assert.match(el('switchResult').innerHTML,/동아2차 \/ BM 대비/);assert.match(el('switchResult').innerHTML,/동아2차 거래 부족/);
+assert.match(el('switchResult').innerHTML,/동아2차 비교<strong>불가/);
 vm.runInContext('render()',context);assert.match(el('switchResult').innerHTML,/20.00억/); // same context preserves results
 el('period').value='5';vm.runInContext('render()',context);assert.equal(el('switchResult').innerHTML,'');assert.match(el('switchError').textContent,/다시/);
 el('switchCalculate').onclick();assert.ok(el('switchResult').innerHTML);el('switchExtra').value='2';el('switchExtra').oninput();assert.equal(el('switchResult').innerHTML,'');assert.match(el('switchError').textContent,/예산/);
@@ -28,3 +29,6 @@ assert.match(el('holdingAlternatives').innerHTML,/표본 내 가장 높음/);ass
 el('holdingPrice').value='11';el('holdingPrice').oninput();assert.equal(el('holdingResult').innerHTML,'');assert.equal(el('holdingAlternatives').innerHTML,'');
 el('holdingCalculate').onclick();assert.ok(el('holdingResult').innerHTML);el('areaScope').value='all';vm.runInContext('render()',context);assert.equal(el('holdingResult').innerHTML,'');
 console.log('Result freshness: context changes and financial edits invalidate stale results; unchanged renders preserve them (synthetic inputs)');
+
+context.switchFixture={...fixture,transactions:[...['2025-07','2026-07'].flatMap((m,j)=>[1,2,3].map(day=>({id:'home',name:'동아2',region:'서울',dong:'신도림동',area:84.908,date:m+'-0'+day,price:10+j*2}))),...['2025-07','2026-07'].flatMap((m,j)=>[1,2,3].map(day=>({id:'better',name:'더오른단지',region:'서울',dong:'신도림동',area:84,date:m+'-0'+day,price:8+j*4}))),...['2025-07','2026-07'].flatMap((m,j)=>[1,2,3].map(day=>({id:'lower',name:'덜오른단지',region:'서울',dong:'신도림동',area:84,date:m+'-0'+day,price:10+j})))]};vm.runInContext('load(switchFixture)',context);el('switchCalculate').onclick();assert.match(el('switchResult').innerHTML,/동아2차보다 더 오른 후보<strong>1개/);
+console.log('Switch summary: counts only affordable candidates that outperformed DongA2 (synthetic inputs)');
