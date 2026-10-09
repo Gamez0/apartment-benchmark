@@ -26,6 +26,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python tests/import.test.py
+      - run: python scripts/prepare_data.py
       - run: node tests/app.test.cjs
       - run: python tests/molit.test.py
       - name: Collect official Sindorim transactions
