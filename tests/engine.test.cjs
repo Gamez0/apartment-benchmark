@@ -6,7 +6,9 @@ assert.equal(E.compare(rows.slice(0,2),'2026-09-30',1).rate,null);
 const fallback=rows.map(r=>({...r,date:r.date.replace('-08-','-05-')}));assert.equal(E.compare(fallback,'2026-09-30',1).current.months,6);
 assert.equal(E.benchmark([{month:'2025-09',value:100},{month:'2026-09',value:108}],'2026-09-30',1).toFixed(1),'8.0');assert.equal(E.benchmark([],'2026-09-30',1),null);
 assert.equal(E.csv('\uFEFFname,price\r\n"a,b",10\r\n')[0].name,'a,b');assert.throws(()=>E.csv('name\n"bad'));
-console.log('8 calculation checks passed');
+
 
 assert.equal(E.windowPrice([], '2026-05-31',3).start,'2026-02-28');
 assert.equal(E.windowPrice([], '2024-05-31',3).start,'2024-02-29');
+
+console.log('Calculation checks passed, including month-end regression');

@@ -10,7 +10,7 @@ function detail(){const g=groups().find(g=>g.key===selected);if(!g){$('detail').
 for(const id of ['period','region','budget','search','sort','above'])$(id).addEventListener('input',render);$('close').onclick=()=>{selected=null;$('detail').hidden=true;};$('json').onchange=async e=>{try{load(JSON.parse(await e.target.files[0].text()));$('error').textContent='';}catch(e){$('error').textContent=e.message;}};
 $('import').onclick=async()=>{try{const files=['transactions','benchmark','rates'].map(id=>$(id).files[0]);if(!files[0])throw Error('거래 CSV를 선택하세요.');if(data.demo&&(!files[1]||!files[2]))throw Error('실제 시장 데이터로 전환한 뒤 거래 CSV를 불러오세요.');const [t,b,r]=await Promise.all(files.map(async (f,i)=>f?Engine.csv(await f.text()):i===1?data.benchmark:data.rates));load({asOf:$('asOf').value,demo:false,source:'사용자 CSV',transactions:t.map(x=>({...x,area:+x.area,price:+x.price,cancelled:['true','1','Y'].includes(x.cancelled)})),benchmark:b.map(x=>({...x,value:+x.value})),rates:r.map(x=>({...x,value:+x.value}))});$('error').textContent='';}catch(e){$('error').textContent=e.message;}};
 $('template').onclick=()=>{for(const [name,text] of Object.entries({transactions:'id,name,region,area,date,price,floor,cancelled\n',benchmark:'region,month,value\n',rates:'date,value\n'})){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+text],{type:'text/csv;charset=utf-8'}));a.download=name+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}};
-fetch('data.json').then(r=>{if(!r.ok)throw Error('데이터를 불러오지 못했습니다.');return r.json();}).then(load).catch(e=>{$('notice').textContent=e.message;});
+fetch('data.json?v=official2',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('데이터를 불러오지 못했습니다.');return r.json();}).then(load).catch(e=>{$('notice').textContent=e.message;});
 
 function market(){
  const end=data.asOf.slice(0,7),start=String(Number(data.asOf.slice(0,4))-$('period').value)+data.asOf.slice(4,7);
@@ -19,4 +19,4 @@ function market(){
  const rates=[...data.rates].sort((a,b)=>a.date.localeCompare(b.date));
  $('marketRateChart').innerHTML=chart(points.map(p=>({date:p.month,value:rates.filter(r=>r.date<=p.month+'-31').at(-1)?.value??null})),'#ba801f','%',true);
 }
-for(const mode of ['official','demo'])$(mode).onclick=()=>fetch(mode==='official'?'data.json':'demo.json').then(r=>{if(!r.ok)throw Error('데이터 로드 실패');return r.json();}).then(load).catch(e=>{$('error').textContent=e.message;});
+for(const mode of ['official','demo'])$(mode).onclick=()=>fetch((mode==='official'?'data.json':'demo.json')+'?v=official2',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('데이터 로드 실패');return r.json();}).then(load).catch(e=>{$('error').textContent=e.message;});
