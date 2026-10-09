@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: '22'
       - run: node tests/engine.test.cjs
+      - run: node tests/priorities.test.cjs
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

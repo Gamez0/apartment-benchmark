@@ -4,4 +4,5 @@ assert.deepEqual(E.priorities([g('a',10),g('b',15),g('few',30,4),g('old',40,5,'2
 assert.deepEqual(E.priorities([g('a',null),{...g('b',1),rate:null}], '2026-07-31'),[]);
 assert.deepEqual(E.priorities([g('future',10,5,'2026-08-01'),{...g('cancel',10),rows:[{date:'2026-07-01',cancelled:true}]}],'2026-07-31'),[]);
 assert.equal(E.priorities([g('a',1),g('b',2),g('c',3),g('d',4)],'2026-07-31').length,3);
+assert.deepEqual(E.priorities([{...g('pastfew',10),previous:{count:4}},g('boundary',10,5,'2026-05-02')],'2026-07-31'),['boundary']);
 console.log('Priority eligibility: sparse, stale, future, cancelled, unavailable BM and top-three cap passed');
