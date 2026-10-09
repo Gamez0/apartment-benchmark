@@ -21,5 +21,6 @@ if(current.count<3)return {current,rate:null,gain:null,annual:null};
 const years=(Date.parse(asOf)-Date.parse(buyDate))/(365.2425*86400000);
 return {current,rate:(current.price/buyPrice-1)*100,gain:current.price-buyPrice,annual:(Math.pow(current.price/buyPrice,1/years)-1)*100};
 }
-const api={median,windowPrice,compare,benchmark,csv,normalizeTrades,holding};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
+function switchBudget({sale,debt,saleCost,extra,loan,buyCost}){const values=[sale,debt,saleCost,extra,loan,buyCost];if(values.some(x=>!Number.isFinite(x)||x<0)||sale<=0)throw Error('가격은 양수, 대출·자금·비용은 0 이상이어야 합니다.');const net=sale-debt-saleCost;return {net,budget:net+extra+loan-buyCost};}
+const api={median,windowPrice,compare,benchmark,csv,normalizeTrades,holding,switchBudget};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
 })(typeof window==='undefined'?globalThis:window);

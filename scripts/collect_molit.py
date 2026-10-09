@@ -37,7 +37,7 @@ def collect():
  key=urllib.parse.unquote(key)
  with (ROOT/'data/benchmark.csv').open(encoding='utf-8-sig') as f:bench=list(csv.DictReader(f))
  end=min(max(x['month'] for x in bench if x['region']==r) for r in {x['region'] for x in bench})
- ey,em=map(int,end.split('-'));months=[f'{y:04}{m:02}' for y in range(2021,ey+1) for m in range(1,13) if (y,m)<=(ey,em)]
+ ey,em=map(int,end.split('-'));months=[f'{y:04}{m:02}' for y in range(2015,ey+1) for m in range(1,13) if (y,m)<=(ey,em)]
  rows=[]
  for month in months:
   page=1
