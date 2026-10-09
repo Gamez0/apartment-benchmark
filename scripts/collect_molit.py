@@ -1,5 +1,5 @@
 """Collect public Sindorim transactions; credentials remain in Actions environment."""
-import csv,datetime,json,os,sys,time,urllib.request,urllib.parse,xml.etree.ElementTree as ET
+import csv,datetime,hashlib,json,os,sys,time,urllib.request,urllib.parse,xml.etree.ElementTree as ET
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 class CollectionError(Exception):pass
@@ -62,7 +62,7 @@ def collect():
  with temp.open('w',encoding='utf-8',newline='') as f:
   writer=csv.DictWriter(f,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
  temp.replace(path)
- (ROOT/'data/molit-provenance.json').write_text(json.dumps(dict(source='국토교통부 아파트 매매 실거래가 API',districtCode='11530',dong='신도림동',fromMonth=months[0],throughMonth=months[-1],rows=len(rows),retrievedAt=datetime.datetime.now(datetime.timezone.utc).isoformat(),excluded='취소·직거래',identity='법정동·지번·단지명·전용면적'),ensure_ascii=False))
+ (ROOT/'data/molit-provenance.json').write_text(json.dumps(dict(source='국토교통부 아파트 매매 실거래가 API',districtCode='11530',dong='신도림동',fromMonth=months[0],throughMonth=months[-1],rows=len(rows),sha256=hashlib.sha256(path.read_bytes()).hexdigest(),retrievedAt=datetime.datetime.now(datetime.timezone.utc).isoformat(),excluded='취소·직거래',identity='법정동·지번·단지명·전용면적'),ensure_ascii=False))
  print(f'Collected {len(rows)} official Sindorim transactions')
 if __name__=='__main__':
  try:collect()

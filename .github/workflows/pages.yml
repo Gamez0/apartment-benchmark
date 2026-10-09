@@ -3,6 +3,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      refresh_data:
+        description: Force official transaction refresh
+        type: boolean
+        default: false
 permissions:
   contents: read
   pages: write
@@ -30,7 +35,19 @@ jobs:
       - run: node tests/app.test.cjs
       - run: node tests/comparison.test.cjs
       - run: python tests/molit.test.py
+      - run: python tests/cache.test.py
+      - id: cache-day
+        run: python scripts/check_cache.py --day
+      - uses: actions/cache@v4
+        with:
+          path: |
+            data/transactions.csv
+            data/molit-provenance.json
+          key: molit-v1-${{ hashFiles('scripts/collect_molit.py', 'scripts/check_cache.py', 'data/benchmark.csv') }}-${{ steps.cache-day.outputs.day }}-${{ inputs.refresh_data && github.run_id || 'daily' }}
+      - id: official-cache
+        run: python scripts/check_cache.py
       - name: Collect official Sindorim transactions
+        if: steps.official-cache.outputs.valid != 'true'
         env:
           MOLIT_API_KEY: ${{ secrets.MOLIT_API_KEY }}
           MOLIT_API_ENDPOINT: ${{ secrets.MOLIT_API_ENDPOINT }}
