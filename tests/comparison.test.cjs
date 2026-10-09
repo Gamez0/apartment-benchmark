@@ -26,6 +26,7 @@ el('period').value='5';vm.runInContext('render()',context);assert.equal(el('swit
 el('switchCalculate').onclick();assert.ok(el('switchResult').innerHTML);el('switchExtra').value='2';el('switchExtra').oninput();assert.equal(el('switchResult').innerHTML,'');assert.match(el('switchError').textContent,/예산/);
 el('period').value='1';el('holdingDate').value='2025-07-03';el('holdingPrice').value='10';el('holdingCalculate').onclick();assert.ok(el('holdingResult').innerHTML);
 assert.match(el('holdingAlternatives').innerHTML,/표본 내 가장 높음/);assert.match(el('holdingAlternatives').innerHTML,/표본 내 가장 낮음/);assert.match(el('holdingAlternatives').innerHTML,/모두 보기/);assert.match(el('holdingAlternatives').innerHTML,/재건축 분담금/);
+assert.match(el('holdingAlternatives').innerHTML,/0.00억 현금 유지/);assert.match(el('holdingAlternatives').innerHTML,/환산 가치/);
 el('holdingPrice').value='11';el('holdingPrice').oninput();assert.equal(el('holdingResult').innerHTML,'');assert.equal(el('holdingAlternatives').innerHTML,'');
 el('holdingCalculate').onclick();assert.ok(el('holdingResult').innerHTML);el('areaScope').value='all';vm.runInContext('render()',context);assert.equal(el('holdingResult').innerHTML,'');
 console.log('Result freshness: context changes and financial edits invalidate stale results; unchanged renders preserve them (synthetic inputs)');
