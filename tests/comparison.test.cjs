@@ -34,3 +34,5 @@ console.log('Result freshness: context changes and financial edits invalidate st
 
 context.switchFixture={...fixture,transactions:[...['2025-07','2026-07'].flatMap((m,j)=>[1,2,3].map(day=>({id:'home',name:'동아2',region:'서울',dong:'신도림동',area:84.908,date:m+'-0'+day,price:10+j*2}))),...['2025-07','2026-07'].flatMap((m,j)=>[1,2,3].map(day=>({id:'better',name:'더오른단지',region:'서울',dong:'신도림동',area:84,date:m+'-0'+day,price:8+j*4}))),...['2025-07','2026-07'].flatMap((m,j)=>[1,2,3].map(day=>({id:'lower',name:'덜오른단지',region:'서울',dong:'신도림동',area:84,date:m+'-0'+day,price:10+j})))]};vm.runInContext('load(switchFixture)',context);el('switchCalculate').onclick();assert.match(el('switchResult').innerHTML,/동아2차보다 더 오른 후보<strong>1개/);
 console.log('Switch summary: counts only affordable candidates that outperformed DongA2 (synthetic inputs)');
+
+assert.match(vm.runInContext("multiChart([{label:'estimate',color:'blue',points:[{date:'a',value:100},{date:'b',value:105,estimated:true},{date:'c',value:110}]}],['a','b','c'])",context),/stroke-dasharray="6 5"/);
