@@ -28,5 +28,17 @@ function priorities(groups,asOf){
  return groups.filter(g=>Number.isFinite(g.rate)&&g.rate>0&&Number.isFinite(g.excess)&&g.excess>0&&g.current.count>=5&&g.previous.count>=5&&g.rows.some(r=>!r.cancelled&&r.date<=asOf&&end-Date.parse(r.date+'T00:00:00Z')<=90*86400000))
  .sort((a,b)=>b.excess-a.excess||a.key.localeCompare(b.key)).slice(0,3).map(g=>g.key);
 }
-const api={priorities,median,windowPrice,compare,benchmark,csv,normalizeTrades,holding,switchBudget};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
+// Reference visualization only: never used by compare(), rankings or budgets.
+function marketCarry(observations,market,start){
+ const valid=observations.filter(p=>p.date<=start&&p.price>0&&market[p.date]>0),anchor=valid.at(-1);
+ const first=observations.find(p=>p.date>=start&&p.price>0&&market[p.date]>0);
+ const seed=anchor||first,startMarket=market[start];
+ if(!seed||!(startMarket>0))return observations.filter(p=>p.date>=start).map(p=>({date:p.date,value:null,estimated:false}));
+ const denominator=seed.price*startMarket/market[seed.date];let gap=null;
+ return observations.map(p=>{const bm=market[p.date]>0?market[p.date]/startMarket*100:null;
+ if(p.price>0&&bm!=null){const value=p.price/denominator*100;gap=value-bm;return {date:p.date,value,estimated:false};}
+ return {date:p.date,value:gap!=null&&bm!=null?bm+gap:null,estimated:gap!=null&&bm!=null};
+ }).filter(p=>p.date>=start);
+}
+const api={marketCarry,priorities,median,windowPrice,compare,benchmark,csv,normalizeTrades,holding,switchBudget};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
 })(typeof window==='undefined'?globalThis:window);

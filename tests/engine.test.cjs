@@ -18,3 +18,9 @@ const normalized=E.normalizeTrades([officialRow,{...officialRow,'취소일':'202
 const h=E.holding(rows,'2026-09-30','2016-09-30',5);assert.equal(h.gain,6);assert.ok(Math.abs(h.rate-120)<1e-9);assert.ok(Math.abs(h.annual-8.2)<.1);assert.equal(E.holding([],'2026-09-30','2016-09-30',5).rate,null);assert.throws(()=>E.holding(rows,'2026-09-30','2026-09-30',5));assert.throws(()=>E.holding(rows,'2026-09-30','2025-02-30',5));assert.throws(()=>E.holding(rows,'2026-09-30','2016-09-30',0));
 
 const sw=require('../site/engine.js').switchBudget({sale:14.6,debt:3,saleCost:.1,extra:1,loan:3,buyCost:.3});assert.ok(Math.abs(sw.budget-15.2)<1e-9);assert.ok(Math.abs(sw.net-11.5)<1e-9);assert.throws(()=>require('../site/engine.js').switchBudget({sale:10,debt:-1,saleCost:0,extra:0,loan:0,buyCost:0}));
+
+const carried=E.marketCarry([{date:'a',price:10},{date:'b',price:12},{date:'c',price:null},{date:'d',price:14}],{a:100,b:105,c:110,d:115},'a');
+assert.ok(Math.abs(carried[2].value-125)<1e-9);assert.equal(carried[2].estimated,true);assert.ok(Math.abs(carried[3].value-140)<1e-9);assert.equal(carried[3].estimated,false);
+assert.equal(E.marketCarry([{date:'a',price:null},{date:'b',price:12}],{a:100,b:105},'a')[0].value,null);
+assert.equal(E.marketCarry([{date:'a',price:10},{date:'b',price:null}],{a:100,b:110},'b')[0].value,100);
+console.log('Market carry: fixed index gap, observed return, prior anchor and no future fill passed');
