@@ -40,5 +40,21 @@ function marketCarry(observations,market,start){
  return {date:p.date,value:gap!=null&&bm!=null?bm+gap:null,estimated:gap!=null&&bm!=null};
  }).filter(p=>p.date>=start);
 }
-const api={marketCarry,priorities,median,windowPrice,compare,benchmark,csv,normalizeTrades,holding,switchBudget};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
+// User-entered scenario, not a loan approval or DSR underwriting engine.
+function purchaseScenario({own,partner,reserve,loan,ltv,interest,years,monthly}){
+ const v=[own,partner,reserve,loan,ltv,interest,years,monthly];
+ if(v.some(x=>!Number.isFinite(x)||x<0)||ltv>=100||years<=0||years>50||interest>100)throw Error('자금·대출은 0 이상, LTV는 100 미만, 기간은 1~50년으로 입력하세요.');
+ const cash=own+partner-reserve;if(cash<0)throw Error('비용·비상자금이 준비 자금보다 큽니다.');
+ const r=interest/1200,n=years*12,factor=r===0?1/n:r/(1-Math.pow(1+r,-n));
+ const payment=amount=>amount*10000*factor; // 억 → 만원
+ const limit=monthly>0?Math.min(loan,monthly/(10000*factor)):loan;
+ return {cash,budget:cash+limit,loan:limit,payment,ltv:ltv/100};
+}
+function purchaseFit(price,scenario){
+ if(!Number.isFinite(price)||price<=0)return null;
+ const required=Math.max(0,price-scenario.cash),cap=price<=15?6:price<=25?4:2;
+ if(required>Math.min(scenario.loan,price*scenario.ltv,cap)+1e-9)return null;
+ return {required,monthly:scenario.payment(required),remaining:Math.max(0,scenario.cash-price)};
+}
+const api={purchaseScenario,purchaseFit,marketCarry,priorities,median,windowPrice,compare,benchmark,csv,normalizeTrades,holding,switchBudget};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
 })(typeof window==='undefined'?globalThis:window);

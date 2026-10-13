@@ -36,3 +36,9 @@ context.switchFixture={...fixture,transactions:[...['2025-07','2026-07'].flatMap
 console.log('Switch summary: counts only affordable candidates that outperformed DongA2 (synthetic inputs)');
 
 assert.match(vm.runInContext("multiChart([{label:'estimate',color:'blue',points:[{date:'a',value:100},{date:'b',value:105,estimated:true},{date:'c',value:110}]}],['a','b','c'])",context),/stroke-dasharray="6 5"/);
+vm.runInContext('load(fixture)',context);el('period').value='1';el('dong').value='신도림동';el('areaScope').value='all';
+for(const [id,value] of Object.entries({buyOwn:'8',buyPartner:'0',buyReserve:'0',buyLoan:'6',buyLtv:'40',buyInterest:'4',buyYears:'30',buyMonthly:'0'}))el(id).value=value;
+el('purchaseCalculate').onclick();assert.equal(el('purchaseError').textContent,'');assert.match(el('purchaseResult').innerHTML,/필요 대출/);assert.match(el('purchaseResult').innerHTML,/신도림동/);
+el('buyOwn').oninput();assert.equal(el('purchaseResult').innerHTML,'');el('buyOwn').value='';el('purchaseCalculate').onclick();assert.match(el('purchaseError').textContent,/입력/);
+const baselineOnly={...fixture,transactions:[1,2,3,4,5].flatMap(day=>['2025','2026'].map((year,j)=>({id:'home',name:'동아2',region:'서울',dong:'신도림동',area:84.908,date:year+'-07-0'+day,price:10+j*5})))};context.baselineOnly=baselineOnly;vm.runInContext('load(baselineOnly)',context);assert.match(el('results').innerHTML,/비교 기준 · 동아2차/);assert.ok(!el('results').innerHTML.includes('priority-card'));
+console.log('Purchase UI: budget candidates, invalidation, required inputs and baseline badge passed');

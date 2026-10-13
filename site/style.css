@@ -24,3 +24,5 @@ main{max-width:1060px}header{margin-bottom:24px}header h1{font-size:28px}header>
 .overview-grid h3{min-height:50px}@media(max-width:700px){.overview-grid h3{min-height:0}}
 
 .chart-estimate-note{font-size:13px;color:#536179;margin:6px 0}.chart-estimate-method{font-size:12px;color:#68758b;margin:0 0 14px}.chart-estimate-method summary{cursor:pointer}.chart-estimate-method p{line-height:1.7}
+
+.purchase-panel{border-top:4px solid #234cda}.purchase-panel h2{font-size:28px;margin:10px 0}.purchase-panel>button{background:#234cda;color:white;min-height:48px}.purchase-candidate{border:1px solid #dce3ef;border-radius:14px;padding:20px;margin:12px 0;display:flex;justify-content:space-between;gap:20px}.purchase-candidate h3{margin:12px 0}.purchase-candidate h3 small{font-size:13px;color:#68758b}.purchase-candidate p{font-size:13px;line-height:1.6}.purchase-candidate>div:last-child{text-align:right}.purchase-candidate>div:last-child>b{font-size:24px;color:#234cda}@media(max-width:700px){.purchase-panel h2{font-size:23px}.purchase-candidate{flex-direction:column;gap:4px}.purchase-candidate>div:last-child{text-align:left}}

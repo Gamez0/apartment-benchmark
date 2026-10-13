@@ -24,3 +24,12 @@ assert.ok(Math.abs(carried[2].value-125)<1e-9);assert.equal(carried[2].estimated
 assert.equal(E.marketCarry([{date:'a',price:null},{date:'b',price:12}],{a:100,b:105},'a')[0].value,null);
 assert.equal(E.marketCarry([{date:'a',price:10},{date:'b',price:null}],{a:100,b:110},'b')[0].value,100);
 console.log('Market carry: fixed index gap, observed return, prior anchor and no future fill passed');
+const general=Engine.purchaseScenario({own:2,partner:1,reserve:0,loan:6,ltv:40,interest:4,years:30,monthly:0});
+assert.equal(Engine.purchaseFit(5,general).required,2);assert.equal(Engine.purchaseFit(5.01,general),null);
+const first=Engine.purchaseScenario({own:2,partner:1,reserve:0,loan:6,ltv:70,interest:4,years:30,monthly:0});
+assert.equal(Engine.purchaseFit(9,first).required,6);assert.equal(Engine.purchaseFit(9.01,first),null);
+const limited=Engine.purchaseScenario({own:2,partner:1,reserve:0.3,loan:6,ltv:70,interest:0,years:10,monthly:100});
+assert.ok(Math.abs(limited.loan-1.2)<1e-9);assert.ok(Math.abs(limited.payment(1.2)-100)<1e-9);
+assert.throws(()=>Engine.purchaseScenario({own:2,partner:1,reserve:4,loan:6,ltv:70,interest:4,years:30,monthly:0}));
+assert.equal(Engine.purchaseFit(26,Engine.purchaseScenario({own:20,partner:0,reserve:0,loan:10,ltv:70,interest:4,years:30,monthly:0})),null);
+console.log('Purchase: LTV, price cap, cash reserve, zero interest and monthly burden passed');
