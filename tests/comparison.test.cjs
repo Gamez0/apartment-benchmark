@@ -42,3 +42,5 @@ el('purchaseCalculate').onclick();assert.equal(el('purchaseError').textContent,'
 el('buyOwn').oninput();assert.equal(el('purchaseResult').innerHTML,'');el('buyOwn').value='';el('purchaseCalculate').onclick();assert.match(el('purchaseError').textContent,/입력/);
 const baselineOnly={...fixture,transactions:[1,2,3,4,5].flatMap(day=>['2025','2026'].map((year,j)=>({id:'home',name:'동아2',region:'서울',dong:'신도림동',area:84.908,date:year+'-07-0'+day,price:10+j*5})))};context.baselineOnly=baselineOnly;vm.runInContext('load(baselineOnly)',context);assert.match(el('results').innerHTML,/비교 기준 · 동아2차/);assert.ok(!el('results').innerHTML.includes('priority-card'));
 console.log('Purchase UI: budget candidates, invalidation, required inputs and baseline badge passed');
+
+el('buyArea').value='all';el('buyArea').oninput();assert.equal(el('areaScope').value,'all');el('buyPeriod').value='3';el('buyPeriod').oninput();assert.equal(el('period').value,'3');
