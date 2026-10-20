@@ -18,6 +18,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -37,23 +38,24 @@ jobs:
       - run: node tests/comparison.test.cjs
       - run: python tests/molit.test.py
       - run: python tests/cache.test.py
-      - id: cache-day
-        run: python scripts/check_cache.py --day
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
         with:
-          path: |
-            data/transactions.csv
-            data/molit-provenance.json
-          key: molit-v1-${{ hashFiles('scripts/collect_molit.py', 'scripts/check_cache.py', 'data/benchmark.csv') }}-${{ steps.cache-day.outputs.day }}-${{ inputs.refresh_data && github.run_id || 'daily' }}
-      - id: official-cache
-        run: python scripts/check_cache.py
-      - name: Collect official Sindorim transactions
-        if: steps.official-cache.outputs.valid != 'true'
+          path: data/seoul-cache
+          key: seoul-months-v1-${{ github.run_id }}
+          restore-keys: seoul-months-v1-
+      - name: Collect official Seoul transactions
         env:
           MOLIT_API_KEY: ${{ secrets.MOLIT_API_KEY }}
           MOLIT_API_ENDPOINT: ${{ secrets.MOLIT_API_ENDPOINT }}
-        run: python scripts/collect_molit.py
+          FULL_REFRESH: ${{ inputs.refresh_data }}
+        run: python scripts/collect_seoul.py
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: data/seoul-cache
+          key: seoul-months-v1-${{ github.run_id }}
       - run: python scripts/prepare_data.py
+      - run: node scripts/build_seoul.cjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

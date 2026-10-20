@@ -10,7 +10,7 @@ def endpoint_url(value):
  if path.endswith('/RTMSDataSvcAptTrade'):path+='/getRTMSDataSvcAptTrade'
  if not path.endswith('/getRTMSDataSvcAptTrade'):raise CollectionError('Expected apartment trade API endpoint')
  return urllib.parse.urlunsplit(('https',p.netloc,path,'',''))
-def parse_page(raw):
+def parse_page(raw,code='11530',district='구로구',dong_filter='신도림동'):
  try:root=ET.fromstring(raw)
  except ET.ParseError:raise CollectionError('API returned non-XML content') from None
  code=root.findtext('.//resultCode')
@@ -19,7 +19,9 @@ def parse_page(raw):
  rows=[]
  for item in root.findall('.//item'):
   get=lambda key:(item.findtext(key) or '').strip()
-  if get('umdNm')!='신도림동' or get('cdealType') in ('Y','O') or get('cdealDay') or get('dealingGbn')=='직거래' or get('landLeaseholdGbn')=='Y':continue
+  if (dong_filter is not None and get('umdNm')!=dong_filter) or get('cdealType') in ('Y','O') or get('cdealDay') or get('dealingGbn')=='직거래' or get('landLeaseholdGbn')=='Y':continue
+  
+  if get('sggCd') and get('sggCd')!=code:raise CollectionError('District mismatch')
   name=get('aptNm');jibun=get('jibun')
   if not name or not jibun:raise CollectionError('Missing apartment identity')
   try:
@@ -27,7 +29,7 @@ def parse_page(raw):
    price=float(get('dealAmount').replace(',',''))/10000;area=float(get('excluUseAr'))
    if price<=0 or area<=0:raise ValueError()
   except ValueError:raise CollectionError('Invalid transaction values') from None
-  rows.append(dict(id='molit:11530:'+get('umdNm')+':'+jibun+':'+name,name=name,region='서울',district='구로구',dong=get('umdNm'),area=area,date=date,price=price,floor=get('floor'),buildYear=get('buildYear'),landLeaseholdGbn=get('landLeaseholdGbn'),cancelled=False))
+  rows.append(dict(id='molit:'+code+':'+get('umdNm')+':'+jibun+':'+name,name=name,region='서울',district=district,dong=get('umdNm'),area=area,date=date,price=price,floor=get('floor'),buildYear=get('buildYear'),landLeaseholdGbn=get('landLeaseholdGbn'),cancelled=False))
  return rows,int(root.findtext('.//totalCount') or '0')
 def collect():
  key=os.environ.get('MOLIT_API_KEY','').strip()
