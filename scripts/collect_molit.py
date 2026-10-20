@@ -13,9 +13,9 @@ def endpoint_url(value):
 def parse_page(raw,code='11530',district='구로구',dong_filter='신도림동'):
  try:root=ET.fromstring(raw)
  except ET.ParseError:raise CollectionError('API returned non-XML content') from None
- code=root.findtext('.//resultCode')
- if code=='03':return [],0
- if code not in ('000','00','0'):raise CollectionError('API response code '+(code if code and code.isdigit() else 'unknown'))
+ result_code=root.findtext('.//resultCode')
+ if result_code=='03':return [],0
+ if result_code not in ('000','00','0'):raise CollectionError('API response code '+(result_code if result_code and result_code.isdigit() else 'unknown'))
  rows=[]
  for item in root.findall('.//item'):
   get=lambda key:(item.findtext(key) or '').strip()
