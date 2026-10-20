@@ -48,7 +48,9 @@ function purchaseScenario({own,partner,reserve,loan,ltv,interest,years,monthly})
  const r=interest/1200,n=years*12,factor=r===0?1/n:r/(1-Math.pow(1+r,-n));
  const payment=amount=>amount*10000*factor; // 억 → 만원
  const limit=monthly>0?Math.min(loan,monthly/(10000*factor)):loan;
- return {cash,budget:cash+limit,loan:limit,payment,ltv:ltv/100};
+ const ltvCeiling=cash/(1-ltv/100),bands=[[0,15,6],[15,25,4],[25,Infinity,2]];
+ const ceilings=bands.map(([low,high,cap])=>{const top=Math.min(high,cash+Math.min(limit,cap),ltvCeiling);return top>low?top:0;});
+ return {cash,budget:Math.max(0,...ceilings),cashPlusLoan:cash+limit,loan:limit,payment,ltv:ltv/100};
 }
 function purchaseFit(price,scenario){
  if(!Number.isFinite(price)||price<=0)return null;

@@ -33,3 +33,8 @@ assert.ok(Math.abs(limited.loan-1.2)<1e-9);assert.ok(Math.abs(limited.payment(1.
 assert.throws(()=>Engine.purchaseScenario({own:2,partner:1,reserve:4,loan:6,ltv:70,interest:4,years:30,monthly:0}));
 assert.equal(Engine.purchaseFit(26,Engine.purchaseScenario({own:20,partner:0,reserve:0,loan:10,ltv:70,interest:4,years:30,monthly:0})),null);
 console.log('Purchase: LTV, price cap, cash reserve, zero interest and monthly burden passed');
+
+assert.ok(Math.abs(general.budget-5)<1e-9);assert.ok(Math.abs(first.budget-9)<1e-9);
+assert.equal(Engine.purchaseScenario({own:10,partner:0,reserve:0,loan:6,ltv:70,interest:4,years:30,monthly:0}).budget,15);
+assert.equal(Engine.purchaseScenario({own:24,partner:0,reserve:0,loan:6,ltv:70,interest:4,years:30,monthly:0}).budget,26);
+console.log('Purchase ceiling includes LTV and discontinuous price-band loan caps');
