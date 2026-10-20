@@ -78,3 +78,10 @@ CSV 열:
 아파트만 포함하며 취소 거래·분양/입주권·직거래를 제외합니다. 만원을 억원으로 변환합니다. 단지 ID는 지역코드·법정동·지번·이름을 구분합니다. 동일 필드의 별개 거래가 있을 수 있어 거래행을 임의로 중복 제거하지 않습니다. 파일의 겹치는 범위나 접수연도 간 정정 거래는 원천 자료에서 확인해야 합니다.
 
 국토교통부 API 수집: Actions Secrets `MOLIT_API_KEY`, `MOLIT_API_ENDPOINT`를 설정하면 배포 시 `scripts/collect_molit.py`가 신도림동 거래를 수집합니다. 키는 정적 사이트에 포함하지 않습니다. 수집 실패는 배포를 중단하고 기존 공개 사이트를 유지합니다.
+
+## 서울 확장·모바일 구조
+- `scripts/collect_seoul.py`: 서울25개구, 2015-01부터 BM관측월까지 공식 거래 수집. 최초 전체·이후 최근6개월 재조회, 과거 월 SHA256 체크포인트 재사용. `workflow_dispatch`의 `refresh_data=true`는 과거 정정 포함 전체 재수집. 자동 주기 실행은 설정하지 않음.
+- `scripts/build_seoul.cjs`: 브라우저와 같은 `site/engine.js`로 구별1/3/5/10년 요약 생성. `site/seoul/districts/` 요약과 내용 해시 기반 `site/seoul/units/` 거래 이력을 분리. 기준 단지 거래만 초기 데이터에 포함. 기존 신도림 보유기간 심화 자료는 해당 도구를 열 때 로딩.
+- 서울 전체 선택 시25개 구의 요약만 로딩. 원천 거래를 전부 다운로드하지 않음. 거래 부족은 순위에서 임의 보간하지 않으며 점선 추정은 그래프에만 사용.
+- `site/mobile-check.html`: 320/360/390/430px iframe에서 실제 앱을 검증하는 noindex QA화면. 실제 iOS/Android 기기 검증과 구분.
+- 회귀: `node tests/seoul.test.cjs`, `python tests/seoul.test.py` (모두 합성 자료). 기존 계산·앱·비교·API 검사와 함께 실행.

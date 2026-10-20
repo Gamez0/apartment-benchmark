@@ -1,5 +1,5 @@
 """Collect public Sindorim transactions; credentials remain in Actions environment."""
-import csv,datetime,hashlib,json,os,sys,time,urllib.request,urllib.parse,xml.etree.ElementTree as ET
+import csv,datetime,hashlib,json,math,os,sys,time,urllib.request,urllib.parse,xml.etree.ElementTree as ET
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 class CollectionError(Exception):pass
@@ -23,11 +23,11 @@ def parse_page(raw,code='11530',district='구로구',dong_filter='신도림동')
   
   if get('sggCd') and get('sggCd')!=code:raise CollectionError('District mismatch')
   name=get('aptNm');jibun=get('jibun')
-  if not name or not jibun:raise CollectionError('Missing apartment identity')
+  if not name or not jibun or not get('umdNm'):raise CollectionError('Missing apartment identity')
   try:
    date=datetime.date(int(get('dealYear')),int(get('dealMonth')),int(get('dealDay'))).isoformat()
    price=float(get('dealAmount').replace(',',''))/10000;area=float(get('excluUseAr'))
-   if price<=0 or area<=0:raise ValueError()
+   if not math.isfinite(price) or not math.isfinite(area) or price<=0 or area<=0:raise ValueError()
   except ValueError:raise CollectionError('Invalid transaction values') from None
   rows.append(dict(id='molit:'+code+':'+get('umdNm')+':'+jibun+':'+name,name=name,region='서울',district=district,dong=get('umdNm'),area=area,date=date,price=price,floor=get('floor'),buildYear=get('buildYear'),landLeaseholdGbn=get('landLeaseholdGbn'),cancelled=False))
  return rows,int(root.findtext('.//totalCount') or '0')

@@ -25,7 +25,7 @@ function switchBudget({sale,debt,saleCost,extra,loan,buyCost}){const values=[sal
 // Exploration priority, not a calibrated forecast or suitability score.
 function priorities(groups,asOf){
  const end=Date.parse(asOf+'T00:00:00Z');
- return groups.filter(g=>Number.isFinite(g.rate)&&g.rate>0&&Number.isFinite(g.excess)&&g.excess>0&&g.current.count>=5&&g.previous.count>=5&&g.rows.some(r=>!r.cancelled&&r.date<=asOf&&end-Date.parse(r.date+'T00:00:00Z')<=90*86400000))
+ return groups.filter(g=>Number.isFinite(g.rate)&&g.rate>0&&Number.isFinite(g.excess)&&g.excess>0&&g.current.count>=5&&g.previous.count>=5&&(g.latest?g.latest<=asOf&&end-Date.parse(g.latest+'T00:00:00Z')<=90*86400000:g.rows.some(r=>!r.cancelled&&r.date<=asOf&&end-Date.parse(r.date+'T00:00:00Z')<=90*86400000)))
  .sort((a,b)=>b.excess-a.excess||a.key.localeCompare(b.key)).slice(0,3).map(g=>g.key);
 }
 // Reference visualization only: never used by compare(), rankings or budgets.
