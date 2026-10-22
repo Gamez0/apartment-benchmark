@@ -89,3 +89,5 @@ CSV 열:
 ### 브라우저 회귀 검사
 
 `npm ci` → `npx playwright install --with-deps chromium webkit` → `npm run test:ui`. 공식 거래 수집과 `node scripts/build_seoul.cjs`로 생성한 `site/seoul` 산출물이 필요합니다. 가상 데이터를 공개 데이터로 대체하지 않습니다. Pages 워크플로에서 빌드 직후 세 브라우저 환경의 검사 통과를 배포 조건으로 사용합니다. 실패 시 Actions의 `browser-test-report`에서 HTML 리포트·trace·스크린샷을 확인합니다. 로컬 UI 모드는 `npm run test:ui -- --ui`, 리포트는 `npx playwright show-report`입니다.
+
+독립 검증: `python tests/oracle.test.py`, `python tests/finance.audit.py`, 공식 빌드 후 `python scripts/audit_build.py`를 실행합니다. Python 감사는 production engine.js를 불러오지 않고 수집 원장과 모든 단지의 요약·개별 이력을 재계산·대조하며 `audit-report/reference.json`을 생성합니다. 브라우저 수치/복합 필터 검사는 이 독립 기대값을 사용합니다. `@axe-core/playwright`의 WCAG2.1 A/AA 자동 검사와 입력 비전송·키보드·가로 화면 검사도 CI에 포함하며 수동 접근성/실기기 검증을 대체하지 않습니다.

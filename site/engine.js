@@ -43,9 +43,9 @@ function marketCarry(observations,market,start){
 // User-entered scenario, not a loan approval or DSR underwriting engine.
 function purchaseScenario({own,partner,reserve,loan,ltv,interest,years,monthly}){
  const v=[own,partner,reserve,loan,ltv,interest,years,monthly];
- if(v.some(x=>!Number.isFinite(x)||x<0)||ltv>=100||years<=0||years>50||interest>100)throw Error('자금·대출은 0 이상, LTV는 100 미만, 기간은 1~50년으로 입력하세요.');
+ if(v.some(x=>!Number.isFinite(x)||x<0)||ltv>=100||years<1||years>50||interest>100)throw Error('자금·대출은 0 이상, LTV는 100 미만, 기간은 1~50년으로 입력하세요.');
  const cash=own+partner-reserve;if(cash<0)throw Error('비용·비상자금이 준비 자금보다 큽니다.');
- const r=interest/1200,n=years*12,factor=r===0?1/n:r/(1-Math.pow(1+r,-n));
+ const r=interest/1200,n=years*12,factor=r===0?1/n:r/(-Math.expm1(-n*Math.log1p(r)));
  const payment=amount=>amount*10000*factor; // 억 → 만원
  const limit=monthly>0?Math.min(loan,monthly/(10000*factor)):loan;
  const ltvCeiling=cash/(1-ltv/100),bands=[[0,15,6],[15,25,4],[25,Infinity,2]];
