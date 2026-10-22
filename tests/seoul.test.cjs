@@ -12,12 +12,18 @@ const context={document:{getElementById:el},fetch:()=>new Promise(()=>{}),Engine
 context.fetch=async url=>{requests.push(url);return {ok:!!responses[url],json:async()=>structuredClone(responses[url])}};
 (async()=>{
  await vm.runInContext('initSeoul()',context);assert.ok(!requests.some(x=>x.startsWith('seoul/units')));assert.ok(vm.runInContext('groups().every(g=>g.district==="구로구")',context));
- el('districtScope').value='11140';el('dong').value='';await vm.runInContext('loadScope()',context);assert.match(el('results').innerHTML,/중구단지/);assert.ok(!el('results').innerHTML.includes('구로단지'));assert.ok(!requests.some(x=>x.startsWith('seoul/units')));
+ el('districtScope').value='11140';el('dong').value='';
+ const scopeLoad=vm.runInContext('loadScope()',context);
+ assert.equal(el('referenceHome').disabled,true);assert.equal(el('scopeRetry').hidden,true);
+ assert.match(el('referenceResult').innerHTML,/중구 자료를 불러오는 중/);assert.equal(el('comparisonChart').innerHTML,'');assert.equal(el('comparisonLegend').innerHTML,'');assert.equal(el('switchCalculate').disabled,true);assert.equal(el('holdingCalculate').disabled,true);assert.equal(el('count').textContent,'—');
+ await scopeLoad;assert.equal(el('referenceHome').disabled,false);assert.match(el('results').innerHTML,/중구단지/);assert.ok(!el('results').innerHTML.includes('구로단지'));assert.ok(!requests.some(x=>x.startsWith('seoul/units')));
  const compared=vm.runInContext('groupCompare(groups()[0],1)',context);assert.equal(compared.rate,E.compare(rows(6),data.asOf,1).rate);
  el('referenceHome').value=u.key;await el('referenceHome').onchange();assert.equal(vm.runInContext('baselineTitle()',context),'중구단지');assert.equal(requests.filter(x=>x==='seoul/'+u.file).length,1);assert.match(el('referenceResult').innerHTML,/중구단지/);assert.match(el('comparisonChart').innerHTML,/133.3/);assert.ok(!el('results').innerHTML.includes('priority-card'));
  for(const [id,value] of Object.entries({buyOwn:'8',buyPartner:'0',buyReserve:'0',buyLoan:'0',buyLtv:'40',buyInterest:'4',buyYears:'30',buyMonthly:'0'}))el(id).value=value;
  el('purchaseCalculate').onclick();assert.equal(el('purchaseError').textContent,'');assert.match(el('purchaseResult').innerHTML,/중구단지/);el('dong').value='없는동';vm.runInContext('render()',context);assert.equal(el('purchaseResult').innerHTML,'');
- el('districtScope').value='';el('dong').value='';await vm.runInContext('loadScope()',context);assert.equal(el('purchaseCalculate').disabled,true);el('purchaseCalculate').onclick();assert.match(el('purchaseError').textContent,/아직 준비/);
+ el('districtScope').value='';el('dong').value='';await vm.runInContext('loadScope()',context);assert.equal(el('purchaseCalculate').disabled,true);assert.equal(el('scopeRetry').hidden,false);assert.equal(el('referenceHome').disabled,true);assert.equal(el('comparisonChart').innerHTML,'');assert.match(el('referenceResult').innerHTML,/불러오지 못했습니다/);el('purchaseCalculate').onclick();assert.match(el('purchaseError').textContent,/아직 준비/);el('switchCalculate').onclick();assert.match(el('switchError').textContent,/불러온 뒤/);el('holdingCalculate').onclick();assert.match(el('holdingError').textContent,/불러온 뒤/);
+ // Retry uses the current region; completed catalogs remain reusable after a failure.
+ el('districtScope').value='11140';await el('scopeRetry').onclick();assert.equal(el('scopeRetry').hidden,true);assert.equal(el('purchaseCalculate').disabled,false);assert.match(el('results').innerHTML,/중구단지/);
  assert.ok(fs.readFileSync('site/style.css','utf8').includes('input,select{font-size:16px'));
  console.log('Seoul synthetic UI: lazy histories, scope isolation, shared calculations, reference changes, stale results and partial-load refusal passed');
 })().catch(e=>{console.error(e);process.exitCode=1});
