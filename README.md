@@ -85,3 +85,7 @@ CSV 열:
 - 서울 전체 선택 시25개 구의 요약만 로딩. 원천 거래를 전부 다운로드하지 않음. 거래 부족은 순위에서 임의 보간하지 않으며 점선 추정은 그래프에만 사용.
 - `site/mobile-check.html`: 320/360/390/430px iframe에서 실제 앱을 검증하는 noindex QA화면. 실제 iOS/Android 기기 검증과 구분.
 - 회귀: `node tests/seoul.test.cjs`, `python tests/seoul.test.py` (모두 합성 자료). 기존 계산·앱·비교·API 검사와 함께 실행.
+
+### 브라우저 회귀 검사
+
+`npm ci` → `npx playwright install --with-deps chromium webkit` → `npm run test:ui`. 공식 거래 수집과 `node scripts/build_seoul.cjs`로 생성한 `site/seoul` 산출물이 필요합니다. 가상 데이터를 공개 데이터로 대체하지 않습니다. Pages 워크플로에서 빌드 직후 세 브라우저 환경의 검사 통과를 배포 조건으로 사용합니다. 실패 시 Actions의 `browser-test-report`에서 HTML 리포트·trace·스크린샷을 확인합니다. 로컬 UI 모드는 `npm run test:ui -- --ui`, 리포트는 `npx playwright show-report`입니다.

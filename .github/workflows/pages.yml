@@ -58,6 +58,21 @@ jobs:
           key: seoul-months-v1-${{ github.run_id }}
       - run: python scripts/prepare_data.py
       - run: node scripts/build_seoul.cjs
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Install browser test engines
+        run: npx playwright install --with-deps chromium webkit
+      - name: Browser regression on generated official data
+        run: npm run test:ui
+      - name: Save browser test report and failure traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-report
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 14
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
