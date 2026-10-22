@@ -70,3 +70,31 @@ test('keyboard focus, chart scrubbing and landscape layout remain usable',async(
   await page.setViewportSize({width:844,height:390});
   expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
 });
+
+test('initial mobile data loading is bounded and histories stay lazy',async({context})=>{
+  const fresh=await context.newPage(),paths=[],sizes=[];
+  fresh.on('request',r=>paths.push(new URL(r.url()).pathname));
+  fresh.on('response',r=>{if(new URL(r.url()).pathname.endsWith('.json'))sizes.push(r.body().then(b=>b.length));});
+  await fresh.goto('/');await expect(fresh.locator('#scopeStatus')).toContainText('공식 자료');await expect(fresh.locator('#dong')).toBeEnabled();
+  expect(paths.filter(p=>p.includes('/seoul/districts/'))).toHaveLength(1);expect(paths.filter(p=>p.includes('/seoul/units/'))).toHaveLength(0);
+  const bytes=(await Promise.all(sizes)).reduce((n,x)=>n+x,0);expect(bytes).toBeLessThan(2*1024*1024);await fresh.close();
+});
+
+test('stale bootstrap is replaced by the manifest-pinned coherent build',async({page})=>{
+  const old=JSON.parse(fs.readFileSync('site/data.json','utf8'));old.revision='previous-build';old.transactions=[];
+  await page.route(/\/data\.json\?/,route=>route.fulfill({json:old}));
+  const pinned=page.waitForResponse(r=>new URL(r.url()).pathname.includes('/seoul/bootstrap-'));await page.goto('/');await pinned;
+  await expect(page.locator('#scopeStatus')).toContainText('공식 자료');await expect(page.locator('#purchaseCalculate')).toBeEnabled();
+  const base=units('11530').find(g=>g.dong==='신도림동'&&g.area===84.908&&['동아2','신도림동아2차','신도림2차동아'].includes(g.name));
+  const text=await page.locator('#referenceResult .overview-home .overview-rate').textContent();expect(Math.abs(number(text)-base.stats[1][6])).toBeLessThan(.051);
+});
+
+test('incoherent pinned bootstrap blocks calculations and can recover by retry',async({page})=>{
+  const old=JSON.parse(fs.readFileSync('site/data.json','utf8'));old.revision='previous-build';
+  await page.route(/\/data\.json\?/,route=>route.fulfill({json:old}));
+  await page.route('**/seoul/bootstrap-*.json',route=>route.fulfill({json:{...old,revision:'wrong-build'}}));
+  await page.goto('/');await expect(page.locator('#scopeRetry')).toBeVisible();await expect(page.locator('#scopeStatus')).toContainText('버전이 다릅니다');
+  await expect(page.locator('#purchaseCalculate')).toBeDisabled();await expect(page.locator('#comparisonChart svg')).toHaveCount(0);
+  await page.unroute('**/seoul/bootstrap-*.json');await page.locator('#scopeRetry').click();
+  await expect(page.locator('#scopeStatus')).toContainText('공식 자료');await expect(page.locator('#purchaseCalculate')).toBeEnabled();
+});

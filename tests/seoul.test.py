@@ -19,6 +19,6 @@ with tempfile.TemporaryDirectory() as d:
   (t/'data/seoul-collected'/f'{code}.json').write_text(json.dumps(dict(code=code,name=name,transactions=trades)))
  subprocess.run(['node',str(t/'scripts/build_seoul.cjs')],check=True,capture_output=True)
  m=json.loads((t/'site/seoul/manifest.json').read_text());assert len(m['districts'])==25 and m['totalTrades']==625 and m['unitFiles']==25
- catalog=json.loads((t/'site/seoul/districts/11140.json').read_text());u=catalog['units'][0];assert abs(u['stats']['1'][6]-100/3)<1e-8
+ catalog=json.loads((t/'site/seoul'/next(d['file'] for d in m['districts'] if d['code']=='11140')).read_text());u=catalog['units'][0];assert abs(u['stats']['1'][6]-100/3)<1e-8
  history=json.loads((t/'site/seoul'/u['file']).read_text());assert len(history['rows'])==25 and history['key']==u['key']
 print('Seoul synthetic collection: district identity, checksum/refresh checkpoints, 25 district split and calculation parity passed')

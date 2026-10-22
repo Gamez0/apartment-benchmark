@@ -46,6 +46,9 @@ def audit(root=Path('.')):
     site = root / 'site'
     manifest = json.loads((site / 'seoul/manifest.json').read_text())
     base = json.loads((site / 'data.json').read_text())
+    bootstrap = (site / 'seoul' / manifest['bootstrapFile']).read_bytes()
+    assert Path(manifest['bootstrapFile']).stem == 'bootstrap-' + hashlib.sha256(bootstrap).hexdigest()[:24]
+    assert json.loads(bootstrap)['revision'] == base['revision'] == manifest['bootstrapRevision']
     end = date.fromisoformat(manifest['asOf'])
     bm = {p['month']: p['value'] for p in base['benchmark'] if p['region'] == '서울'}
     market = {str(y): (bm[end.strftime('%Y-%m')] / bm[shift(end, -12*y).strftime('%Y-%m')] - 1) * 100 for y in (1, 3, 5, 10)}
@@ -58,7 +61,9 @@ def audit(root=Path('.')):
             date.fromisoformat(row['date'])
             assert row['price'] > 0 and row['area'] > 0 and math.isfinite(row['price'])
             groups[row['id'] + '|' + str(row['area']).removesuffix('.0')].append(row)
-        catalog = json.loads((site / 'seoul' / district['file']).read_text())
+        catalog_bytes = (site / 'seoul' / district['file']).read_bytes()
+        assert Path(district['file']).stem == district['code'] + '-' + hashlib.sha256(catalog_bytes).hexdigest()[:24]
+        catalog = json.loads(catalog_bytes)
         assert catalog['asOf'] == manifest['asOf'] and catalog['code'] == district['code']
         assert len(groups) == len(catalog['units']) == district['units']
         assert len(raw['transactions']) == district['trades']

@@ -4,6 +4,7 @@ const {test,expect}=require('@playwright/test');
 const fs=require('node:fs'),E=require('../../site/engine.js');
 const manifest=JSON.parse(fs.readFileSync('site/seoul/manifest.json','utf8'));
 const catalog=code=>JSON.parse(fs.readFileSync('site/seoul/'+manifest.districts.find(d=>d.code===code).file,'utf8'));
+const districtRoute=code=>'**/seoul/'+manifest.districts.find(d=>d.code===code).file;
 const dongs=code=>[...new Set(catalog(code).units.map(g=>g.dong).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
 const errors=new WeakMap();
 test.beforeEach(async({page})=>{
@@ -81,21 +82,21 @@ test('list pagination, comparison selection and real trade details work',async({
   await expect(page.locator('#trades tr').first()).toBeAttached();await page.locator('#close').click();await expect(page.locator('#detail')).toBeHidden();
 });
 test('failed district load clears old results and retry restores the same district',async({page})=>{
-  await page.route('**/seoul/districts/11350.json',route=>route.fulfill({status:503,body:'temporary test failure'}));
+  await page.route(districtRoute('11350'),route=>route.fulfill({status:503,body:'temporary test failure'}));
   await page.locator('#districtScope').selectOption('11350');await expect(page.locator('#scopeRetry')).toBeVisible();
   await expect(page.locator('#purchaseCalculate')).toBeDisabled();await expect(page.locator('#dong')).toBeDisabled();
   await expect(page.locator('#comparisonChart svg')).toHaveCount(0);await expect(page.locator('#referenceResult')).toContainText('불러오지 못했습니다');
-  await page.unroute('**/seoul/districts/11350.json');await page.locator('#scopeRetry').click();
+  await page.unroute(districtRoute('11350'));await page.locator('#scopeRetry').click();
   await expect(page.locator('#dong')).toBeEnabled();await expect(page.locator('#scopeRetry')).toBeHidden();
   await expect(page.locator('#scopeStatus')).toContainText('노원구 ·');await expect(page.locator('#purchaseCalculate')).toBeEnabled();
 });
 test('late district response cannot overwrite the most recent selection',async({page})=>{
   let release;const gate=new Promise(resolve=>release=resolve);let intercepted;
   const arrived=new Promise(resolve=>intercepted=resolve);
-  await page.route('**/seoul/districts/11545.json',async route=>{intercepted();await gate;await route.fulfill({json:catalog('11545')});});
+  await page.route(districtRoute('11545'),async route=>{intercepted();await gate;await route.fulfill({json:catalog('11545')});});
   await page.locator('#districtScope').selectOption('11545');await arrived;
   await page.locator('#districtScope').selectOption('11350');await expect(page.locator('#scopeStatus')).toContainText('노원구 ·');
-  const finished=page.waitForResponse('**/seoul/districts/11545.json');release();await finished;
+  const finished=page.waitForResponse(districtRoute('11545'));release();await finished;
   await expect(page.locator('#districtScope')).toHaveValue('11350');await expect(page.locator('#scopeStatus')).toContainText('노원구 ·');
   expect(await page.locator('#dong option').evaluateAll(es=>es.map(e=>e.value))).toEqual(['',...dongs('11350')]);
 });
