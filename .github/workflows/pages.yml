@@ -60,6 +60,7 @@ jobs:
           key: seoul-months-v1-${{ github.run_id }}
       - run: python scripts/prepare_data.py
       - run: node scripts/build_seoul.cjs
+      - run: python scripts/version_assets.py
       - name: Independent raw-trade audit of every published unit
         run: python scripts/audit_build.py
       - run: npm ci --ignore-scripts --no-audit --no-fund
