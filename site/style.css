@@ -32,3 +32,5 @@ input,select{font-size:16px;min-width:0}.scope-controls{display:grid;grid-templa
 @media(max-width:700px){.scope-controls{grid-template-columns:1fr}.scope-panel{padding:16px}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.stats strong{font-size:22px}.purchase-panel .chart-controls label{min-width:0}.purchase-candidate>div:last-child{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.purchase-candidate>div:last-child p{margin:0}.purchase-candidate button{margin:0;width:100%}.overview-grid article{padding:16px}.selection-dock button{min-width:110px}.comparison-legend small{display:inline}.trade-chart{min-height:210px}.table-scroll{overscroll-behavior-x:contain}.period-buttons{width:100%}.period-buttons button{flex:1;min-width:44px}}
 
 .card h3,.overview-grid h3,.purchase-candidate h3{overflow-wrap:anywhere}.trade-selector summary{font-size:13px;color:#536179}
+
+@media(max-width:700px){.period-buttons button{min-width:48px;padding:10px 6px;white-space:nowrap}}
