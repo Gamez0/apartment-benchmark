@@ -9,5 +9,5 @@ module.exports=defineConfig({
     {name:'mobile-chromium-320',use:{browserName:'chromium',viewport:{width:320,height:800},isMobile:true,hasTouch:true}},
     {name:'mobile-webkit-390',use:{browserName:'webkit',viewport:{width:390,height:844},isMobile:true,hasTouch:true}},
   ],
-  webServer:{command:'python -m http.server 4173 --bind 127.0.0.1 --directory site',url:'http://127.0.0.1:4173',reuseExistingServer:!process.env.CI},
+  webServer:{command:'node tests/server.cjs',url:'http://127.0.0.1:4173',reuseExistingServer:!process.env.CI},
 });

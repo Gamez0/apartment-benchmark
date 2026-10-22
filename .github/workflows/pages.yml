@@ -63,10 +63,13 @@ jobs:
       - name: Independent raw-trade audit of every published unit
         run: python scripts/audit_build.py
       - run: npm ci --ignore-scripts --no-audit --no-fund
-      - name: Install browser test engines
-        run: npx playwright install --with-deps chromium webkit
       - name: Browser regression on generated official data
-        run: npm run test:ui
+        timeout-minutes: 15
+        run: >-
+          docker run --rm --shm-size=1g -e CI=1
+          -v "$GITHUB_WORKSPACE:/work" -w /work
+          mcr.microsoft.com/playwright:v1.64.1-noble@sha256:7852dc5a7d72f5fe458a597d690f6c42fbc8e9e26ddfa95f8e6ef552558d9bbf
+          /bin/bash -lc "npm run test:ui"
       - name: Save browser test report and failure traces
         if: always()
         uses: actions/upload-artifact@v4
