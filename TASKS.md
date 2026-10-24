@@ -253,3 +253,5 @@
 - Budget visual inspection: eliminate the second closed loan-settings entry beneath the visible assumptions/change button. Opening assumptions still exposes a native summary for closing; expanded accessibility test uses the actual visible change button.
 
 - Peer-preview CI:62/63 passed; mobile WebKit composite-filter test failed while tapping the native checkbox. Downloaded failure screenshot/trace; actual checkbox had inherited44px input height against18px width. Normalize native checkbox20×20 inside44px label target and rerun the unchanged interaction/oracle assertions (no forced click or weakened expectation).
+
+- Follow-up eec9c92:62/63 again; geometry alone did not resolve WebKit toggle failure. Defer expensive result/representative DOM replacement until after native checkbox change dispatch. Keep all checkbox/oracle assertions unchanged; treat the cause as under investigation until replay passes.
