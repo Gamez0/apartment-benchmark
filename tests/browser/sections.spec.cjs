@@ -3,7 +3,7 @@ test.beforeEach(async({page})=>{await page.goto('/');await expect(page.locator('
 test('nearby cards answer relative performance before price and return from evidence',async({page})=>{
  await page.locator('#openNearby').click();await expect(page.locator('#nearbyHeading')).toContainText('동아2차');
  const card=page.locator('#results article').first();await expect(card.locator('.baseline-relative')).toBeVisible();await expect(card.locator('.excess')).toBeHidden();
- expect(await card.locator('.baseline-relative').evaluate(e=>e.getBoundingClientRect().top)).toBeLessThan(await card.locator('.row').evaluate(e=>e.getBoundingClientRect().top));
+ const positions=await card.evaluate(e=>({answer:e.querySelector('.baseline-relative').getBoundingClientRect().top,price:e.querySelector('.row').getBoundingClientRect().top}));expect(positions.answer).toBeLessThan(positions.price);
  await card.locator('[data-add]').click();await expect(page.locator('#comparisonAnswer')).not.toBeEmpty();await expect(page.locator('#comparisonBack')).toBeInViewport();
  await page.locator('#comparisonBack').click();await card.locator('[data-detail]').click();await expect(page.locator('#detailAnswer')).not.toBeEmpty();await expect(page.locator('#stats')).toBeHidden();
  await page.locator('#detailEvidence > summary').click();await expect(page.locator('#stats')).toBeVisible();await page.locator('#close').click();await expect(page.locator('#results')).toBeInViewport();await expect(card.locator('[data-add]')).toHaveAttribute('aria-pressed','true');

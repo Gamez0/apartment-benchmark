@@ -274,3 +274,5 @@
 - Completion: existing11 local suites plus72 browser checks (63 retained,9 new) on official generated records, independent audit, public desktop/mobile visual verification. No new private defaults or source/calculation policy changes.
 
 - First real-build replay Actions40114166597:69/72 passed. All9 new flow checks passed. Three legacy reference-change assertions expected the repeated apartment name inside each card; replace them with contextual-title and independently computed signed difference assertions from published unit statistics. No product expectation relaxed.
+
+- Second replay Actions40114565582:71/72 passed. One desktop ordering check sampled two viewport coordinates in separate evaluations during smooth scrolling. Read both rectangles atomically from the same card/frame; retain the ordering assertion. Existing reference-context checks and all numeric/financial checks passed.
