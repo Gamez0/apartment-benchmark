@@ -267,3 +267,8 @@
 - Completion: unchanged calculation suites,63 real-build browser cases including hidden/revealed supporting values, desktop/mobile public visual inspection and successful Pages deployment.
 
 - Verified e75a419 / Actions40109902606 (job120919251968):63/63 passed (2.1m), Pages Reported success. Public concise25 desktop/mobile shows only `12.5%p 더 올랐어요` as hero answer; supporting14.6%/27.1% reappear when settings/evidence opens. Period aligns at the right edge; source figures, reference change and observation date share one disclosure. Desktop and390px mobile screenshots inspected; data/calculation policy unchanged.
+
+## 2026-10-25 · intent-based redesign of remaining sections
+- Scope and decisions: UX_REVIEW.md defines users/prior knowledge, each section question, required inputs, first/optional content, consolidation and next action. Hero remains unchanged.
+- Implemented: relative-first nearby cards and one contextual heading; result edit/empty-state recovery and region-to-budget return; confirmed comparison answer; local detail period and source return focus; optional detail/holding statistics; sale-budget candidate preview before evidence table; compact market period. Loading/error for holding archive remains visible.
+- Completion: existing11 local suites plus72 browser checks (63 retained,9 new) on official generated records, independent audit, public desktop/mobile visual verification. No new private defaults or source/calculation policy changes.
