@@ -1,11 +1,12 @@
 const {test,expect}=require('@playwright/test');
+const {openTools}=require('./helpers.cjs');
 const AxeBuilder=require('@axe-core/playwright').default;
 const fs=require('node:fs');
 // All expected prices/returns are computed independently by Python from collector rows.
 const oracle=JSON.parse(fs.readFileSync('audit-report/reference.json','utf8'));
 const units=code=>oracle.districts[code];
 const number=text=>Number(text.replaceAll(',','').match(/[-+]?\d+(?:\.\d+)?/)?.[0]);
-test.beforeEach(async({page})=>{await page.goto('/');await expect(page.locator('#scopeStatus')).toContainText('공식 자료');await expect(page.locator('#dong')).toBeEnabled();});
+test.beforeEach(async({page})=>{await page.goto('/');await expect(page.locator('#scopeStatus')).toContainText('공식 자료');await expect(page.locator('#dong')).toBeEnabled();await openTools(page);});
 
 test('rendered prices, returns, BM gaps and badges agree with independent raw-trade oracle',async({page})=>{
   test.setTimeout(120000);

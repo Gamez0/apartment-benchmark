@@ -1,6 +1,7 @@
 // Browser checks use the generated official build, never synthetic transaction fixtures.
 // Only network-failure/race tests intercept requests; their payloads still come from that build.
 const {test,expect}=require('@playwright/test');
+const {openTools}=require('./helpers.cjs');
 const fs=require('node:fs'),E=require('../../site/engine.js');
 const manifest=JSON.parse(fs.readFileSync('site/seoul/manifest.json','utf8'));
 const catalog=code=>JSON.parse(fs.readFileSync('site/seoul/'+manifest.districts.find(d=>d.code===code).file,'utf8'));
@@ -11,7 +12,7 @@ test.beforeEach(async({page})=>{
   const found=[];errors.set(page,found);page.on('pageerror',e=>found.push(e.message));
   await page.goto('/');await expect(page.locator('#purchaseCalculate')).toBeEnabled();
   await expect(page.locator('#scopeStatus')).toContainText('서울 '+manifest.totalTrades.toLocaleString('ko-KR')+'건');
-  await expect(page.locator('#comparisonMessage')).toBeEmpty();
+  await expect(page.locator('#comparisonMessage')).toBeEmpty();await openTools(page);
 });
 test.afterEach(async({page})=>expect(errors.get(page)).toEqual([]));
 async function selectDistrict(page,code){await page.locator('#districtScope').selectOption(code);await expect(page.locator('#dong')).toBeEnabled();await expect(page.locator('#purchaseCalculate')).toBeEnabled();await expect(page.locator('#comparisonMessage')).toBeEmpty();}
