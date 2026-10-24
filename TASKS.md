@@ -278,3 +278,8 @@
 - Second replay Actions40114565582:71/72 passed. One desktop ordering check sampled two viewport coordinates in separate evaluations during smooth scrolling. Read both rectangles atomically from the same card/frame; retain the ordering assertion. Existing reference-context checks and all numeric/financial checks passed.
 
 - Public visual pass after72/72: align nearby local controls to the same inner gutters as cards; reveal purchase/holding/sale results on desktop as well as mobile; add edit-return actions for holding/sale and real-trade links for sale preview candidates. Move purchase observation date into financing evidence. Extend existing72 flow assertions to viewport/edit/source-return checks, preserving the suite size.
+
+### Verified remaining-section UX completion · 2026-10-25
+- Product d11caa9 / Actions40115529752 job120935904250:72/72 passed (2.0m), Pages Reported success. Prior36f62d9 had72/72 before the visual refinements. Existing11 suites and independent published-data audit remain in CI; source/as-of/exclusions unchanged.
+- Public sections-final25 desktop/390px mobile verified: hero unchanged; nearby question and15.4%p relative-first card with aligned controls; comparison answer and graph; hypothetical budget20/loan0 reveals result at y16 on desktop, edit returns to inputs; hypothetical holding2016-07-01/5 and sale-extra5 yield relative answer and three candidate previews, with optional statistics/table. These are QA scenarios, not user financial facts. Browser tests cover source-return focus/selection/results, market5years and sale candidate evidence.
+- Final mobile proof saved as apartment-sections-final-nearby25.jpg outside repository. Real-device iOS/Android evaluation remains distinct from browser emulation.
