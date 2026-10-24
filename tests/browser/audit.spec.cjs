@@ -58,7 +58,7 @@ test('financial input stays in browser and is cleared on reload',async({page,con
 test('WCAG automated checks cover initial and expanded budget/reference controls',async({page},testInfo)=>{
   test.setTimeout(90000);
   for(const expanded of [false,true]){
-    if(expanded){await page.locator('.purchase-panel .method summary').click();await page.locator('.reference-picker summary').click();}
+    if(expanded){await page.locator('#openFunding').click();await page.locator('.reference-picker summary').click();}
     const result=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
     await testInfo.attach(`accessibility-${expanded?'expanded':'initial'}`,{body:JSON.stringify(result.violations,null,2),contentType:'application/json'});
     expect(result.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))}))).toEqual([]);

@@ -247,3 +247,9 @@
 - Additional feedback: move the observation date from the first-question row into the hero calculation disclosure with price evidence. Period choices use 1/3/5/10 years without implying current-day recency. Disclosure presence/visibility is covered in the browser flow.
 
 - Representative peer preview: period is a small secondary selector beside apartment settings. Up to two distinct qualified peers expose Seoul excess-return immediately and open the comparison graph while retaining the baseline. Same scope, within ±10% baseline exclusive area, positive market excess, ≥5 trades in both windows and latest contract within90days; strongest excess plus the largest minimum-window sample from eligible candidates. Omit when unavailable rather than inventing representatives. Browser tests verify baseline preservation and immediate graph navigation.
+
+- Mobile visual inspection: consolidate separate list count/audit and highlight explanations into one disclosure after the list; reduce the filter container so the first actual candidate arrives sooner. Core cards/list pagination retained.
+
+- Budget visual inspection: eliminate the second closed loan-settings entry beneath the visible assumptions/change button. Opening assumptions still exposes a native summary for closing; expanded accessibility test uses the actual visible change button.
+
+- Peer-preview CI:62/63 passed; mobile WebKit composite-filter test failed while tapping the native checkbox. Downloaded failure screenshot/trace; actual checkbox had inherited44px input height against18px width. Normalize native checkbox20×20 inside44px label target and rerun the unchanged interaction/oracle assertions (no forced click or weakened expectation).
