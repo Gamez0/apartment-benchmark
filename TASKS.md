@@ -229,3 +229,10 @@
 - 검사: 기존11묶음 로컬 통과. 기존48회 회귀는 도구를 실제 펼친 뒤 검증하도록 보완. 최초 입력0개/핵심 요약 노출/자동 접근성, 예산 펼침·가정 조정·값 보존, 목록·차트·지역 전환의 실제 흐름9회 추가하여 총57회 브라우저 검사 예정. 공식 원천/계산 정책 변경 없음.
 - 첫 개편 배포 검증:f1bf74c/Actions40104039511 성공,57/57 통과. 실제 자료33,582단지면적·825,804거래·134,328기간 독립 대조 통과. 관측일2026-07-31 유지, 최근6개월 재조회에 따른 증감 원인을 개별 대조 없이 단정하지 않음.
 - 시각 검토 보완:숨김 label을 전역display:block이 다시 노출하는 문제 확인→hidden 의미를 CSS로 보장하고 최초 보이는input/select0개 검사. 상세 근거를 차트 안으로 이동, 중복 제목을 시각적으로 줄이고 동네 선두를 압축,320px에서도 두 주행동 버튼이 첫 화면 안에 보이는지 검사. 거래 부족 기간은 짧은 이유와 그래프 바로가기 제공.
+
+### 2026-10-25 · accumulated mobile feedback
+- Merge region, date and heading into one hero: dynamic neighborhood question and embedded region changer; remove redundant brand/header.
+- One combined prepared-cash field; retain loan assumptions behind disclosure.
+- Rename card action to graph comparison, scroll immediately to graph, provide return-to-list action preserving selection; surface selection-limit feedback in the graph.
+- Replace ambiguous date-control label with date-by-date values and direct instruction. Keep evidence and priority explanation folded.
+- Completion: 11 local calculation/import/UI suites pass; browser regression now checks viewport transition and preserved selection. GitHub CI and deployed UI must be checked before delivery.

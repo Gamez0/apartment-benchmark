@@ -48,7 +48,7 @@ test('composed neighborhood, period, area, price, search and ordering filters ma
 
 test('financial input stays in browser and is cleared on reload',async({page,context})=>{
   const requests=[];page.on('request',r=>requests.push({url:r.url(),method:r.method(),body:r.postData()}));
-  await page.locator('#buyOwn').fill('987.6543');await page.locator('#buyPartner').fill('0');await page.locator('#buyLoan').fill('0');await page.locator('#purchaseCalculate').click();
+  await page.locator('#buyOwn').fill('987.6543');await page.locator('#buyLoan').fill('0');await page.locator('#purchaseCalculate').click();
   expect(requests.every(r=>r.method==='GET'&&new URL(r.url).origin==='http://127.0.0.1:4173'&&!r.url.includes('987.6543')&&!r.body)).toBe(true);
   const state=await context.storageState();expect(JSON.stringify(state)).not.toContain('987.6543');
   expect(await page.evaluate(()=>sessionStorage.length)).toBe(0);

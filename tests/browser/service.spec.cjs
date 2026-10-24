@@ -54,7 +54,7 @@ test('period/area controls stay synchronized and charts remain available',async(
 });
 test('purchase budget filters actual summaries and invalidates when neighborhood changes',async({page})=>{
   await page.locator('#purchaseCalculate').click();await expect(page.locator('#purchaseError')).toContainText('입력');
-  await page.locator('#buyOwn').fill('3');await page.locator('#buyPartner').fill('0');await page.locator('#buyLoan').fill('6');
+  await page.locator('#buyOwn').fill('3');await page.locator('#buyLoan').fill('6');
   await page.locator('#buyArea').selectOption('all');await page.locator('#purchaseCalculate').click();
   const scenario=E.purchaseScenario({own:3,partner:0,reserve:0,loan:6,ltv:40,interest:4,years:30,monthly:0});
   const candidates=catalog('11530').units.filter(g=>g.dong==='신도림동'&&g.stats[1][1]>=3&&E.purchaseFit(g.stats[1][0],scenario));

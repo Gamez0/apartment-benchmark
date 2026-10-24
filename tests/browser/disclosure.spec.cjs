@@ -5,6 +5,8 @@ test.beforeEach(async({page})=>{
   await expect(page.locator('#comparisonMessage')).toBeEmpty();
 });
 test('first visit shows the comparison answer without financial forms or deep tools',async({page})=>{
+  await expect(page.getByRole('heading',{level:1})).toHaveText('신도림동은 얼마나 차이 났을까?');
+  await expect(page.locator('header')).toHaveCount(0);
   await expect(page.locator('#referenceResult .overview-home')).toBeVisible();
   for(const id of ['purchaseFlow','nearbyFlow','trendFlow','advancedFlow','scopePanel'])await expect(page.locator('#'+id)).toHaveJSProperty('open',false);
   await expect(page.locator('#buyOwn')).toBeHidden();await expect(page.locator('#results')).toBeHidden();await expect(page.locator('#comparisonChart')).toBeHidden();
@@ -23,7 +25,7 @@ test('purchase intent reveals inputs and assumptions while preserving edits when
   await expect(page.locator('#fundingSummary')).toContainText('LTV 40%');await expect(page.locator('#buyLtv')).toBeHidden();
   await page.locator('#openFunding').click();await expect(page.locator('#buyLtv')).toBeFocused();await page.locator('#buyLtv').fill('70');
   await expect(page.locator('#fundingSummary')).toContainText('LTV 70%');await page.locator('#fundingDetails > summary').click();
-  await page.locator('#buyOwn').fill('3');await page.locator('#buyPartner').fill('0');await page.locator('#buyLoan').fill('6');
+  await page.locator('#buyOwn').fill('3');await page.locator('#buyLoan').fill('6');
   await page.locator('#buyArea').selectOption('all');await page.locator('#purchaseCalculate').click();await expect(page.locator('#purchaseResult')).toContainText('9.00억');
   await page.locator('#purchaseFlow > summary').click();await expect(page.locator('#openPurchase')).toHaveAttribute('aria-expanded','false');
   await page.locator('#openPurchase').click();await expect(page.locator('#buyOwn')).toHaveValue('3');await expect(page.locator('#fundingSummary')).toContainText('70%');await expect(page.locator('#purchaseResult')).toContainText('9.00억');
@@ -34,6 +36,9 @@ test('nearby intent retains the list and choosing a comparison reveals its graph
   await page.locator('.list-filters > summary').click();await expect(page.locator('#areaScope')).toBeVisible();
   await page.locator('#results [data-add]:not([disabled])').first().click();await expect(page.locator('#comparisonChart')).toBeVisible();
   await expect(page.locator('#comparisonChart svg')).toHaveCount(1);
+  await expect(page.locator('#comparisonBack')).toBeInViewport();
+  await page.locator('#comparisonBack').click();await expect(page.locator('#results')).toBeInViewport();
+  await expect(page.locator('#results [data-add][aria-pressed="true"]')).toHaveCount(1);
   await page.locator('#scopePanel > summary').click();await page.locator('#dong').selectOption('구로동');
-  await expect(page.locator('#listContext')).toContainText('구로동');await expect(page.locator('.selection-dock')).toHaveAttribute('data-active','false');
+  await expect(page.locator('#listContext')).toContainText('구로동');await expect(page.getByRole('heading',{level:1})).toHaveText('구로동은 얼마나 차이 났을까?');await expect(page.locator('.selection-dock')).toHaveAttribute('data-active','false');
 });
