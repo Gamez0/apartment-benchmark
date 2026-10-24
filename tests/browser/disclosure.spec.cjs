@@ -8,9 +8,12 @@ test('first visit shows the comparison answer without financial forms or deep to
   await expect(page.locator('#referenceResult .overview-home')).toBeVisible();
   for(const id of ['purchaseFlow','nearbyFlow','trendFlow','advancedFlow','scopePanel'])await expect(page.locator('#'+id)).toHaveJSProperty('open',false);
   await expect(page.locator('#buyOwn')).toBeHidden();await expect(page.locator('#results')).toBeHidden();await expect(page.locator('#comparisonChart')).toBeHidden();
-  await expect(page.locator('input:visible')).toHaveCount(0);
+  await expect(page.locator('input:visible,select:visible')).toHaveCount(0);
   await expect(page.locator('#openPurchase')).toBeVisible();await expect(page.locator('#openNearby')).toBeVisible();
+  expect(await page.locator('#openPurchase').evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(page.viewportSize().height);
   expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
+  await page.locator('[data-period="3"]').click();
+  if(await page.locator('#openSparseTrend').count()){await expect(page.locator('.relative-headline')).toContainText('거래가 적어요');await page.locator('#openSparseTrend').click();await expect(page.locator('#comparisonChart svg')).toBeVisible();}
   const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
   expect(scan.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)}))).toEqual([]);
 });
