@@ -276,3 +276,5 @@
 - First real-build replay Actions40114166597:69/72 passed. All9 new flow checks passed. Three legacy reference-change assertions expected the repeated apartment name inside each card; replace them with contextual-title and independently computed signed difference assertions from published unit statistics. No product expectation relaxed.
 
 - Second replay Actions40114565582:71/72 passed. One desktop ordering check sampled two viewport coordinates in separate evaluations during smooth scrolling. Read both rectangles atomically from the same card/frame; retain the ordering assertion. Existing reference-context checks and all numeric/financial checks passed.
+
+- Public visual pass after72/72: align nearby local controls to the same inner gutters as cards; reveal purchase/holding/sale results on desktop as well as mobile; add edit-return actions for holding/sale and real-trade links for sale preview candidates. Move purchase observation date into financing evidence. Extend existing72 flow assertions to viewport/edit/source-return checks, preserving the suite size.
