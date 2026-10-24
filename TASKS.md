@@ -243,3 +243,5 @@
 - Nearby / chart / purchase: local synchronized period controls; region in nearby and budget link to shared selector; six-card list retained. Date readout, leader, financing details, secondary market/rate graphs and historical transaction lookup appear on request. Price detail has a return action preserving source.
 - Completion: unchanged official calculations and 11 local suites; 60 browser cases on generated official records (desktop, 320px Chromium, 390px WebKit), viewport/period synchronization/disclosure/back navigation/accessibility; public mobile screenshots inspected before reporting deployment.
 - Scope failure also reveals the shared region selector and clears the relocated leader; avoid hiding recovery behind a closed intent panel. Official as-of/source/exclusion policy unchanged.
+
+- Additional feedback: move the observation date from the first-question row into the hero calculation disclosure with price evidence. Period choices use 1/3/5/10 years without implying current-day recency. Disclosure presence/visibility is covered in the browser flow.

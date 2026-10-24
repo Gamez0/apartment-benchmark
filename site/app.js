@@ -179,7 +179,7 @@ async function loadCatalog(d){if(seoulCatalogs.has(d.code))return;const dataset=
 function scopeFailure(error){$('nearbyFlow').hidden=false;$('nearbyFlow').open=true;$('scopePanel').open=true;scopeReady=false;scopePending('자료 연결을 확인하고 있습니다. 위에서 다시 시도하세요.');$('scopeStatus').textContent=error.message;$('scopeRetry').hidden=false;$('purchaseCalculate').disabled=true;clearPurchase();clearSwitchResult();clearHoldingResult();$('results').innerHTML='<p class="meta">공식 자료 연결 후 아파트를 보여드립니다.</p>';}
 function scopePending(message){
  $('referenceResult').innerHTML='<p class="meta">'+esc(message)+'</p>';
- for(const id of ['comparisonChart','comparisonLegend','comparisonSelected','comparisonPriceHistory','nearbyLeader'])$(id).innerHTML='';
+ for(const id of ['comparisonChart','comparisonLegend','comparisonSelected','comparisonPriceHistory','nearbyLeader','overviewBasis'])$(id).innerHTML='';
  $('comparisonMessage').textContent=message;$('count').textContent='—';
  $('listCount').textContent='지역 자료 확인 중';$('recommendation').textContent='';$('referenceHome').disabled=true;$('dong').disabled=true;$('more').hidden=true;for(const id of ['switchCalculate','holdingCalculate'])$(id).disabled=true;
  $('selectionCount').textContent='비교 후보 0/3개';document.querySelector?.('.selection-dock')?.setAttribute('data-active','false');

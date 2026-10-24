@@ -10,7 +10,7 @@ test('first visit shows the comparison answer without financial forms or deep to
   await expect(page.locator('#referenceResult .overview-home')).toBeVisible();
   for(const id of ['purchaseFlow','nearbyFlow','trendFlow','advancedFlow','scopePanel'])await expect(page.locator('#'+id)).toHaveJSProperty('open',false);
   await expect(page.locator('#buyOwn')).toBeHidden();await expect(page.locator('#results')).toBeHidden();await expect(page.locator('#comparisonChart')).toBeHidden();
-  await expect(page.locator('input:visible')).toHaveCount(0);await expect(page.locator('select:visible')).toHaveCount(1);await expect(page.locator('#nearbyLeader')).toBeHidden();
+  await expect(page.locator('input:visible')).toHaveCount(0);await expect(page.locator('select:visible')).toHaveCount(1);await expect(page.locator('#nearbyLeader')).toBeHidden();await expect(page.locator('#snapshotNote')).toBeHidden();await page.locator('#heroEvidence > summary').click();await expect(page.locator('#snapshotNote')).toContainText('2026년 07월');await page.locator('#heroEvidence > summary').click();
   await expect(page.locator('#openPurchase')).toBeVisible();await expect(page.locator('#openNearby')).toBeVisible();
   expect(await page.locator('#openPurchase').evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(page.viewportSize().height);
   expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
