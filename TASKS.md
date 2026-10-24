@@ -298,3 +298,8 @@
 - Validation target: original72 browser executions +9 citywide oracle/return/failure-retry executions =81, all local suites and explicit synthetic engine boundaries; expanded citywide axe scan. Public mobile/desktop inspection before completion.
 
 - Keep benchmark context through the detail route: entering from citywide ranking uses Seoul for the detail headline; entering from neighborhood/budget keeps the selected reference apartment. Assert this explicitly along with source return.
+
+### Verified citywide exploration completion · 2026-10-25
+- Product d72148852 / Actions40118423865 job120944601779:81 browser checks passed (2.8m), Pages Reported success. All existing local suites, independent published-data audit and new symmetric eligibility boundaries passed.
+- Public seoul-ranks25 desktop and390px mobile: all25 district summaries loaded; high/low switches change actual candidates; default1year75–95㎡ high first 신동아84.81㎡ +46.7%p, low first 래미안원베일리84.98㎡ -20.9%p, against Seoul +14.6%, observation2026-07-31. These are eligible historical samples, not forecasts.
+- Public detail headline preserves Seoul benchmark; graph opens with Seoul-relative question; returning preserves low side. PC uses three columns, mobile one, with common section width. Mobile proof apartment-seoul-rank-high25.jpg saved outside repository. Browser emulation remains distinct from physical-device evaluation.

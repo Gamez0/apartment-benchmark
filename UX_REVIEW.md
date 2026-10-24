@@ -31,3 +31,6 @@ Actions40115529752에서72개 브라우저 검사와 Pages 배포 성공을 확�
 ## 다음 질문: 서울 전체에서 더 오른 곳과 덜 오른 곳
 
 기준 집의 상대 성과를 확인한 집주인의 다음 질문은 주변뿐 아니라 서울 전체의 차이다. 첫 행동은 서울 시장 대비 상·하위 과거 성과 탐색으로 바꾸고, 동네 비교와 구매 예산은 유지한다. 같은 기간 서울 상승률을 먼저 알려주고, 면적과 거래 증거를 통일한 높은 쪽·낮은 쪽을 전환한다. 기본75~95㎡,1/3/5/10년이며 상세 조건과 범위·선정 한계는 접힌 근거에서 확인한다. 모든25개구 연결이 확인되기 전에는 일부 지역만으로 순위를 만들지 않는다. 카드에서 실제 거래/그래프를 확인한 뒤 동일한 목록과 선택으로 돌아온다.
+
+### Public verification · 2026-10-25
+Citywide high/low exploration shipped as the primary next action after the own-home answer. Public PC/390px mobile verified high/low replacement, Seoul-relative detail and graph, and return to the retained low-side list. Default comparable area75–95㎡, period local to results, six cards then more; evidence remains optional. Common page width verified. Product d72148852; Actions40118423865 passed81 browser checks and Pages deployment. Observation2026-07-31 remains unchanged; extrema describe qualified observed transactions only.
