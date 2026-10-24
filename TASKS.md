@@ -236,3 +236,10 @@
 - Rename card action to graph comparison, scroll immediately to graph, provide return-to-list action preserving selection; surface selection-limit feedback in the graph.
 - Replace ambiguous date-control label with date-by-date values and direct instruction. Keep evidence and priority explanation folded.
 - Completion: 11 local calculation/import/UI suites pass; browser regression now checks viewport transition and preserved selection. GitHub CI and deployed UI must be checked before delivery.
+
+## 서비스 전체 결과 우선 UX / 2026-10-25
+- Goal: parents can understand the selected apartment's relative return before choosing tools. No private ownership/financing defaults published.
+- Hero: apartment-specific question, compact native period selector next to answer, relative gap first, two supporting returns second. Neighborhood leader and region controls belong to nearby exploration.
+- Nearby / chart / purchase: local synchronized period controls; region in nearby and budget link to shared selector; six-card list retained. Date readout, leader, financing details, secondary market/rate graphs and historical transaction lookup appear on request. Price detail has a return action preserving source.
+- Completion: unchanged official calculations and 11 local suites; 60 browser cases on generated official records (desktop, 320px Chromium, 390px WebKit), viewport/period synchronization/disclosure/back navigation/accessibility; public mobile screenshots inspected before reporting deployment.
+- Scope failure also reveals the shared region selector and clears the relocated leader; avoid hiding recovery behind a closed intent panel. Official as-of/source/exclusion policy unchanged.

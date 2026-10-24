@@ -44,9 +44,9 @@ test('all 25 districts expose only their own available neighborhoods',async({pag
 test('period/area controls stay synchronized and charts remain available',async({page})=>{
   for(const year of ['1','3','5','10']){
     await page.locator('#buyPeriod').selectOption(year);
-    await expect(page.locator('[data-period="'+year+'"]').first()).toHaveAttribute('aria-pressed','true');
+    await expect(page.locator('#heroPeriod')).toHaveValue(year);
     await expect(page.locator('#comparisonChart svg')).toHaveCount(1);
-    await page.locator('[data-period="'+year+'"]').click();await expect(page.locator('#buyPeriod')).toHaveValue(year);
+    await page.locator('#heroPeriod').selectOption(year);await expect(page.locator('#buyPeriod')).toHaveValue(year);
   }
   await page.locator('#buyArea').selectOption('all');await expect(page.locator('#areaScope')).toHaveValue('all');
   await page.locator('#areaScope').selectOption('similar');await expect(page.locator('#buyArea')).toHaveValue('similar');
