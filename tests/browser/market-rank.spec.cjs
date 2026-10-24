@@ -22,7 +22,7 @@ test('citywide high and low performance match an independent oracle and keep nei
 });
 test('citywide candidate detail and graph return to the same side and selection',async({page})=>{
  await start(page);await open(page);await page.locator('[data-rank-side="low"]').click();const first=page.locator('#marketRankResults article').first();const key=await first.getAttribute('data-rank-key');
- await first.locator('[data-rank-detail]').click();await expect(page.locator('#priceChart svg')).toBeVisible();await page.locator('#close').click();await expect(page.locator('#marketRankResults')).toBeInViewport();await expect(page.locator('[data-rank-side="low"]')).toHaveAttribute('aria-pressed','true');
+ await first.locator('[data-rank-detail]').click();await expect(page.locator('#priceChart svg')).toBeVisible();await expect(page.locator('#detailAnswer')).toContainText('서울 대비');await page.locator('#close').click();await expect(page.locator('#marketRankResults')).toBeInViewport();await expect(page.locator('[data-rank-side="low"]')).toHaveAttribute('aria-pressed','true');
  await first.locator('[data-rank-compare]').click();await expect(page.locator('#comparisonHeading')).toHaveText('서울 시장과 얼마나 차이 났을까?');await expect(page.locator('#comparisonBack')).toBeInViewport();await page.locator('#comparisonBack').click();await expect(page.locator('#marketRankResults')).toBeInViewport();await expect(page.locator('[data-rank-key="'+key+'"] [data-rank-compare]')).toHaveAttribute('aria-pressed','true');
 });
 test('incomplete citywide catalogs never produce a partial ranking and retry can recover',async({page})=>{

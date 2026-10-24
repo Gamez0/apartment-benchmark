@@ -296,3 +296,5 @@
 - Symmetric eligibility: ≥5 trades in current/past equal windows, positive representative prices, valid latest contract within90days of observation; compare signed confirmed cumulative return minus Seoul BM. High and low use the same rules, zero gaps omitted; stable key ties. Estimated chart values excluded. Source/exclusion/observation policy unchanged.
 - Six-card list and more; price evidence, real-trade detail, graph with Seoul-relative answer and return to same side/selection. No personal facts or future-return recommendations.
 - Validation target: original72 browser executions +9 citywide oracle/return/failure-retry executions =81, all local suites and explicit synthetic engine boundaries; expanded citywide axe scan. Public mobile/desktop inspection before completion.
+
+- Keep benchmark context through the detail route: entering from citywide ranking uses Seoul for the detail headline; entering from neighborhood/budget keeps the selected reference apartment. Assert this explicitly along with source return.
