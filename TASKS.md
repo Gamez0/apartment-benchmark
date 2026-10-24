@@ -245,3 +245,5 @@
 - Scope failure also reveals the shared region selector and clears the relocated leader; avoid hiding recovery behind a closed intent panel. Official as-of/source/exclusion policy unchanged.
 
 - Additional feedback: move the observation date from the first-question row into the hero calculation disclosure with price evidence. Period choices use 1/3/5/10 years without implying current-day recency. Disclosure presence/visibility is covered in the browser flow.
+
+- Representative peer preview: period is a small secondary selector beside apartment settings. Up to two distinct qualified peers expose Seoul excess-return immediately and open the comparison graph while retaining the baseline. Same scope, within ±10% baseline exclusive area, positive market excess, ≥5 trades in both windows and latest contract within90days; strongest excess plus the largest minimum-window sample from eligible candidates. Omit when unavailable rather than inventing representatives. Browser tests verify baseline preservation and immediate graph navigation.

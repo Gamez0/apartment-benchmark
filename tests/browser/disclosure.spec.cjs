@@ -55,3 +55,10 @@ test('controls stay next to answers and supplementary evidence stays optional',a
  await expect(page.locator('#comparisonReadout')).toBeHidden();await page.locator('.chart-values > summary').click();await expect(page.locator('#comparisonReadout')).toBeVisible();
  await page.locator('#chartPeriod').selectOption('3');await expect(page.locator('#nearbyPeriod')).toHaveValue('3');await expect(page.locator('#heroPeriod')).toHaveValue('3');
 });
+
+test('representative comparisons expose analyzed peers without replacing the baseline',async({page})=>{
+ const peers=page.locator('[data-peer]');const count=await peers.count();expect(count).toBeLessThanOrEqual(2);expect(count).toBeGreaterThan(0);
+ await expect(peers.first()).toContainText('서울');await expect(peers.first()).toContainText('%p');
+ await peers.first().click();await expect(page.locator('#comparisonBack')).toBeInViewport();await expect(page.getByRole('heading',{level:1})).toHaveText('동아2차, 서울과 비교하면?');
+ await expect(page.locator('#comparisonSelected')).not.toBeEmpty();
+});
