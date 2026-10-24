@@ -38,3 +38,15 @@ assert.ok(Math.abs(general.budget-5)<1e-9);assert.ok(Math.abs(first.budget-9)<1e
 assert.equal(Engine.purchaseScenario({own:10,partner:0,reserve:0,loan:6,ltv:70,interest:4,years:30,monthly:0}).budget,15);
 assert.equal(Engine.purchaseScenario({own:24,partner:0,reserve:0,loan:6,ltv:70,interest:4,years:30,monthly:0}).budget,26);
 console.log('Purchase ceiling includes LTV and discontinuous price-band loan caps');
+
+// Synthetic evidence boundaries for symmetric historical market-relative rankings.
+{
+ const sample=(key,rate,extra={})=>({key,rate,current:{price:10,count:5},previous:{price:8,count:5},latest:'2026-07-31',...extra});
+ const rows=[sample('high',30),sample('low',-5),sample('equal',10),sample('sparseHigh',100,{previous:{price:8,count:4}}),sample('sparseLow',-90,{current:{price:1,count:4}}),sample('stale',80,{latest:'2026-05-01'}),sample('future',90,{latest:'2026-08-01'}),sample('cancel',100,{cancelled:true})];
+ const E=require('../site/engine.js');
+ require('node:assert/strict').deepEqual(E.marketRanks(rows,10,'2026-07-31','high').map(g=>g.key),['high']);
+ require('node:assert/strict').deepEqual(E.marketRanks(rows,10,'2026-07-31','low').map(g=>g.key),['low']);
+ require('node:assert/strict').equal(E.marketRanks(rows,null,'2026-07-31','high').length,0);
+ require('node:assert/strict').equal(E.marketRanks([sample('neg',-2)],-10,'2026-07-31','high')[0].excess,8);
+ console.log('Seoul market ranks: same sample/recency rules on both sides; missing BM, future, cancellation and negative returns passed');
+}

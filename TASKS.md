@@ -287,3 +287,12 @@
 ## 2026-10-25 · consistent desktop section widths
 - Cause: hero/actions had their own780px maximum inside980px page container. Replace with full available content width; consolidate page maximum into one CSS variable. Preserve mobile gutters and section internals.
 - Verify existing first-visit browser test checks matching left edges/widths for hero/actions/trend/advanced across all three environments. Existing72-case CI and public desktop/mobile visual check remain the deployment gate.
+
+- Width completion:8f42691 / Actions40116727104 succeeded;72/72 passed. Public desktop overview/actions/trend/advanced all x219.5,width924;390px frame all x16,width343. Width proof apartment-width-unified25.jpg.
+
+## 2026-10-25 · Seoul market-relative high/low exploration
+- User's next question after own-home performance: which apartments across Seoul most outperformed/underperformed the Seoul index? New primary action opens high/low exploration; nearby/budget remain secondary. Default75~95㎡, shared1/3/5/10year periods, optional all areas.
+- Official published district summaries load only on explicit intent, four concurrent at a time; existing local district/dong and baseline stay unchanged. Require all25 before showing rankings; retry retains valid cached districts but never displays a partial-city ranking. Initial entry stays bounded to its original district and no extra transaction histories.
+- Symmetric eligibility: ≥5 trades in current/past equal windows, positive representative prices, valid latest contract within90days of observation; compare signed confirmed cumulative return minus Seoul BM. High and low use the same rules, zero gaps omitted; stable key ties. Estimated chart values excluded. Source/exclusion/observation policy unchanged.
+- Six-card list and more; price evidence, real-trade detail, graph with Seoul-relative answer and return to same side/selection. No personal facts or future-return recommendations.
+- Validation target: original72 browser executions +9 citywide oracle/return/failure-retry executions =81, all local suites and explicit synthetic engine boundaries; expanded citywide axe scan. Public mobile/desktop inspection before completion.
