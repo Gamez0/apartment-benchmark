@@ -283,3 +283,7 @@
 - Product d11caa9 / Actions40115529752 job120935904250:72/72 passed (2.0m), Pages Reported success. Prior36f62d9 had72/72 before the visual refinements. Existing11 suites and independent published-data audit remain in CI; source/as-of/exclusions unchanged.
 - Public sections-final25 desktop/390px mobile verified: hero unchanged; nearby question and15.4%p relative-first card with aligned controls; comparison answer and graph; hypothetical budget20/loan0 reveals result at y16 on desktop, edit returns to inputs; hypothetical holding2016-07-01/5 and sale-extra5 yield relative answer and three candidate previews, with optional statistics/table. These are QA scenarios, not user financial facts. Browser tests cover source-return focus/selection/results, market5years and sale candidate evidence.
 - Final mobile proof saved as apartment-sections-final-nearby25.jpg outside repository. Real-device iOS/Android evaluation remains distinct from browser emulation.
+
+## 2026-10-25 · consistent desktop section widths
+- Cause: hero/actions had their own780px maximum inside980px page container. Replace with full available content width; consolidate page maximum into one CSS variable. Preserve mobile gutters and section internals.
+- Verify existing first-visit browser test checks matching left edges/widths for hero/actions/trend/advanced across all three environments. Existing72-case CI and public desktop/mobile visual check remain the deployment gate.
