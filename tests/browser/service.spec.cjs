@@ -106,12 +106,12 @@ test('late district response cannot overwrite the most recent selection',async({
 test('changing reference apartment loads its history and updates relative comparisons',async({page})=>{
   const target=catalog('11530').units.find(g=>g.dong==='신도림동'&&g.area>=75&&g.area<=95&&!['동아2','신도림동아2차','신도림2차동아'].includes(g.name)&&g.stats[1][6]!=null);
   expect(target).toBeTruthy();
-  await page.locator('.reference-picker summary').click();await page.locator('#referenceSearch').fill(target.name);
+  await page.locator('#heroEvidence > summary').click();await page.locator('#referenceSearch').fill(target.name);
   await page.locator('#referenceHome').selectOption(target.key);
-  await expect(page.locator('#referenceResult .overview-home')).toContainText(target.name);
+  await expect(page.locator('#overviewSources .overview-home')).toContainText(target.name);
   await expect(page.locator('#comparisonLegend')).toContainText(target.name);
   await expect(page.locator('#results .baseline-relative').first()).toContainText(target.name);
   await page.locator('#dong').selectOption('구로동');
   await expect(page.locator('#referenceHome')).toHaveValue(target.key);
-  await expect(page.locator('#referenceResult .overview-home')).toContainText(target.name);
+  await expect(page.locator('#overviewSources .overview-home')).toContainText(target.name);
 });

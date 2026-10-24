@@ -7,10 +7,10 @@ test.beforeEach(async({page})=>{
 test('first visit shows the comparison answer without financial forms or deep tools',async({page})=>{
   await expect(page.getByRole('heading',{level:1})).toHaveText('동아2차, 서울과 비교하면?');
   await expect(page.locator('header')).toHaveCount(0);
-  await expect(page.locator('#referenceResult .overview-home')).toBeVisible();
+  await expect(page.locator('#overviewSources .overview-home')).toBeHidden();
   for(const id of ['purchaseFlow','nearbyFlow','trendFlow','advancedFlow','scopePanel'])await expect(page.locator('#'+id)).toHaveJSProperty('open',false);
   await expect(page.locator('#buyOwn')).toBeHidden();await expect(page.locator('#results')).toBeHidden();await expect(page.locator('#comparisonChart')).toBeHidden();
-  await expect(page.locator('input:visible')).toHaveCount(0);await expect(page.locator('select:visible')).toHaveCount(1);await expect(page.locator('#nearbyLeader')).toBeHidden();await expect(page.locator('#snapshotNote')).toBeHidden();await page.locator('#heroEvidence > summary').click();await expect(page.locator('#snapshotNote')).toContainText('2026년 07월');await page.locator('#heroEvidence > summary').click();
+  await expect(page.locator('input:visible')).toHaveCount(0);await expect(page.locator('select:visible')).toHaveCount(1);await expect(page.locator('#nearbyLeader')).toBeHidden();await expect(page.locator('#snapshotNote')).toBeHidden();await page.locator('#heroEvidence > summary').click();await expect(page.locator('#snapshotNote')).toContainText('2026년 07월');await expect(page.locator('#overviewSources .overview-home')).toBeVisible();await page.locator('#heroEvidence > summary').click();
   await expect(page.locator('#openPurchase')).toBeVisible();await expect(page.locator('#openNearby')).toBeVisible();
   expect(await page.locator('#openPurchase').evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(page.viewportSize().height);
   expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
@@ -44,7 +44,7 @@ test('nearby intent retains the list and choosing a comparison reveals its graph
 });
 
 test('controls stay next to answers and supplementary evidence stays optional',async({page})=>{
- await expect(page.locator('#referenceResult > .relative-headline')).toContainText('서울보다');
+ await expect(page.locator('#referenceResult > .relative-headline')).not.toContainText('서울보다');await expect(page.locator('#referenceResult > .relative-headline')).toContainText('12.5%p');
  await expect(page.locator('#scopePanel')).toBeHidden();
  await page.locator('#heroPeriod').selectOption('5');await page.locator('#openNearby').click();
  await expect(page.locator('#nearbyPeriod')).toHaveValue('5');await page.locator('#nearbyPeriod').selectOption('1');await expect(page.locator('#heroPeriod')).toHaveValue('1');
