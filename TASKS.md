@@ -272,3 +272,5 @@
 - Scope and decisions: UX_REVIEW.md defines users/prior knowledge, each section question, required inputs, first/optional content, consolidation and next action. Hero remains unchanged.
 - Implemented: relative-first nearby cards and one contextual heading; result edit/empty-state recovery and region-to-budget return; confirmed comparison answer; local detail period and source return focus; optional detail/holding statistics; sale-budget candidate preview before evidence table; compact market period. Loading/error for holding archive remains visible.
 - Completion: existing11 local suites plus72 browser checks (63 retained,9 new) on official generated records, independent audit, public desktop/mobile visual verification. No new private defaults or source/calculation policy changes.
+
+- First real-build replay Actions40114166597:69/72 passed. All9 new flow checks passed. Three legacy reference-change assertions expected the repeated apartment name inside each card; replace them with contextual-title and independently computed signed difference assertions from published unit statistics. No product expectation relaxed.

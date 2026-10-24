@@ -110,7 +110,11 @@ test('changing reference apartment loads its history and updates relative compar
   await page.locator('#referenceHome').selectOption(target.key);
   await expect(page.locator('#overviewSources .overview-home')).toContainText(target.name);
   await expect(page.locator('#comparisonLegend')).toContainText(target.name);
-  await expect(page.locator('#results .baseline-relative').first()).toContainText(target.name);
+  await expect(page.locator('#nearbyHeading')).toContainText(target.name);
+  const first=page.locator('#results article').first(),key=await first.getAttribute('data-key'),row=catalog('11530').units.find(g=>g.key===key),rate=row.stats[1][6],delta=rate==null?null:rate-target.stats[1][6],answer=first.locator('.baseline-relative');
+  if(delta==null)await expect(answer).toContainText('거래가 부족');
+  else if(Math.abs(delta)<.05)await expect(answer).toContainText('비슷');
+  else{await expect(answer).toContainText(Math.abs(delta).toFixed(1)+'%p');await expect(answer).toContainText(delta>0?/더|높아요/:/덜|낮아요/);}
   await page.locator('#dong').selectOption('구로동');
   await expect(page.locator('#referenceHome')).toHaveValue(target.key);
   await expect(page.locator('#overviewSources .overview-home')).toContainText(target.name);
