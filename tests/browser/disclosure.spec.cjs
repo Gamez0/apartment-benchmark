@@ -14,8 +14,8 @@ test('first visit shows the comparison answer without financial forms or deep to
   for(const id of ['purchaseFlow','nearbyFlow','trendFlow','advancedFlow','scopePanel'])await expect(page.locator('#'+id)).toHaveJSProperty('open',false);
   await expect(page.locator('#buyOwn')).toBeHidden();await expect(page.locator('#results')).toBeHidden();await expect(page.locator('#comparisonChart')).toBeHidden();
   await expect(page.locator('input:visible')).toHaveCount(0);await expect(page.locator('select:visible')).toHaveCount(1);await expect(page.locator('#nearbyLeader')).toBeHidden();await expect(page.locator('#snapshotNote')).toBeHidden();await page.locator('#heroEvidence > summary').click();await expect(page.locator('#snapshotNote')).toContainText('2026년 07월');await expect(page.locator('#overviewSources .overview-home')).toBeVisible();await page.locator('#heroEvidence > summary').click();await page.locator('#contextHeading').scrollIntoViewIfNeeded();
-  await expect(page.locator('#openPurchase')).toBeVisible();await expect(page.locator('#openNearby')).toBeVisible();
-  expect(await page.locator('#openPurchase').evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(page.viewportSize().height);
+  await expect(page.locator('#openPurchase')).toBeHidden();await expect(page.locator('#openNearby')).toBeHidden();await expect(page.locator('.landing-screen [data-peer]')).toHaveCount(0);
+  await expect(page.locator('.landing-screen button:visible')).toHaveCount(1);await expect(page.locator('#openMarketRank')).toBeInViewport();
   expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
   await page.locator('#heroPeriod').selectOption('3');
   if(await page.locator('#openSparseTrend').count()){await expect(page.locator('.relative-headline')).toContainText('거래가 적어요');await page.locator('#openSparseTrend').click();await expect(page.locator('#comparisonChart svg')).toBeVisible();}
@@ -23,7 +23,7 @@ test('first visit shows the comparison answer without financial forms or deep to
   expect(scan.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)}))).toEqual([]);
 });
 test('purchase intent reveals inputs and assumptions while preserving edits when folded',async({page})=>{
-  await page.locator('#openPurchase').click();await expect(page.locator('#openPurchase')).toHaveAttribute('aria-expanded','true');
+  await page.locator('#openMarketRank').click();await page.locator('#openNearby').click();await page.locator('#openPurchase').click();await expect(page.locator('#openPurchase')).toHaveAttribute('aria-expanded','true');
   await expect(page.locator('#buyOwn')).toBeVisible();await expect(page.locator('#results')).toBeHidden();
   await expect(page.locator('#fundingSummary')).toContainText('LTV 40%');await expect(page.locator('#buyLtv')).toBeHidden();
   await page.locator('#openFunding').click();await expect(page.locator('#buyLtv')).toBeFocused();await page.locator('#buyLtv').fill('70');
@@ -34,7 +34,7 @@ test('purchase intent reveals inputs and assumptions while preserving edits when
   await page.locator('#openPurchase').click();await expect(page.locator('#buyOwn')).toHaveValue('3');await expect(page.locator('#fundingSummary')).toContainText('70%');await expect(page.locator('#purchaseResult')).toContainText('9.00억');
 });
 test('nearby intent retains the list and choosing a comparison reveals its graph',async({page})=>{
-  await page.locator('#openNearby').click();await expect(page.locator('#results article')).toHaveCount(6);await expect(page.locator('#nearbyHeading')).toContainText('신도림동');await expect(page.locator('.nearby-leader')).toHaveJSProperty('open',false);
+  await page.locator('#openMarketRank').click();await page.locator('#openNearby').click();await expect(page.locator('#results article')).toHaveCount(6);await expect(page.locator('#nearbyHeading')).toContainText('신도림동');await expect(page.locator('.nearby-leader')).toHaveJSProperty('open',false);
   await expect(page.locator('#areaScope')).toBeHidden();await expect(page.locator('#listContext')).toContainText('75~95㎡');
   await page.locator('.list-filters > summary').click();await expect(page.locator('#areaScope')).toBeVisible();
   await page.locator('#results [data-add]:not([disabled])').first().click();await expect(page.locator('#comparisonChart')).toBeVisible();
@@ -49,7 +49,7 @@ test('nearby intent retains the list and choosing a comparison reveals its graph
 test('controls stay next to answers and supplementary evidence stays optional',async({page})=>{
  await expect(page.locator('#referenceResult > .relative-headline')).not.toContainText('서울보다');await expect(page.locator('#referenceResult > .relative-headline')).toContainText('12.5%p');
  await expect(page.locator('#scopePanel')).toBeHidden();
- await page.locator('#heroPeriod').selectOption('5');await page.locator('#openNearby').click();
+ await page.locator('#heroPeriod').selectOption('5');await page.locator('#openMarketRank').click();await page.locator('#openNearby').click();
  await expect(page.locator('#nearbyPeriod')).toHaveValue('5');await page.locator('#nearbyPeriod').selectOption('1');await expect(page.locator('#heroPeriod')).toHaveValue('1');
  await page.locator('.nearby-leader > summary').click();await expect(page.locator('#leaderDetail')).toBeVisible();
  await page.locator('#results [data-detail]').first().click();await expect(page.locator('#priceChart svg')).toBeVisible();await expect(page.locator('#bmChart')).toBeHidden();
@@ -60,7 +60,7 @@ test('controls stay next to answers and supplementary evidence stays optional',a
 });
 
 test('representative comparisons expose analyzed peers without replacing the baseline',async({page})=>{
- const peers=page.locator('[data-peer]');const count=await peers.count();expect(count).toBeLessThanOrEqual(2);expect(count).toBeGreaterThan(0);
+ await page.locator('#openMarketRank').click();await page.locator('#openNearby').click();const peers=page.locator('[data-peer]');const count=await peers.count();expect(count).toBeLessThanOrEqual(2);expect(count).toBeGreaterThan(0);
  await expect(peers.first()).toContainText('서울');await expect(peers.first()).toContainText('%p');
  await peers.first().click();await expect(page.locator('#comparisonBack')).toBeInViewport();await expect(page.getByRole('heading',{level:1})).toHaveText('동아2차, 서울과 비교하면?');
  await expect(page.locator('#comparisonSelected')).not.toBeEmpty();

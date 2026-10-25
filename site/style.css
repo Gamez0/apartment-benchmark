@@ -84,3 +84,6 @@ main{padding-top:24px}.market-overview{position:relative}#contextHeading{font-si
 .landing-screen{display:contents}@media(max-width:700px){.landing-screen{display:flex;flex-direction:column;min-height:calc(100svh - 32px);margin-bottom:26px}.landing-screen>.market-overview{width:100%;margin:0}.landing-screen>.next-actions{width:100%;margin:24px 0 0;padding-top:0;flex-shrink:0}.landing-screen>.market-overview{margin-bottom:auto}.landing-screen>.next-actions{padding-bottom:env(safe-area-inset-bottom)}}
 
 @media(max-width:700px){.landing-screen>.next-actions{grid-template-columns:1fr 1fr}.landing-screen #openMarketRank{order:3;grid-column:1/-1}.landing-screen #openNearby,.landing-screen #openPurchase{font-size:14px;justify-content:center}}
+
+/* One primary next step per answer, never competing landing routes. */
+.landing-screen>.next-actions{grid-template-columns:1fr}.step-next{margin:24px 16px}.step-next>button{display:block;width:100%;min-height:52px;background:#234cda;color:#fff;text-align:left;font-weight:650;padding:14px 18px}.landing-screen #openMarketRank{order:0}.landing-screen #featuredComparisons{display:none}

@@ -317,3 +317,7 @@
 - Mobile landing groups answer and next actions into one natural-flow screen(minimum small viewport height). Flexible blank space before CTA; no fixed overlay, short/zoomed content can grow. Desktop layout unchanged. Existing width/first-viewport tests retain the new wrapper selectors. Public verification pending.
 
 - Verified eeca74e / Actions40191743685 job121164098238:81 browser checks passed(2.9m), Pages Reported success. Public390px mobile first screen shows answer, flexible blank space, compact secondary row and bottom primary “더 오른 곳은? →”; click opens high side. Public PC CTA label confirmed. Screenshot apartment-bottom-cta25.jpg outside repository. Decline-vs-underperformance category separation remains a separate pending request.
+
+## 2026-10-25 · one next action per answer
+- Landing contains only the own-home answer, period control and single bottom CTA. Move representative peer links into neighborhood results; move neighborhood CTA to citywide results and budget CTA to neighborhood results. All original control IDs, focus-return paths and source data remain intact.
+- Intended path: own-home → Seoul outperformance → neighborhood comparison → budget. Existing browser helper/intent tests now enter through that public path; first-screen check requires exactly one visible button and hidden later-stage CTAs. Public verification pending.
