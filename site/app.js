@@ -234,6 +234,7 @@ $('marketRankArea').onchange=()=>{$('areaScope').value=$('marketRankArea').value
 async function loadMarketRank(){
  if(marketRankReady){renderMarketRank();return;}
  if(marketRankRequest)return marketRankRequest;
+ $('openNearby').disabled=true;
  const version=++marketRankVersion,dataset=datasetVersion,manifest=seoulManifest;
  $('marketRankResults').innerHTML='';$('marketRankMore').hidden=true;$('marketRankRetry').hidden=true;$('marketRankStatus').setAttribute?.('data-ready','false');$('marketRankStatus').textContent='서울 25개구 자료를 불러오고 있어요…';
  marketRankRequest=(async()=>{try{
@@ -245,7 +246,7 @@ async function loadMarketRank(){
   if(version!==marketRankVersion||dataset!==datasetVersion)return;
   marketRankReady=true;render();
  }catch(e){if(version===marketRankVersion){marketRankReady=false;$('marketRankStatus').textContent='서울 전체를 연결하지 못해 순위를 표시하지 않았어요. 다시 불러올 수 있어요.';$('marketRankRetry').hidden=false;$('marketRankResults').innerHTML='';$('marketRankMore').hidden=true;}}
- finally{if(version===marketRankVersion)marketRankRequest=null;}})();return marketRankRequest;
+ finally{if(version===marketRankVersion){marketRankRequest=null;$('openNearby').disabled=false;}}})();return marketRankRequest;
 }
 function renderMarketRank(){
  document.querySelectorAll?.('[data-rank-side]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.rankSide===marketRankSide)));
