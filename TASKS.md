@@ -365,3 +365,5 @@
 - Public visual follow-up before final delivery:320px category/period overlap resolved. Remove an overlong category definition from the prominent benchmark line(meaning retained in the category/basis), avoid repeating the same negative return twice, and suppress the noninteractive title's automatic focus ring while keeping control keyboard indicators. These small visual fixes require a final deployment replay.
 
 - Final public route replay found the browser/page title could remain ‘loading’ after asynchronous real-trade data had already rendered. Refresh routed titles on detail completion/error and assert title equality with the completed detail. This is a verification defect fix; no new feature scope.
+
+- Last visual correction inside the50-minute work window: Seoul-wide moving previews also lead with district/dong, with apartment/area below, matching the earlier location-recognition requirement. Keep the same candidate identities/calculations; assert location-first heading in the existing move regression. No additional feature work after this change.
