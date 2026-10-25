@@ -7,7 +7,7 @@ test.beforeEach(async({page})=>{
 test('first visit shows the comparison answer without financial forms or deep tools',async({page})=>{
   await expect(page.getByRole('heading',{level:1})).toHaveText('동아2차, 서울과 비교하면?');
   await expect(page.locator('header')).toHaveCount(0);
-  const bounds=await page.locator('main > .market-overview,main > .next-actions,#trendFlow,#advancedFlow').evaluateAll(es=>es.map(e=>({x:e.getBoundingClientRect().x,width:e.getBoundingClientRect().width})));for(const box of bounds){expect(Math.abs(box.x-bounds[0].x)).toBeLessThan(1);expect(Math.abs(box.width-bounds[0].width)).toBeLessThan(1);}
+  const bounds=await page.locator('.landing-screen > .market-overview,.landing-screen > .next-actions,#trendFlow,#advancedFlow').evaluateAll(es=>es.map(e=>({x:e.getBoundingClientRect().x,width:e.getBoundingClientRect().width})));for(const box of bounds){expect(Math.abs(box.x-bounds[0].x)).toBeLessThan(1);expect(Math.abs(box.width-bounds[0].width)).toBeLessThan(1);}
   await expect(page.locator('.market-overview #heroEvidence')).toHaveCount(0);
   await expect(page.locator('#openMarketRank')).toHaveText('더 오른 곳은? →');
   await expect(page.locator('#overviewSources .overview-home')).toBeHidden();

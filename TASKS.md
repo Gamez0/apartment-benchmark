@@ -313,3 +313,5 @@
 
 ## 2026-10-25 · explicit outperformance CTA
 - Replace primary CTA “다른 아파트는? →” with “더 오른 곳은? →” as explicitly requested. Existing entry defaults to high outperformance. Update the existing exact-copy browser assertion. Deployment verification pending; no claim that low/decline categories were implemented by this copy change.
+
+- Mobile landing groups answer and next actions into one natural-flow screen(minimum small viewport height). Flexible blank space before CTA; no fixed overlay, short/zoomed content can grow. Desktop layout unchanged. Existing width/first-viewport tests retain the new wrapper selectors. Public verification pending.
