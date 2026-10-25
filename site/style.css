@@ -82,3 +82,5 @@ main{padding-top:24px}.market-overview{position:relative}#contextHeading{font-si
 
 /* First mobile screen: answer above, primary next action near the bottom. */
 .landing-screen{display:contents}@media(max-width:700px){.landing-screen{display:flex;flex-direction:column;min-height:calc(100svh - 32px);margin-bottom:26px}.landing-screen>.market-overview{width:100%;margin:0}.landing-screen>.next-actions{width:100%;margin:24px 0 0;padding-top:0;flex-shrink:0}.landing-screen>.market-overview{margin-bottom:auto}.landing-screen>.next-actions{padding-bottom:env(safe-area-inset-bottom)}}
+
+@media(max-width:700px){.landing-screen>.next-actions{grid-template-columns:1fr 1fr}.landing-screen #openMarketRank{order:3;grid-column:1/-1}.landing-screen #openNearby,.landing-screen #openPurchase{font-size:14px;justify-content:center}}
