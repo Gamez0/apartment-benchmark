@@ -323,3 +323,10 @@
 - Intended path: own-home → Seoul outperformance → neighborhood comparison → budget. Existing browser helper/intent tests now enter through that public path; first-screen check requires exactly one visible button and hidden later-stage CTAs. Public verification pending.
 
 - First route replay Actions40192408644:72/81 passed. Update purchase assertion to retain the preceding neighborhood answer. Preserve cold-network failure/race coverage by failing the first citywide preload batch in those two test setups before testing still-uncached target districts; no application-state mutation or weaker error assertions.
+
+
+### Verified single-action entry · 2026-10-25
+- Product d2b8203 / Actions40194198355 job121171425925:81 browser checks passed(3.1m), deployment success.
+- Replay40192994319:80/81; WebKit helper navigated during citywide loading. Replay40193616258:80/81; a section geometry sample became zero during a cross-step redraw. Product now disables the neighborhood next CTA until citywide loading settles. Existing assertions retained.
+- Public PC and390px mobile: landing contains exactly one button (“더 오른 곳은? →”), no representative peer links; mobile bottom placement and blank space confirmed. CTA → citywide ready → neighborhood question → budget inputs verified using visible UI. Proof apartment-single-next25.jpg outside repository.
+- PRODUCT_FLOW.md contains the target decision journey and route/state design; page routing, budget-before-shortlisting and final viewing shortlist are planned, not implemented by this delivery. Current temporary section sequence remains explicitly distinguished.
