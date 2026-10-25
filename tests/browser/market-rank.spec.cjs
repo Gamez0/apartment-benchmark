@@ -16,7 +16,7 @@ test('citywide high and low performance match an independent oracle and keep nei
   expect(await cards.evaluateAll(es=>es.map(e=>e.getAttribute('data-rank-key')))).toEqual(rows.slice(0,6).map(g=>g.key));
   if(rows.length){const gap=rows[0].stats[year][6]-oracle.market[year];await expect(cards.first().locator('.rank-gap')).toContainText(side==='decline'?rows[0].stats[year][6].toFixed(1)+'%':(gap>=0?'+':'')+gap.toFixed(1)+'%p');}
  }
- await page.locator('#marketRankSettings > summary').click();await page.locator('#marketRankArea').selectOption('all');const rows=expected('10','low','all');expect(await page.locator('#marketRankResults article').evaluateAll(es=>es.map(e=>e.getAttribute('data-rank-key')))).toEqual(rows.slice(0,6).map(g=>g.key));
+ await page.locator('[data-rank-side="low"]').click();await page.locator('#marketRankSettings > summary').click();await page.locator('#marketRankArea').selectOption('all');const rows=expected('10','low','all');expect(await page.locator('#marketRankResults article').evaluateAll(es=>es.map(e=>e.getAttribute('data-rank-key')))).toEqual(rows.slice(0,6).map(g=>g.key));
  if(rows.length>6){await page.locator('#marketRankMore').click();await expect(page.locator('#marketRankResults article')).toHaveCount(Math.min(12,rows.length));}
  const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();expect(scan.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)}))).toEqual([]);
 });

@@ -358,3 +358,5 @@
 - Add purchase-path review/accessibility/width/source-focus checks, keeping both purchase and sale-and-move journeys covered. Target114 browser executions across PC Chromium,320px Chromium and390px WebKit; all11 local calculation/import/oracle/finance suites passed.
 
 - Review uncovered an existing budget edit-handler loss when appending the ‘more candidates’ control through innerHTML. Bind the edit action after final markup assembly; purchase review scenario now verifies this real user action before selecting candidates.
+
+- Expanded114-case replay40205858602:111 passed,3 market-category scenarios failed. Real320px issue: the third category overlapped the period select; move the period to its own mobile row. Desktop/WebKit all-area oracle still expected the previous low side after the newly extended decline loop; explicitly choose low before that independent check. Retain all category/period/oracle assertions.
