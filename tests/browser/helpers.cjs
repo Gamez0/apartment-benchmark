@@ -1,5 +1,7 @@
+const {expect}=require('@playwright/test');
 async function openTools(page){
   await page.locator('#openMarketRank').click();
+  await expect.poll(async()=>await page.locator('#marketRankStatus').getAttribute('data-ready')==='true'||await page.locator('#marketRankRetry').isVisible(),{timeout:30000}).toBeTruthy();
   await page.locator('#openNearby').click();
   if(!await page.locator('#scopePanel').evaluate(e=>e.open))await page.locator('#scopePanel > summary').click();
   await page.locator('#openPurchase').click();
