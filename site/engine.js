@@ -60,9 +60,9 @@ function purchaseFit(price,scenario){
 }
 // Historical market-relative exploration; the same evidence requirements apply to both sides.
 function marketRanks(groups,bm,asOf,side){
- if(!Number.isFinite(bm)||!['high','low'].includes(side))return [];
+ if(!Number.isFinite(bm)||!['high','low','decline'].includes(side))return [];
  const end=Date.parse(asOf);if(!Number.isFinite(end))return [];
- return groups.filter(g=>{const date=Date.parse(g.latest);return !g.cancelled&&Number.isFinite(g.rate)&&g.current?.price>0&&g.previous?.price>0&&g.current.count>=5&&g.previous.count>=5&&Number.isFinite(date)&&date<=end&&end-date<=90*86400000;}).map(g=>({...g,excess:g.rate-bm})).filter(g=>side==='high'?g.excess>0:g.excess<0).sort((a,b)=>(side==='high'?b.excess-a.excess:a.excess-b.excess)||(a.key<b.key?-1:a.key>b.key?1:0));
+ return groups.filter(g=>{const date=Date.parse(g.latest);return !g.cancelled&&Number.isFinite(g.rate)&&g.current?.price>0&&g.previous?.price>0&&g.current.count>=5&&g.previous.count>=5&&Number.isFinite(date)&&date<=end&&end-date<=90*86400000;}).map(g=>({...g,excess:g.rate-bm})).filter(g=>side==='decline'?g.rate<0:side==='high'?g.rate>0&&g.excess>0:g.rate>=0&&g.excess<0).sort((a,b)=>(side==='high'?b.excess-a.excess:a.excess-b.excess)||(a.key<b.key?-1:a.key>b.key?1:0));
 }
 const api={marketRanks,purchaseScenario,purchaseFit,marketCarry,priorities,median,windowPrice,compare,benchmark,csv,normalizeTrades,holding,switchBudget};if(typeof module!=='undefined')module.exports=api;root.Engine=api;
 })(typeof window==='undefined'?globalThis:window);
