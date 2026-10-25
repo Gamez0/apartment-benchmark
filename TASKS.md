@@ -360,3 +360,6 @@
 - Review uncovered an existing budget edit-handler loss when appending the ‘more candidates’ control through innerHTML. Bind the edit action after final markup assembly; purchase review scenario now verifies this real user action before selecting candidates.
 
 - Expanded114-case replay40205858602:111 passed,3 market-category scenarios failed. Real320px issue: the third category overlapped the period select; move the period to its own mobile row. Desktop/WebKit all-area oracle still expected the previous low side after the newly extended decline loop; explicitly choose low before that independent check. Retain all category/period/oracle assertions.
+
+- ab26ac3 / Actions40206534627 job121208908593:114/114 browser checks passed(3.3m), all suites and independent134,328-comparison audit passed; Pages success. Source refresh now825,801 actual trades/33,582 unit-area groups, observation2026-07-31 and2015-01~2026-07 unchanged.
+- Public visual follow-up before final delivery:320px category/period overlap resolved. Remove an overlong category definition from the prominent benchmark line(meaning retained in the category/basis), avoid repeating the same negative return twice, and suppress the noninteractive title's automatic focus ring while keeping control keyboard indicators. These small visual fixes require a final deployment replay.

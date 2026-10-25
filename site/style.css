@@ -114,3 +114,6 @@ body:not([data-route="candidates"]):not([data-route="market"]) .selection-dock{d
 @media(max-width:700px){.rank-sides{display:flex;flex:1;min-width:0}.rank-sides button{flex:1;white-space:nowrap;padding:10px 9px;font-size:13px}.rank-toolbar{gap:12px}.review-page{padding:20px}.review-card h3{font-size:21px}.review-card .card-actions{display:flex;gap:8px}.review-card .card-actions button{min-height:44px}}
 
 @media(max-width:700px){.rank-toolbar{display:grid;grid-template-columns:1fr;justify-items:end}.rank-toolbar .rank-sides{width:100%;box-sizing:border-box}.rank-toolbar .compact-period{justify-self:end}.rank-sides button{min-width:0;min-height:44px}}
+
+/* Route titles receive programmatic focus, without looking like editable fields. */
+#contextHeading:focus,#flowTitle:focus{outline:none}
