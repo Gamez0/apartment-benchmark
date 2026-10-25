@@ -87,3 +87,14 @@ main{padding-top:24px}.market-overview{position:relative}#contextHeading{font-si
 
 /* One primary next step per answer, never competing landing routes. */
 .landing-screen>.next-actions{grid-template-columns:1fr}.step-next{margin:24px 16px}.step-next>button{display:block;width:100%;min-height:52px;background:#234cda;color:#fff;text-align:left;font-weight:650;padding:14px 18px}.landing-screen #openMarketRank{order:0}.landing-screen #featuredComparisons{display:none}
+
+/* Calm city illustration: decoration, never a price chart or another action. */
+.landing-illustration{display:flex;align-items:center;justify-content:center;margin:24px auto;width:100%;pointer-events:none}
+.landing-illustration>svg{width:300px;max-width:80%;height:auto;max-height:210px}
+.landing-screen .next-actions #openMarketRank{position:relative;display:flex;justify-content:center;align-items:center;min-height:60px;border:1px solid #315be1;border-radius:18px;background:#315be1;color:#fff;padding:16px 58px;font-size:17px;font-weight:650;line-height:1.4;box-shadow:0 6px 16px #315be11f;transition:background .16s,box-shadow .16s,transform .16s}
+.landing-screen #openMarketRank .cta-arrow{position:absolute;right:14px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#ffffff1c;font-size:20px;font-weight:400;line-height:1}
+.landing-screen .next-actions #openMarketRank:hover:not(:disabled){background:#254dcc;border-color:#254dcc;box-shadow:0 8px 20px #315be12b}
+.landing-screen .next-actions #openMarketRank:active:not(:disabled){transform:translateY(1px);box-shadow:0 2px 8px #315be11a}
+.landing-screen .next-actions #openMarketRank:disabled{opacity:.6;cursor:wait}
+@media(max-width:700px){.landing-screen>.market-overview{margin-bottom:0}.landing-screen>.landing-illustration{flex:1;min-height:120px;margin:16px 0}.landing-illustration>svg{width:280px;max-width:82%;max-height:210px}.landing-screen>.next-actions{margin-top:0}}
+@media(prefers-reduced-motion:reduce){.landing-screen .next-actions #openMarketRank{transition:none}}

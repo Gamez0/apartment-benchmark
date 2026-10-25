@@ -330,3 +330,7 @@
 - Replay40192994319:80/81; WebKit helper navigated during citywide loading. Replay40193616258:80/81; a section geometry sample became zero during a cross-step redraw. Product now disables the neighborhood next CTA until citywide loading settles. Existing assertions retained.
 - Public PC and390px mobile: landing contains exactly one button (“더 오른 곳은? →”), no representative peer links; mobile bottom placement and blank space confirmed. CTA → citywide ready → neighborhood question → budget inputs verified using visible UI. Proof apartment-single-next25.jpg outside repository.
 - PRODUCT_FLOW.md contains the target decision journey and route/state design; page routing, budget-before-shortlisting and final viewing shortlist are planned, not implemented by this delivery. Current temporary section sequence remains explicitly distinguished.
+
+## 2026-10-25 · calm first-step illustration and CTA refinement
+- Add a small decorative native SVG apartment scene in the flexible landing space, without numbers, trends or extra actions. Mark decorative/untabbable; no external asset request or synthetic price implication.
+- Center the existing primary CTA label, separate arrow affordance, rounded18px corners,60px touch height, restrained hover/pressed/loading states and reduced-motion support. Keep first-screen one-action contract and responsive content growth. Existing regression plus public PC/mobile visual verification is the completion gate.
