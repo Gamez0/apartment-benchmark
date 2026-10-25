@@ -308,3 +308,5 @@
 - Move settings/calculation evidence out of hero to page bottom, closed by default; retain controls and source access. Shorten primary next action to “다른 아파트는? →”; high/low choice belongs after entry. Completion: no evidence between hero answer and next action; browser regression and public PC/mobile check.
 
 - Citywide candidate identity now leads with district/dong in the card heading; apartment name and exclusive area remain together below. Location supports recognition across Seoul; numerical gap remains the answer.
+
+- Verified5af2126 / Actions40189492928:81 browser checks passed(2.8m) and deployment published. Public desktop/390px mobile confirms no evidence in hero, short next action, location-first headings with apartment/area below. Existing11 local suites passed; source policy unchanged. Proof apartment-location-first25.jpg outside repository.
