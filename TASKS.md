@@ -334,3 +334,6 @@
 ## 2026-10-25 · calm first-step illustration and CTA refinement
 - Add a small decorative native SVG apartment scene in the flexible landing space, without numbers, trends or extra actions. Mark decorative/untabbable; no external asset request or synthetic price implication.
 - Center the existing primary CTA label, separate arrow affordance, rounded18px corners,60px touch height, restrained hover/pressed/loading states and reduced-motion support. Keep first-screen one-action contract and responsive content growth. Existing regression plus public PC/mobile visual verification is the completion gate.
+
+- Verified40fccb5 / Actions40198260048 job121183711420:81 browser checks passed(3.3m), Pages success. Public PC and390px mobile: decorative illustration, centered CTA, one landing button, next-step opening confirmed. Proof apartment-calm-city25.jpg outside repository. Actual apartment photo not obtained or displayed.
+- Actual photo follow-up: user suggests a shallow image between apartment heading and relative result. Resume when a verified source photo with suitable reuse permission or a directly provided photo is available; generic illustration is not identified as the actual complex. No Naver automated image collection performed.
