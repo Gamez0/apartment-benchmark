@@ -1,8 +1,8 @@
 /* URL-backed screens. Private form values stay in the existing in-memory DOM. */
 (()=>{
- const panels={home:'.landing-screen',market:'#marketRankFlow',candidates:'#nearbyFlow',budget:'#purchaseFlow',compare:'#trendFlow',detail:'#detail',advanced:'#advancedFlow',evidence:'#evidencePage'};
- const names={home:'내 집, 서울과 비교하면?',market:'서울 시장과 차이가 큰 곳은?',candidates:'우리 동네와 비교하면?',budget:'내 예산으로 어디를 살 수 있을까?',compare:'가격 흐름과 실제 거래',detail:'실제 거래 상세',advanced:'다른 기준으로 계산하기',evidence:'설정과 데이터 출처'};
- const byId={marketRankFlow:'market',nearbyFlow:'candidates',purchaseFlow:'budget',trendFlow:'compare',detail:'detail',advancedFlow:'advanced',evidencePage:'evidence'};
+ const panels={home:'.landing-screen',market:'#marketRankFlow',candidates:'#nearbyFlow',budget:'#purchaseFlow',move:'#switchPanel',compare:'#trendFlow',detail:'#detail',advanced:'#advancedFlow',evidence:'#evidencePage'};
+ const names={home:'내 집, 서울과 비교하면?',market:'서울 시장과 차이가 큰 곳은?',candidates:'우리 동네와 비교하면?',budget:'내 예산으로 어디를 살 수 있을까?',move:'우리 집을 팔면 어디까지 갈 수 있을까?',compare:'가격 흐름과 실제 거래',detail:'실제 거래 상세',advanced:'다른 기준으로 계산하기',evidence:'설정과 데이터 출처'};
+ const byId={marketRankFlow:'market',nearbyFlow:'candidates',purchaseFlow:'budget',switchPanel:'move',trendFlow:'compare',detail:'detail',advancedFlow:'advanced',evidencePage:'evidence'};
  const $=id=>document.getElementById(id),positions=new Map();let active='home',serial=0,entryKey=null,applying=false,ready=false;
  const parse=()=>location.hash.replace(/^#\/?/,'')||'home';
  const state=()=>history.state?.apartmentFlow?history.state:null;
@@ -12,6 +12,7 @@
  function paint(restore=false){
   applying=true;document.body.dataset.route=active;
   document.querySelectorAll('main > [data-page]').forEach(e=>{const on=e.dataset.page===active;e.hidden=!on;e.inert=!on;e.toggleAttribute('data-active',on);if(on&&e.tagName==='DETAILS')e.open=true;});
+  document.querySelectorAll('a[data-route]').forEach(a=>{if(a.dataset.route===active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   $('flowNavigation').hidden=active==='home';$('flowTitle').hidden=active==='home';title();
   for(const [id,page]of Object.entries(byId)){const button={marketRankFlow:'openMarketRank',nearbyFlow:'openNearby',purchaseFlow:'openPurchase'}[id];if(button)$(button).setAttribute('aria-expanded',String(page===active));}
   const saved=restore?positions.get(state()?.key):null,page=active;
@@ -28,7 +29,7 @@
  function back(){save();if(state()?.depth>0)history.back();else move('home',{replace:true});}
  function open(id,target=id){const page=byId[id]||document.getElementById(id)?.closest('[data-page]')?.dataset.page;if(!page)return;
   if(page===active){const e=$(target);if(target!==id)e?.scrollIntoView({behavior:'instant',block:'start'});return;}
-  if(state()?.parent===page){back();return;}move(page);
+  move(page);
  }
  window.FlowRouter={open,back,ready(){ready=true;title();if(active==='market')loadMarketRank();},refresh:title};
  $('contextHeading').tabIndex=-1;$('flowBack').onclick=back;
@@ -37,8 +38,9 @@
  });
  // Root summaries are page titles; secondary disclosure remains native.
  for(const [id,page]of Object.entries(byId)){const root=$(id);if(root?.tagName==='DETAILS'){root.ontoggle=()=>{};root.querySelector(':scope > summary').addEventListener('click',e=>e.preventDefault());}}
- window.addEventListener('popstate',()=>{save();entryKey=state()?.key;active=panels[parse()]?parse():'home';$('routeStatus').textContent='';paint(true);});
+ window.addEventListener('popstate',()=>{if(!state()||!panels[parse()]||(parse()==='detail'&&!$('detailTitle').textContent)){move(parse(),{replace:true});return;}save();entryKey=state().key;active=parse();$('routeStatus').textContent='';paint(true);});
  window.addEventListener('hashchange',()=>{if(parse()!==active)move(parse(),{replace:true});});
+ history.scrollRestoration='manual';
  const initial=parse();active=panels[initial]?initial:'home';history.replaceState({apartmentFlow:true,key:Date.now()+'-'+(++serial),page:active,depth:0},'','#/'+active);
  entryKey=state()?.key;
  if(initial!==active||active==='detail')move(initial,{replace:true});else paint();

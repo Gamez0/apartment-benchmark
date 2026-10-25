@@ -2,7 +2,7 @@ const {test,expect}=require('@playwright/test');
 const {visit}=require('./helpers.cjs');
 test.beforeEach(async({page})=>{await page.goto('/');await expect(page.locator('#scopeStatus')).toContainText('공식 자료');await page.locator('#openMarketRank').click();});
 test('nearby cards answer relative performance before price and return from evidence',async({page})=>{
- await page.locator('#openNearby').click();await expect(page.locator('#nearbyHeading')).toContainText('동아2차');
+ await page.locator('#openPurchase').click();await page.locator('#openNearby').click();await expect(page.locator('#nearbyHeading')).toContainText('동아2차');
  const card=page.locator('#results article').first();await expect(card.locator('.baseline-relative')).toBeVisible();await expect(card.locator('.excess')).toBeHidden();
  const positions=await card.evaluate(e=>({answer:e.querySelector('.baseline-relative').getBoundingClientRect().top,price:e.querySelector('.row').getBoundingClientRect().top}));expect(positions.answer).toBeLessThan(positions.price);
  await card.locator('[data-add]').click();await expect(page.locator('#comparisonAnswer')).not.toBeEmpty();await expect(page.locator('#comparisonBack')).toBeInViewport();
@@ -10,7 +10,7 @@ test('nearby cards answer relative performance before price and return from evid
  await page.locator('#detailEvidence > summary').click();await expect(page.locator('#stats')).toBeVisible();await page.locator('#close').click();await expect(page.locator('#results')).toBeInViewport();await expect(card.locator('[data-add]')).toHaveAttribute('aria-pressed','true');
 });
 test('budget keeps funds through region selection, offers empty-state recovery and returns from a candidate',async({page})=>{
- await page.locator('#openNearby').click();await page.locator('#openPurchase').click();await page.locator('#buyOwn').fill('3');await page.locator('#buyLoan').fill('6');
+ await page.locator('#openPurchase').click();await page.locator('#buyOwn').fill('3');await page.locator('#buyLoan').fill('6');
  await page.locator('#purchaseScope').click();await expect(page.locator('#scopeUseForPurchase')).toBeVisible();await page.locator('#dong').selectOption('구로동');await page.locator('#scopeUseForPurchase').click();await expect(page.locator('#purchaseScope')).toBeFocused();await expect(page.locator('#buyOwn')).toHaveValue('3');
  await page.locator('#purchaseCalculate').click();await expect(page.locator('#editPurchase')).toBeInViewport();await page.locator('#editPurchase').click();await expect(page.locator('#buyOwn')).toBeFocused();
  await page.locator('#buyOwn').fill('0');await page.locator('#buyLoan').fill('0');await page.locator('#purchaseCalculate').click();await expect(page.locator('#expandPurchaseArea')).toBeVisible();await page.locator('#expandPurchaseArea').click();await expect(page.locator('#buyArea')).toHaveValue('all');
@@ -20,6 +20,6 @@ test('budget keeps funds through region selection, offers empty-state recovery a
 test('secondary calculations show a relative answer and keep raw statistics and tables optional',async({page})=>{
  await visit(page,'advanced');await page.locator('#marketPanel > summary').click();await page.locator('#marketPeriodChoice').selectOption('5');await expect(page.locator('#marketPeriod')).toHaveValue('5');await expect(page.locator('#marketChart svg')).toBeVisible();
  await page.locator('#holdingPanel > summary').click();await expect(page.locator('#holdingStatus')).toBeEmpty();await page.locator('#holdingDate').fill('2016-07-01');await page.locator('#holdingPrice').fill('5');await page.locator('#holdingCalculate').click();await expect(page.locator('#holdingResult > .section-answer')).toContainText('서울 대비');await expect(page.locator('#holdingResult .stats')).toBeHidden();await expect(page.locator('#editHolding')).toBeInViewport();await page.locator('#editHolding').click();await expect(page.locator('#holdingDate')).toBeFocused();
- await page.locator('[aria-label="갈아타기 예산"] > summary').click();await page.locator('#switchExtra').fill('5');await page.locator('#switchCalculate').click();await expect(page.locator('.switch-preview article')).toHaveCount(3);await expect(page.locator('#switchResult table')).toBeHidden();await expect(page.locator('#editSwitch')).toBeInViewport();await page.locator('[data-switch-detail]').first().click();await expect(page.locator('#priceChart svg')).toBeVisible();await page.locator('#close').click();await expect(page.locator('#switchResult')).toBeInViewport();
+ await visit(page,'move');await page.locator('#switchExtra').fill('5');await page.locator('#switchCalculate').click();await expect(page.locator('.switch-preview article')).toHaveCount(3);await expect(page.locator('#switchResult table')).toBeHidden();await expect(page.locator('#editSwitch')).toBeInViewport();await page.locator('[data-switch-detail]').first().click();await expect(page.locator('#priceChart svg')).toBeVisible();await page.locator('#close').click();await expect(page.locator('#switchResult')).toBeInViewport();
 });
 

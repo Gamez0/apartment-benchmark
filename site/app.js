@@ -217,8 +217,11 @@ $('holdingPanel').ontoggle=async()=>{if(!$('holdingPanel').open||!seoulManifest|
 function openFlow(id,target=id){if(globalThis.FlowRouter)return globalThis.FlowRouter.open(id,target);$(id).hidden=false;$(id).open=true;$(target).scrollIntoView({behavior:'smooth',block:'start'});$(id).querySelector?.('summary')?.focus?.({preventScroll:true});}
 $('openPurchase').onclick=()=>openFlow('purchaseFlow');
 $('openNearby').onclick=()=>{$('scopeUseForPurchase').hidden=true;openFlow('nearbyFlow');};
-$('scopeUseForPurchase').onclick=()=>{$('scopePanel').open=false;$('scopeUseForPurchase').hidden=true;openFlow('purchaseFlow');$('buyOwn').focus?.({preventScroll:true});};
-$('purchaseScope').onclick=()=>{$('scopeUseForPurchase').hidden=false;openFlow('nearbyFlow');$('scopePanel').open=true;$('districtScope').focus?.();};
+let scopeReturnFlow='purchaseFlow';
+$('moveScope').onclick=()=>{scopeReturnFlow='switchPanel';$('scopeUseForPurchase').hidden=false;openFlow('nearbyFlow');$('scopePanel').open=true;$('districtScope').focus?.();};
+
+$('scopeUseForPurchase').onclick=()=>{$('scopePanel').open=false;$('scopeUseForPurchase').hidden=true;if(globalThis.FlowRouter)globalThis.FlowRouter.back();else openFlow(scopeReturnFlow);$(scopeReturnFlow==='switchPanel'?'switchExtra':'buyOwn').focus?.({preventScroll:true});};
+$('purchaseScope').onclick=()=>{scopeReturnFlow='purchaseFlow';$('scopeUseForPurchase').hidden=false;openFlow('nearbyFlow');$('scopePanel').open=true;$('districtScope').focus?.();};
 ['heroPeriod','nearbyPeriod','chartPeriod','detailPeriod','marketRankPeriod'].forEach(id=>$(id).onchange=()=>{$('period').value=$(id).value;visibleCount=6;render();});
 $('openFunding').onclick=()=>{$('fundingDetails').open=true;$('buyLtv').focus?.();};
 function fundingSummary(){const ltv=$('buyLtv').value||'—',rate=$('buyInterest').value||'—',years=$('buyYears').value||'—';$('fundingSummary').textContent=`LTV ${ltv}% · 금리 ${rate}% · ${years}년 가정`;}

@@ -13,7 +13,7 @@ test('detail history preserves low side, selected candidate, source focus and li
  await page.goForward();await expect(page).toHaveURL(/#\/detail$/);await expect(page.locator('#detailTitle')).not.toBeEmpty();
 });
 test('sequential budget navigation keeps funds through region edit and never puts money in URL/history',async({page})=>{
- await start(page);await market(page);await page.locator('#openNearby').click();await expect(page).toHaveURL(/#\/candidates$/);await expect(page.locator('#marketRankFlow')).toBeHidden();await page.locator('#openPurchase').click();await expect(page).toHaveURL(/#\/budget$/);await expect(page.locator('#results')).toBeHidden();
+ await start(page);await market(page);await page.locator('#openPurchase').click();await expect(page.locator('#marketRankFlow')).toBeHidden();await expect(page).toHaveURL(/#\/budget$/);await expect(page.locator('#results')).toBeHidden();
  await page.locator('#buyOwn').fill('987.6543');await page.locator('#buyLoan').fill('0');await page.locator('#purchaseScope').click();await expect(page).toHaveURL(/#\/candidates$/);await page.locator('#dong').selectOption('구로동');await page.locator('#scopeUseForPurchase').click();await expect(page).toHaveURL(/#\/budget$/);await expect(page.locator('#buyOwn')).toHaveValue('987.6543');expect(page.url()).not.toContain('987.6543');expect(await page.evaluate(()=>JSON.stringify(history.state))).not.toContain('987.6543');
  await page.reload();await expect(page).toHaveURL(/#\/budget$/);await expect(page.locator('#buyOwn')).toHaveValue('');await expect(page.locator('#purchaseResult')).toBeEmpty();
 });
