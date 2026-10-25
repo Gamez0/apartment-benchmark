@@ -303,3 +303,6 @@
 - Product d72148852 / Actions40118423865 job120944601779:81 browser checks passed (2.8m), Pages Reported success. All existing local suites, independent published-data audit and new symmetric eligibility boundaries passed.
 - Public seoul-ranks25 desktop and390px mobile: all25 district summaries loaded; high/low switches change actual candidates; default1year75–95㎡ high first 신동아84.81㎡ +46.7%p, low first 래미안원베일리84.98㎡ -20.9%p, against Seoul +14.6%, observation2026-07-31. These are eligible historical samples, not forecasts.
 - Public detail headline preserves Seoul benchmark; graph opens with Seoul-relative question; returning preserves low side. PC uses three columns, mobile one, with common section width. Mobile proof apartment-seoul-rank-high25.jpg saved outside repository. Browser emulation remains distinct from physical-device evaluation.
+
+## 2026-10-25 · uninterrupted answer-to-exploration
+- Move settings/calculation evidence out of hero to page bottom, closed by default; retain controls and source access. Shorten primary next action to “다른 아파트는? →”; high/low choice belongs after entry. Completion: no evidence between hero answer and next action; browser regression and public PC/mobile check.
