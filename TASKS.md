@@ -363,3 +363,5 @@
 
 - ab26ac3 / Actions40206534627 job121208908593:114/114 browser checks passed(3.3m), all suites and independent134,328-comparison audit passed; Pages success. Source refresh now825,801 actual trades/33,582 unit-area groups, observation2026-07-31 and2015-01~2026-07 unchanged.
 - Public visual follow-up before final delivery:320px category/period overlap resolved. Remove an overlong category definition from the prominent benchmark line(meaning retained in the category/basis), avoid repeating the same negative return twice, and suppress the noninteractive title's automatic focus ring while keeping control keyboard indicators. These small visual fixes require a final deployment replay.
+
+- Final public route replay found the browser/page title could remain ‘loading’ after asynchronous real-trade data had already rendered. Refresh routed titles on detail completion/error and assert title equality with the completed detail. This is a verification defect fix; no new feature scope.
