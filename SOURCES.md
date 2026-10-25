@@ -25,3 +25,8 @@
 ## 단지 이미지 (2026-10-25 확인)
 - 네이버 공식 접근 정책 https://policy.naver.com/rules/disclaimer.html : 자동 수집 예외는 명시 허용/사전 승낙, 적법한 API 이용, 개발자 가이드/robots 허용 범위. 허용되지 않은 크롤링이나 차단 우회는 수행하지 않음.
 - 검색에서 단지 사진이 보이는 것만으로 공개 서비스 복제 권한을 확정하지 않음. 이번 배포는 자체 작성한 장식 SVG이며 실제 단지 사진·시세 그래프가 아님. 검증된 실제 이미지 및 재사용 조건은 아직 확보하지 못함.
+
+
+## UX 참고(2026-10-26 한국 시간 확인)
+- Toss Tech https://toss.tech/article/mydoc : 사용자의 목적과 행동을 기준으로 구성하는 사례.
+- GOV.UK https://design-system.service.gov.uk/patterns/question-pages/ 및 https://design-system.service.gov.uk/patterns/check-answers/ : 질문 집중, 뒤로가기, 답 요약과 수정. 이번 구현의 해석과 적용은 UX_FLOW_REVIEW.md에 기록. 거래/BM 데이터 원천이 아니며 투자 타당성 근거로 사용하지 않음.

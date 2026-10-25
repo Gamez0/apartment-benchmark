@@ -356,3 +356,5 @@
 - Visual follow-up: show actual negative return as the primary answer in the decline category and signed Seoul gap as supporting text. Moving route exposes period/area only on demand and names the currently selected destination. Preserve shortlist-source keyboard focus and focus a remaining item after removal. Existing move freshness check now includes period changes.
 
 - Add purchase-path review/accessibility/width/source-focus checks, keeping both purchase and sale-and-move journeys covered. Target114 browser executions across PC Chromium,320px Chromium and390px WebKit; all11 local calculation/import/oracle/finance suites passed.
+
+- Review uncovered an existing budget edit-handler loss when appending the ‘more candidates’ control through innerHTML. Bind the edit action after final markup assembly; purchase review scenario now verifies this real user action before selecting candidates.
