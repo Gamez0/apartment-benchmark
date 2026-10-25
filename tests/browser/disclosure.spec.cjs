@@ -8,10 +8,12 @@ test('first visit shows the comparison answer without financial forms or deep to
   await expect(page.getByRole('heading',{level:1})).toHaveText('동아2차, 서울과 비교하면?');
   await expect(page.locator('header')).toHaveCount(0);
   const bounds=await page.locator('main > .market-overview,main > .next-actions,#trendFlow,#advancedFlow').evaluateAll(es=>es.map(e=>({x:e.getBoundingClientRect().x,width:e.getBoundingClientRect().width})));for(const box of bounds){expect(Math.abs(box.x-bounds[0].x)).toBeLessThan(1);expect(Math.abs(box.width-bounds[0].width)).toBeLessThan(1);}
+  await expect(page.locator('.market-overview #heroEvidence')).toHaveCount(0);
+  await expect(page.locator('#openMarketRank')).toHaveText('다른 아파트는? →');
   await expect(page.locator('#overviewSources .overview-home')).toBeHidden();
   for(const id of ['purchaseFlow','nearbyFlow','trendFlow','advancedFlow','scopePanel'])await expect(page.locator('#'+id)).toHaveJSProperty('open',false);
   await expect(page.locator('#buyOwn')).toBeHidden();await expect(page.locator('#results')).toBeHidden();await expect(page.locator('#comparisonChart')).toBeHidden();
-  await expect(page.locator('input:visible')).toHaveCount(0);await expect(page.locator('select:visible')).toHaveCount(1);await expect(page.locator('#nearbyLeader')).toBeHidden();await expect(page.locator('#snapshotNote')).toBeHidden();await page.locator('#heroEvidence > summary').click();await expect(page.locator('#snapshotNote')).toContainText('2026년 07월');await expect(page.locator('#overviewSources .overview-home')).toBeVisible();await page.locator('#heroEvidence > summary').click();
+  await expect(page.locator('input:visible')).toHaveCount(0);await expect(page.locator('select:visible')).toHaveCount(1);await expect(page.locator('#nearbyLeader')).toBeHidden();await expect(page.locator('#snapshotNote')).toBeHidden();await page.locator('#heroEvidence > summary').click();await expect(page.locator('#snapshotNote')).toContainText('2026년 07월');await expect(page.locator('#overviewSources .overview-home')).toBeVisible();await page.locator('#heroEvidence > summary').click();await page.locator('#contextHeading').scrollIntoViewIfNeeded();
   await expect(page.locator('#openPurchase')).toBeVisible();await expect(page.locator('#openNearby')).toBeVisible();
   expect(await page.locator('#openPurchase').evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(page.viewportSize().height);
   expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);

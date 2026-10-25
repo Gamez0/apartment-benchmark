@@ -306,3 +306,5 @@
 
 ## 2026-10-25 · uninterrupted answer-to-exploration
 - Move settings/calculation evidence out of hero to page bottom, closed by default; retain controls and source access. Shorten primary next action to “다른 아파트는? →”; high/low choice belongs after entry. Completion: no evidence between hero answer and next action; browser regression and public PC/mobile check.
+
+- Citywide candidate identity now leads with district/dong in the card heading; apartment name and exclusive area remain together below. Location supports recognition across Seoul; numerical gap remains the answer.
