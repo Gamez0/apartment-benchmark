@@ -42,7 +42,7 @@
 - [x] 보유기간 성과: 실제 매입가 대비 현재 동일 단지·면적 거래 중간값의 가격 차이, 누적/연평균 상승률, 같은 기간 지역 BM과 금리. 현재 값은 감정가나 확정 매도가가 아님.
 - [ ] 과거 대안 비교 (화면·예산 및 현금 잔액 계산 구현, 실제 장기 자료와 재건축 식별 검증 남음): 매입 당시 비슷한 총 매입 예산으로 거래 근거가 있는 단지·면적만 선정. 동일 기준일 현재 가치와 기준 주택 대비 가격 차이를 표시. 10년 비교를 위해 기준 매입 시점 앞 거래창까지 원천 자료 범위를 확장.
 - [ ] 대안 비교의 최고·최저는 확보된 표본 안의 결과로만 표시. 당시 살 수 없던 물건, 면적 혼합, 재건축 전후 동일 자산 오인, 취소·희소 거래로 인한 착시 방지. 시세차익 우선; 비용 포함 여부 명시.
-- [ ] 갈아타기 후보: 현재 추정 매도가에서 남은 대출과 매도 비용을 빼고 추가 자금·대출·매수 비용을 반영한 예산으로 후보 탐색. 사용자 입력 없이 예산이나 대출 가능액을 단정하지 않음.
+- [x] 갈아타기 후보: 현재 추정 매도가에서 남은 대출과 매도 비용을 빼고 추가 자금·대출·매수 비용을 반영한 예산으로 후보 탐색. 사용자 입력 없이 예산이나 대출 가능액을 단정하지 않음.
 - [ ] 후보 이유 표시: 예산 적합성, 1/3/5년 상승률과 BM 대비, 거래 건수·최근성, 사용자 생활 조건. 과거 상승률만으로 미래 수익 보장이나 최적 투자처 단정 금지.
 - 후순위: 임대 오피스텔. 매매 가격 변화 + 실제 수취 월세 - 공실·보유/운영 비용으로 총수익을 비교. 보증금은 수익에 더하지 않고 대출·보증금 반영 투입자본 수익률은 별도로 구분. 임대 매물 호가와 신고된 계약 월세를 구분하고 동일 면적·보증금 조건으로 비교. 가격 분석과 임대 수익 분석의 자료를 먼저 분리.
 - 개인 입력이 없어도 화면·계산·검증을 먼저 만들 수 있음. 특정 보유 주택에 대한 정확한 결과만 입력 확보 후 계산.
@@ -367,3 +367,10 @@
 - Final public route replay found the browser/page title could remain ‘loading’ after asynchronous real-trade data had already rendered. Refresh routed titles on detail completion/error and assert title equality with the completed detail. This is a verification defect fix; no new feature scope.
 
 - Last visual correction inside the50-minute work window: Seoul-wide moving previews also lead with district/dong, with apartment/area below, matching the earlier location-recognition requirement. Keep the same candidate identities/calculations; assert location-first heading in the existing move regression. No additional feature work after this change.
+
+### Time-box wrap-up · 2026-10-26 Korea
+- Publicly verified delivery remains ab26ac388 / Actions40206534627:114/114 passed and Pages success. Actual PC and320px/390px browser screens confirm URL-backed navigation, separated decline category, purchase/move paths, Seoul-wide destination selection, budget results, selected shortlist and transaction-detail return. Private amounts were synthetic QA inputs, not personal records.
+- Final polish code230c64747:location-first moving previews, quieter titles/shorter benchmark line, and async detail-title completion. Actions40207720491:113/114 passed; the sole390px WebKit nearby-to-comparison scenario timed out without an assertion mismatch. This run did not deploy. Requested one failed-job rerun, with unchanged assertions. At wrap-up its result/public deployment is not yet verified; do not describe these final polish changes as published.
+- Resume by reading latest attempt of40207720491. If successful, inspect public location-first moving previews and completed detail title, then append deployment proof. If timeout repeats, inspect the saved browser trace/error context before changing code or timeouts. No user input is needed for this verification.
+- Scoped research and flow rationale are in UX_FLOW_REVIEW.md / PRODUCT_FLOW.md. Existing source/eligibility policies remain; source scope2015-01~2026-07, observation2026-07-31. Browser emulation is not physical-device QA.
+- Mobile public proof apartment-flow-summary26.jpg saved outside repository; no private facts or screenshots committed. Remaining source-photo/rights, reconstruction continuity, lifestyle suitability and net-rental-income work remains bounded in prior tasks. No new features were added to prolong the time box.

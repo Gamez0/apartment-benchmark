@@ -30,3 +30,5 @@
 ## UX 참고(2026-10-26 한국 시간 확인)
 - Toss Tech https://toss.tech/article/mydoc : 사용자의 목적과 행동을 기준으로 구성하는 사례.
 - GOV.UK https://design-system.service.gov.uk/patterns/question-pages/ 및 https://design-system.service.gov.uk/patterns/check-answers/ : 질문 집중, 뒤로가기, 답 요약과 수정. 이번 구현의 해석과 적용은 UX_FLOW_REVIEW.md에 기록. 거래/BM 데이터 원천이 아니며 투자 타당성 근거로 사용하지 않음.
+
+- 2026-10-26 재조회·배포 감사(Actions40206534627):서울25구825,801거래·33,582단지/면적·134,328기간 계산 대조 통과. 범위2015-01~2026-07·관측일2026-07-31 유지. 취소/직거래/토지임대부 제외 및 기존 체크포인트 재조회 정책 유지. 직전 총계와 달라진 개별 원인은 원천 행별 대조 없이 단정하지 않음.
