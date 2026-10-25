@@ -337,3 +337,10 @@
 
 - Verified40fccb5 / Actions40198260048 job121183711420:81 browser checks passed(3.3m), Pages success. Public PC and390px mobile: decorative illustration, centered CTA, one landing button, next-step opening confirmed. Proof apartment-calm-city25.jpg outside repository. Actual apartment photo not obtained or displayed.
 - Actual photo follow-up: user suggests a shallow image between apartment heading and relative result. Resume when a verified source photo with suitable reuse permission or a directly provided photo is available; generic illustration is not identified as the actual complex. No Naver automated image collection performed.
+
+
+## 2026-10-25 · real URL-backed flow screens
+- Scoped completion: CTA changes URL and active screen; home/market/candidates/budget/comparison/detail/advanced/evidence each isolate prior content and tab order. Native Back/Forward and in-app return restore in-memory selection, inputs, focus and scroll. No financial values in URLs/history/storage; reload clears funds.
+- Add lightweight hash router, preserve existing calculation engine and lazy official data pipeline, content-version router.js during build. Guard unknown/unselected detail routes and load direct market links after official initialization.
+- Adapt original81 browser scenarios to screen-specific controls while preserving numeric, source/race, financial and accessibility assertions. Add15 route/history/deep-link/privacy/keyboard executions. Existing11 local suites passed; public verification remains pending.
+- User authorizes50min research/improvement then10min finish window. Prioritize completing/validating routing, then integrate sale-and-move into the budget decision using existing net-sale calculation; no unverified future recommendation.

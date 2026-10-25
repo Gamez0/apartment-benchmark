@@ -98,3 +98,11 @@ main{padding-top:24px}.market-overview{position:relative}#contextHeading{font-si
 .landing-screen .next-actions #openMarketRank:disabled{opacity:.6;cursor:wait}
 @media(max-width:700px){.landing-screen>.market-overview{margin-bottom:0}.landing-screen>.landing-illustration{flex:1;min-height:120px;margin:16px 0}.landing-illustration>svg{width:280px;max-width:82%;max-height:210px}.landing-screen>.next-actions{margin-top:0}}
 @media(prefers-reduced-motion:reduce){.landing-screen .next-actions #openMarketRank{transition:none}}
+
+/* A route shows one screen, including for keyboard and assistive technology. */
+main>[data-page]:not([data-active]){display:none!important}main>[data-page][data-active][hidden]{display:none!important}
+.flow-navigation{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:0 0 16px}.flow-navigation[hidden]{display:none}.flow-navigation button{border:0;background:transparent;padding:10px 0;margin:0;color:#536179;font-size:14px}.flow-navigation a{font-size:13px;color:#536179;padding:12px 0;text-decoration:none}
+body:not([data-route="home"]) .flow-panel{margin-top:0}body:not([data-route="home"]) .flow-panel>summary{cursor:default}body:not([data-route="home"]) .flow-panel>summary:after{display:none}
+.home-extras{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;margin:24px 0;font-size:13px}.home-extras a{display:flex;align-items:center;min-height:44px;color:#536179;text-decoration:none}
+#routeStatus:empty{display:none}#routeStatus{font-size:14px;color:#536179}#evidencePage{padding:22px;background:#fff;border-radius:16px}body[data-route="detail"] #detail{margin-top:0}
+body:not([data-route="candidates"]):not([data-route="market"]) .selection-dock{display:none!important}
