@@ -315,3 +315,5 @@
 - Replace primary CTA “다른 아파트는? →” with “더 오른 곳은? →” as explicitly requested. Existing entry defaults to high outperformance. Update the existing exact-copy browser assertion. Deployment verification pending; no claim that low/decline categories were implemented by this copy change.
 
 - Mobile landing groups answer and next actions into one natural-flow screen(minimum small viewport height). Flexible blank space before CTA; no fixed overlay, short/zoomed content can grow. Desktop layout unchanged. Existing width/first-viewport tests retain the new wrapper selectors. Public verification pending.
+
+- Verified eeca74e / Actions40191743685 job121164098238:81 browser checks passed(2.9m), Pages Reported success. Public390px mobile first screen shows answer, flexible blank space, compact secondary row and bottom primary “더 오른 곳은? →”; click opens high side. Public PC CTA label confirmed. Screenshot apartment-bottom-cta25.jpg outside repository. Decline-vs-underperformance category separation remains a separate pending request.
