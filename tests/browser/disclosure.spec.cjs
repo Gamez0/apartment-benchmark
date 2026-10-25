@@ -9,7 +9,7 @@ test('first visit shows the comparison answer without financial forms or deep to
   await expect(page.locator('header')).toHaveCount(0);
   const bounds=await page.locator('main > .market-overview,main > .next-actions,#trendFlow,#advancedFlow').evaluateAll(es=>es.map(e=>({x:e.getBoundingClientRect().x,width:e.getBoundingClientRect().width})));for(const box of bounds){expect(Math.abs(box.x-bounds[0].x)).toBeLessThan(1);expect(Math.abs(box.width-bounds[0].width)).toBeLessThan(1);}
   await expect(page.locator('.market-overview #heroEvidence')).toHaveCount(0);
-  await expect(page.locator('#openMarketRank')).toHaveText('다른 아파트는? →');
+  await expect(page.locator('#openMarketRank')).toHaveText('더 오른 곳은? →');
   await expect(page.locator('#overviewSources .overview-home')).toBeHidden();
   for(const id of ['purchaseFlow','nearbyFlow','trendFlow','advancedFlow','scopePanel'])await expect(page.locator('#'+id)).toHaveJSProperty('open',false);
   await expect(page.locator('#buyOwn')).toBeHidden();await expect(page.locator('#results')).toBeHidden();await expect(page.locator('#comparisonChart')).toBeHidden();

@@ -310,3 +310,6 @@
 - Citywide candidate identity now leads with district/dong in the card heading; apartment name and exclusive area remain together below. Location supports recognition across Seoul; numerical gap remains the answer.
 
 - Verified5af2126 / Actions40189492928:81 browser checks passed(2.8m) and deployment published. Public desktop/390px mobile confirms no evidence in hero, short next action, location-first headings with apartment/area below. Existing11 local suites passed; source policy unchanged. Proof apartment-location-first25.jpg outside repository.
+
+## 2026-10-25 · explicit outperformance CTA
+- Replace primary CTA “다른 아파트는? →” with “더 오른 곳은? →” as explicitly requested. Existing entry defaults to high outperformance. Update the existing exact-copy browser assertion. Deployment verification pending; no claim that low/decline categories were implemented by this copy change.
