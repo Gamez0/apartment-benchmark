@@ -14,7 +14,7 @@ test('citywide high and low performance match an independent oracle and keep nei
  for(const year of ['1','3','5','10'])for(const side of ['high','low','decline']){
   await page.locator('#marketRankPeriod').selectOption(year);await page.locator('[data-rank-side="'+side+'"]').click();const rows=expected(year,side);const cards=page.locator('#marketRankResults article');
   expect(await cards.evaluateAll(es=>es.map(e=>e.getAttribute('data-rank-key')))).toEqual(rows.slice(0,6).map(g=>g.key));
-  if(rows.length){const gap=rows[0].stats[year][6]-oracle.market[year];await expect(cards.first().locator('.rank-gap')).toContainText((gap>=0?'+':'')+gap.toFixed(1)+'%p');}
+  if(rows.length){const gap=rows[0].stats[year][6]-oracle.market[year];await expect(cards.first().locator('.rank-gap')).toContainText(side==='decline'?rows[0].stats[year][6].toFixed(1)+'%':(gap>=0?'+':'')+gap.toFixed(1)+'%p');}
  }
  await page.locator('#marketRankSettings > summary').click();await page.locator('#marketRankArea').selectOption('all');const rows=expected('10','low','all');expect(await page.locator('#marketRankResults article').evaluateAll(es=>es.map(e=>e.getAttribute('data-rank-key')))).toEqual(rows.slice(0,6).map(g=>g.key));
  if(rows.length>6){await page.locator('#marketRankMore').click();await expect(page.locator('#marketRankResults article')).toHaveCount(Math.min(12,rows.length));}

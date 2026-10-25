@@ -6,7 +6,7 @@
  const $=id=>document.getElementById(id),positions=new Map(),reviews=new Map();let active='home',serial=0,entryKey=null,applying=false,ready=false;
  const parse=()=>location.hash.replace(/^#\/?/,'')||'home';
  const state=()=>history.state?.apartmentFlow?history.state:null;
- function focusKey(){const e=document.activeElement;if(e?.id)return '#'+CSS.escape(e.id);for(const a of ['data-rank-detail','data-rank-compare','data-detail','data-add','data-purchase-detail','data-switch-detail','data-remove'])if(e?.hasAttribute?.(a))return '['+a+'="'+CSS.escape(e.getAttribute(a))+'"]';return null;}
+ function focusKey(){const e=document.activeElement;if(e?.id)return '#'+CSS.escape(e.id);if(e?.hasAttribute?.('data-review-open'))return '[data-page="'+e.closest('[data-page]').dataset.page+'"] [data-review-open]';for(const a of ['data-rank-detail','data-rank-compare','data-detail','data-add','data-purchase-detail','data-switch-detail','data-remove','data-review','data-review-detail','data-review-remove'])if(e?.hasAttribute?.(a))return '['+a+'="'+CSS.escape(e.getAttribute(a))+'"]';return null;}
  function save(){if(entryKey)positions.set(entryKey,{y:window.scrollY,focus:focusKey()});}
  function title(){const root=document.querySelector(panels[active]);let text=root?.querySelector('summary h2,summary span,h2,h1')?.textContent?.trim()||names[active];if(active==='detail')text=$('detailTitle').textContent||names.detail;$('flowTitle').textContent=text;document.title=text+' · 집의 흐름';}
  function syncReviews(){document.querySelectorAll('[data-review]').forEach(b=>{const chosen=reviews.has(b.dataset.review);b.setAttribute('aria-pressed',String(chosen));b.textContent=chosen?'후보에서 빼기':'알아볼 후보로 담기';});document.querySelectorAll('[data-review-next]').forEach(e=>e.hidden=reviews.size===0);document.querySelectorAll('[data-review-count]').forEach(e=>e.textContent='알아볼 후보 '+reviews.size+'/3곳');}
@@ -37,7 +37,7 @@
  window.FlowRouter={open,back,ready(){ready=true;title();if(active==='market')loadMarketRank();},refresh(){title();syncReviews();if(active==='shortlist')renderReviews();}};
  $('contextHeading').tabIndex=-1;$('flowBack').onclick=back;
  document.addEventListener('click',e=>{const pick=e.target.closest('[data-review]');if(pick){const key=pick.dataset.review;if(reviews.has(key))reviews.delete(key);else if(reviews.size<3)reviews.set(key,pick.dataset.reviewOrigin);else{$('routeStatus').textContent='후보는 최대 3곳까지 담을 수 있어요. 먼저 담은 후보를 빼주세요.';return;}syncReviews();return;}
-  const remove=e.target.closest('[data-review-remove]');if(remove){reviews.delete(remove.dataset.reviewRemove);renderReviews();syncReviews();return;}
+  const remove=e.target.closest('[data-review-remove]');if(remove){reviews.delete(remove.dataset.reviewRemove);renderReviews();syncReviews();const next=document.querySelector('[data-review-remove]');if(next)next.focus();else{$('reviewStatus').tabIndex=-1;$('reviewStatus').textContent='고른 후보를 모두 뺐어요.';$('reviewStatus').focus();}return;}
   if(e.target.closest('[data-review-open]')){move('shortlist');return;}const detail=e.target.closest('[data-review-detail]');if(detail){openReviewDetail(detail.dataset.reviewDetail);return;}
   const link=e.target.closest('a[data-route]');if(link){e.preventDefault();move(link.dataset.route);return;}
   if(e.target.closest('[data-detail],[data-rank-detail],[data-purchase-detail],[data-switch-detail],#leaderDetail'))open('detail');
