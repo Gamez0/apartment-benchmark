@@ -8,11 +8,15 @@ const catalog=code=>JSON.parse(fs.readFileSync('site/seoul/'+manifest.districts.
 const districtRoute=code=>'**/seoul/'+manifest.districts.find(d=>d.code===code).file;
 const dongs=code=>[...new Set(catalog(code).units.map(g=>g.dong).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
 const errors=new WeakMap();
-test.beforeEach(async({page})=>{
+test.beforeEach(async({page},testInfo)=>{
+  // Keep target districts cold when testing uncached failure/race behavior after the new entry route.
+  const coldScope=/^(failed district load|late district response)/.test(testInfo.title);
+  if(coldScope)await page.route(districtRoute('11110'),route=>route.fulfill({status:503,body:'test-only citywide preload failure'}));
   const found=[];errors.set(page,found);page.on('pageerror',e=>found.push(e.message));
   await page.goto('/');await expect(page.locator('#purchaseCalculate')).toBeEnabled();
   await expect(page.locator('#scopeStatus')).toContainText('서울 '+manifest.totalTrades.toLocaleString('ko-KR')+'건');
   await expect(page.locator('#comparisonMessage')).toBeEmpty();await openTools(page);
+  if(coldScope){await expect(page.locator('#marketRankRetry')).toBeVisible();await page.unroute(districtRoute('11110'));}
 });
 test.afterEach(async({page})=>expect(errors.get(page)).toEqual([]));
 async function selectDistrict(page,code){await page.locator('#districtScope').selectOption(code);await expect(page.locator('#dong')).toBeEnabled();await expect(page.locator('#purchaseCalculate')).toBeEnabled();await expect(page.locator('#comparisonMessage')).toBeEmpty();}

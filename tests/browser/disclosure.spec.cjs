@@ -24,7 +24,7 @@ test('first visit shows the comparison answer without financial forms or deep to
 });
 test('purchase intent reveals inputs and assumptions while preserving edits when folded',async({page})=>{
   await page.locator('#openMarketRank').click();await page.locator('#openNearby').click();await page.locator('#openPurchase').click();await expect(page.locator('#openPurchase')).toHaveAttribute('aria-expanded','true');
-  await expect(page.locator('#buyOwn')).toBeVisible();await expect(page.locator('#results')).toBeHidden();
+  await expect(page.locator('#buyOwn')).toBeVisible();await expect(page.locator('#results')).toBeVisible();
   await expect(page.locator('#fundingSummary')).toContainText('LTV 40%');await expect(page.locator('#buyLtv')).toBeHidden();
   await page.locator('#openFunding').click();await expect(page.locator('#buyLtv')).toBeFocused();await page.locator('#buyLtv').fill('70');
   await expect(page.locator('#fundingSummary')).toContainText('LTV 70%');await page.locator('#fundingDetails > summary').click();

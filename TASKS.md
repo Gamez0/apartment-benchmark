@@ -321,3 +321,5 @@
 ## 2026-10-25 · one next action per answer
 - Landing contains only the own-home answer, period control and single bottom CTA. Move representative peer links into neighborhood results; move neighborhood CTA to citywide results and budget CTA to neighborhood results. All original control IDs, focus-return paths and source data remain intact.
 - Intended path: own-home → Seoul outperformance → neighborhood comparison → budget. Existing browser helper/intent tests now enter through that public path; first-screen check requires exactly one visible button and hidden later-stage CTAs. Public verification pending.
+
+- First route replay Actions40192408644:72/81 passed. Update purchase assertion to retain the preceding neighborhood answer. Preserve cold-network failure/race coverage by failing the first citywide preload batch in those two test setups before testing still-uncached target districts; no application-state mutation or weaker error assertions.
