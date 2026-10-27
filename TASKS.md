@@ -381,3 +381,5 @@
 - Confirmation stays disabled while loading or on data failure. Retry remains on the location screen; no partial candidate results shown there. Preserve browser Back/Forward, direct links and reload recovery.
 - Fix monetary summary using a percent formatter: display price difference in0.01억원 and plain higher/lower wording, separate from percentage-point performance. No source/calculation eligibility or privacy policy change.
 - Completion gate:11 local suites,120 browser executions including direct location entry, region failure/retry, source return/history/funds and exact money gap; full official-data audit, Pages success and public PC/320px/390px interaction/visual verification. Still pending for this new change.
+
+- Cold-start boundary: keep location confirmation disabled while the Seoul manifest itself is still pending, including the intermediate bootstrap render. The direct-entry test deterministically holds that real manifest response, checks disabled state, then releases the unchanged official response. Ready metadata stays secondary; loading/errors remain visible.
