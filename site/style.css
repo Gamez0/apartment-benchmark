@@ -126,3 +126,24 @@ body:not([data-route="candidates"]):not([data-route="market"]) .selection-dock{d
 
 .location-page #scopePanel{border:0;margin:0;padding-bottom:0}
 @media(max-width:700px){.location-page #scopePanel>.scope-controls{grid-template-columns:1fr}}
+
+/* Design28: a short answer first; the full ranking is an intentional disclosure. */
+.rank-preview{margin:8px 22px 0}.rank-preview>h3{font-size:18px;line-height:1.5;margin:0 0 14px;letter-spacing:-.4px}
+#marketRankTop{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;min-height:260px}
+.rank-spotlight,.rank-placeholder{box-sizing:border-box;min-width:0;min-height:260px;border:1px solid #dfe6f1;border-radius:18px;background:#f6f8fc;padding:20px}
+.rank-spotlight{display:flex;flex-direction:column;align-items:flex-start;gap:12px;text-align:left;margin:0;width:100%;position:relative;transition:background .15s,border-color .15s}
+.rank-spotlight:hover{background:#edf2ff;border-color:#9baeea}.spotlight-number{display:inline-flex;align-items:center;justify-content:center;background:#e5ecff;color:#234cda;border-radius:50%;width:28px;height:28px;font-size:14px;font-weight:750;flex-shrink:0}
+.spotlight-identity{display:block;min-width:0}.spotlight-identity strong{display:block;font-size:19px;line-height:1.4;letter-spacing:-.4px}.spotlight-identity small{display:block;color:#536179;font-size:13px;line-height:1.5;margin-top:6px;overflow-wrap:anywhere}
+.spotlight-result{display:block;margin-top:auto}.spotlight-result small{display:block;color:#536179;font-size:12px;line-height:1.4}.spotlight-result b{display:block;font-size:26px;color:#234cda;line-height:1.4;white-space:nowrap}.decline .spotlight-result b{color:#2566ba}.low .spotlight-result b{color:#536179}
+.rank-full{margin:12px 22px 0}.rank-full>summary{font-size:14px;color:#536179;min-height:48px;display:flex;align-items:center;gap:10px;cursor:pointer}.rank-full>summary:after{content:'＋';margin-left:auto}.rank-full[open]>summary:after{content:'−'}.rank-full #marketRankResults{margin:12px 0}.rank-full .more-wrap{margin:12px 0}
+.rank-placeholder{display:flex;flex-direction:column;gap:16px;justify-content:center;background:#f6f8fc}.rank-placeholder i{display:block;height:16px;width:80%;background:#e2e8f2;border-radius:6px}.rank-placeholder i:nth-child(2){width:60%}.rank-placeholder i:nth-child(3){width:45%;height:26px}.rank-empty{grid-column:1/-1;margin:0;display:flex;align-items:center;justify-content:center;padding:24px;border-radius:18px;background:#f6f8fc;line-height:1.7;color:#536179}
+/* Reserve actual content slots across async transitions, without invented values. */
+#marketRankBenchmark{min-height:26px}#marketRankStatus,#marketRankStatus:empty{min-height:44px;margin:8px 22px;font-size:13px;line-height:1.6}
+#referenceResult{min-height:180px}#detailAnswer{min-height:48px}#stats{min-height:96px}#priceChart,#bmChart,#rateChart{min-height:230px}#comparisonChart{min-height:300px}
+.location-page #scopeStatus{min-height:42px;margin:12px 0 0}.location-page #scopePanel[data-ready="true"] #scopeStatus{display:block;visibility:hidden}
+#marketRankFlow .step-next>button{border-radius:14px;min-height:56px;font-size:16px;text-align:center;box-shadow:0 6px 16px #234cda16}
+@media(max-width:700px){.rank-preview{margin:8px 16px 0}.rank-preview>h3{font-size:17px}#marketRankTop{grid-template-columns:1fr;gap:10px;min-height:356px}.rank-spotlight,.rank-placeholder{min-height:112px;height:auto;padding:16px;border-radius:16px}.rank-spotlight{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:12px}.spotlight-identity strong{font-size:17px}.spotlight-identity small{font-size:12px}.spotlight-result{margin:0;text-align:right}.spotlight-result b{font-size:22px}.rank-full{margin:12px 16px 0}#marketRankStatus,#marketRankStatus:empty{margin:8px 16px;min-height:44px}.rank-placeholder{gap:10px}.rank-placeholder i{height:12px}.rank-placeholder i:nth-child(3){height:16px}.rank-empty{min-height:356px}#referenceResult{min-height:160px}}
+@media(max-width:360px){.rank-spotlight{gap:8px;padding:14px 12px;grid-template-columns:24px minmax(0,1fr) auto}.spotlight-number{width:24px;height:24px}.spotlight-identity strong{font-size:15px}.spotlight-result b{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.rank-spotlight{transition:none}}
+
+.rank-preview{position:relative}#marketRankRetry{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:1;max-width:calc(100% - 32px);white-space:normal}#marketRankRetry:not([hidden])~#marketRankTop .rank-empty{padding-bottom:88px}

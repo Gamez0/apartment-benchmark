@@ -12,16 +12,16 @@ async function open(page){await page.locator('#openMarketRank').click();await ex
 test('citywide high and low performance match an independent oracle and keep neighborhood scope',async({page})=>{
  test.setTimeout(90000);await start(page);await open(page);await expect(page.locator('#districtScope')).toHaveValue('11530');await expect(page.locator('#dong')).toHaveValue('신도림동');
  for(const year of ['1','3','5','10'])for(const side of ['high','low','decline']){
-  await page.locator('#marketRankPeriod').selectOption(year);await page.locator('[data-rank-side="'+side+'"]').click();const rows=expected(year,side);const cards=page.locator('#marketRankResults article');
+  await page.locator('#marketRankPeriod').selectOption(year);await page.locator('[data-rank-side="'+side+'"]').click();const rows=expected(year,side);const cards=page.locator('#marketRankResults article');expect(await page.locator('[data-rank-preview]').evaluateAll(es=>es.map(e=>e.getAttribute('data-rank-preview')))).toEqual(rows.slice(0,3).map(g=>g.key));
   expect(await cards.evaluateAll(es=>es.map(e=>e.getAttribute('data-rank-key')))).toEqual(rows.slice(0,6).map(g=>g.key));
   if(rows.length){const gap=rows[0].stats[year][6]-oracle.market[year];await expect(cards.first().locator('.rank-gap')).toContainText(side==='decline'?rows[0].stats[year][6].toFixed(1)+'%':(gap>=0?'+':'')+gap.toFixed(1)+'%p');}
  }
  await page.locator('[data-rank-side="low"]').click();await page.locator('#marketRankSettings > summary').click();await page.locator('#marketRankArea').selectOption('all');const rows=expected('10','low','all');expect(await page.locator('#marketRankResults article').evaluateAll(es=>es.map(e=>e.getAttribute('data-rank-key')))).toEqual(rows.slice(0,6).map(g=>g.key));
- if(rows.length>6){await page.locator('#marketRankMore').click();await expect(page.locator('#marketRankResults article')).toHaveCount(Math.min(12,rows.length));}
+ if(rows.length>6){await page.locator('#marketRankAll > summary').click();await page.locator('#marketRankMore').click();await expect(page.locator('#marketRankResults article')).toHaveCount(Math.min(12,rows.length));}
  const scan=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();expect(scan.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)}))).toEqual([]);
 });
 test('citywide candidate detail and graph return to the same side and selection',async({page})=>{
- await start(page);await open(page);await page.locator('[data-rank-side="low"]').click();const first=page.locator('#marketRankResults article').first();const key=await first.getAttribute('data-rank-key');
+ await start(page);await open(page);await page.locator('#marketRankAll > summary').click();await page.locator('[data-rank-side="low"]').click();const first=page.locator('#marketRankResults article').first();const key=await first.getAttribute('data-rank-key');
  await first.locator('[data-rank-detail]').click();await expect(page.locator('#priceChart svg')).toBeVisible();await expect(page.locator('#detailAnswer')).toContainText('서울 대비');await page.locator('#close').click();await expect(page.locator('#marketRankResults')).toBeInViewport();await expect(page.locator('[data-rank-side="low"]')).toHaveAttribute('aria-pressed','true');
  await first.locator('[data-rank-compare]').click();await expect(page.locator('#comparisonHeading')).toHaveText('서울 시장과 얼마나 차이 났을까?');await expect(page.locator('#comparisonBack')).toBeInViewport();await page.locator('#comparisonBack').click();await expect(page.locator('#marketRankResults')).toBeInViewport();await expect(page.locator('[data-rank-key="'+key+'"] [data-rank-compare]')).toHaveAttribute('aria-pressed','true');
 });

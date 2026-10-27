@@ -398,3 +398,10 @@
 - Public visual QA:320px selectors stack at250px width;390px stack at320px;PC selectors remain two431px columns. Legacy mobile specificity and redundant inner divider resolved. Ready-source counters stay out of this question, loading/error/retry remain available. This is browser-emulated responsive QA, not physical-device validation.
 - Monetary summary confirms0.01억원 price difference in natural higher/lower language, distinct from the percent-point performance comparison. No personal ownership facts or input amounts persisted/transmitted.
 - Proof apartment-location-mobile27.jpg saved outside repository. PRODUCT_FLOW.md / UX_FLOW_REVIEW.md / SOURCES.md carry the current flow and source evidence. This closes the old pending replay and the scoped region-edit improvement; future property-rights, actual photo reuse, lifestyle and rental-income work remains separately bounded.
+
+## 2026-10-28 · 기획·디자인 연결과 점진적 서울 순위
+- Notion 기획실 https://app.notion.com/p/406007a4506e817fbcb4ef4a0fd35397 과 Figma https://www.figma.com/design/GmAVpUJZWWOQ1nSk9FulVG 에 사용자 흐름·완료 조건을 연결. Figma는 기존 모바일 구조 초안만 있으며 이번 편집은 Starter MCP 호출 한도로 보류. 재개 조건은 해당 도구 한도 회복. 새 디자인 동기화 완료로 표시하지 않는다.
+- 서울 순위는 같은 계산 결과의 상위3개 위치·단지/면적·시장 차이를 먼저 전달하고, 전체 순위·더 보기·그래프 비교는 닫힌 상세에서 확인. 실제 하락과 상대 부진은 기존 분류 유지. 요약→거래 상세→복귀 경로 추가.
+- 로딩·실패·성공에 요약 슬롯을 유지하고 재시도는 그 안에 배치. 첫 답·통계/차트·지역 안내의 최소 높이도 확보. 모든 비동기 상태의 무이동을 보장하는 것으로 일반화하지 않는다.
+- 완료 조건: 독립 oracle의 모든 기간/분류에서 요약 식별자 검증, 실제 공식 요청을 지연·실패/복구시켜 버튼 위치 차이4px 이내, 모바일320/390·PC 렌더/접근성·상세 복귀 검사, 기존 전체 검증 및 Pages 공개 확인. 현재 로컬4개 Node suites 통과; 나머지 CI/배포 검증 대기.
+- 원천·제외 정책·수익률 계산·개인정보 처리 변경 없음. 가상 거래를 화면에 추가하지 않음.
