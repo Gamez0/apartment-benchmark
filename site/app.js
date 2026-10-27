@@ -242,6 +242,8 @@ async function loadMarketRank(){
  if(marketRankRequest)return marketRankRequest;
  $('openNearby').disabled=true;
  const version=++marketRankVersion,dataset=datasetVersion,manifest=seoulManifest;
+ $('marketRankBenchmark').textContent=`같은 ${$('period').value}년 서울 시장 ${fmt(Engine.benchmark(data.benchmark.filter(p=>p.region==='서울'),data.asOf,+$('period').value))}`;
+ $('marketRankScope').textContent=`서울 전체 · ${$('areaScope').value==='all'?'전체 면적':'전용 75~95㎡'} · ${$('period').value}년`;
  marketRankPlaceholder();$('marketRankResults').innerHTML='';$('marketRankMore').hidden=true;$('marketRankRetry').hidden=true;$('marketRankStatus').setAttribute?.('data-ready','false');$('marketRankStatus').textContent='서울 25개구 자료를 불러오고 있어요…';
  marketRankRequest=(async()=>{try{
   if(!manifest)throw Error('공식 서울 자료 연결 후 다시 시도하세요.');
