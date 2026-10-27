@@ -385,3 +385,5 @@
 - Cold-start boundary: keep location confirmation disabled while the Seoul manifest itself is still pending, including the intermediate bootstrap render. The direct-entry test deterministically holds that real manifest response, checks disabled state, then releases the unchanged official response. Ready metadata stays secondary; loading/errors remain visible.
 
 - Clarify navigation oracle: confirming a location returns with history.back(), so browser Forward reopens the edit screen and browser Back returns to the preserved budget. The history regression follows that actual contract rather than creating a duplicate budget entry.
+
+- Extend the same recovery rule to an initial manifest failure: keep #/location and its visible retry action rather than sending the user to the unrelated apartment list. Add3 browser executions; final target123 including both initial and selected-district failure paths. No timeout increase or assertion removal.
