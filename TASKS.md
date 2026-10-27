@@ -383,3 +383,5 @@
 - Completion gate:11 local suites,120 browser executions including direct location entry, region failure/retry, source return/history/funds and exact money gap; full official-data audit, Pages success and public PC/320px/390px interaction/visual verification. Still pending for this new change.
 
 - Cold-start boundary: keep location confirmation disabled while the Seoul manifest itself is still pending, including the intermediate bootstrap render. The direct-entry test deterministically holds that real manifest response, checks disabled state, then releases the unchanged official response. Ready metadata stays secondary; loading/errors remain visible.
+
+- Clarify navigation oracle: confirming a location returns with history.back(), so browser Forward reopens the edit screen and browser Back returns to the preserved budget. The history regression follows that actual contract rather than creating a duplicate budget entry.
