@@ -1,7 +1,7 @@
 /* URL-backed screens. Private form values stay in the existing in-memory DOM. */
 (()=>{
  const panels={home:'.landing-screen',market:'#marketRankFlow',candidates:'#nearbyFlow',budget:'#purchaseFlow',move:'#switchPanel',location:'#locationPage',shortlist:'#shortlistPage',compare:'#trendFlow',detail:'#detail',advanced:'#advancedFlow',evidence:'#evidencePage'};
- const names={home:'내 집, 서울과 비교하면?',market:'서울 시장과 차이가 큰 곳은?',candidates:'우리 동네와 비교하면?',budget:'내 예산으로 어디를 살 수 있을까?',move:'우리 집을 팔면 어디까지 갈 수 있을까?',location:'어느 지역을 알아볼까요?',shortlist:'어디부터 알아볼까요?',compare:'가격 흐름과 실제 거래',detail:'실제 거래 상세',advanced:'다른 기준으로 계산하기',evidence:'설정과 데이터 출처'};
+ const names={home:'내 집, 서울과 비교하면?',market:'다른 곳은 어땠을까요?',candidates:'우리 동네와 비교하면?',budget:'내 예산으로 어디를 살 수 있을까?',move:'우리 집을 팔면 어디까지 갈 수 있을까?',location:'어느 지역을 알아볼까요?',shortlist:'어디부터 알아볼까요?',compare:'가격 흐름과 실제 거래',detail:'실제 거래 상세',advanced:'다른 기준으로 계산하기',evidence:'설정과 데이터 출처'};
  const byId={marketRankFlow:'market',nearbyFlow:'candidates',purchaseFlow:'budget',switchPanel:'move',locationPage:'location',trendFlow:'compare',detail:'detail',advancedFlow:'advanced',evidencePage:'evidence'};
  const $=id=>document.getElementById(id),positions=new Map(),reviews=new Map();let active='home',serial=0,entryKey=null,applying=false,ready=false;
  const scopeAnchor=document.createComment('region controls home'),scopePanel=$('scopePanel');scopePanel.before(scopeAnchor);let scopeWasOpen=false;

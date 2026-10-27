@@ -14,5 +14,5 @@ test('slow citywide response preserves summary and next-action positions, includ
  const after=await page.locator('#openPurchase').evaluate(e=>e.getBoundingClientRect().top+scrollY);expect(Math.abs(after-before)).toBeLessThanOrEqual(4);
  await expect(page.locator('[data-rank-preview]')).toHaveCount(3);expect(await page.locator('#marketRankAll').evaluate(e=>e.open)).toBe(false);
  const key=await page.locator('[data-rank-preview]').first().getAttribute('data-rank-preview');await page.locator('[data-rank-preview]').first().click();await expect(page).toHaveURL(/#\/detail$/);await expect(page.locator('#priceChart svg')).toBeVisible();await page.locator('#close').click();await expect(page).toHaveURL(/#\/market$/);await expect(page.locator('[data-rank-preview]').first()).toHaveAttribute('data-rank-preview',key);await expect(page.locator('[data-rank-preview]').first()).toBeFocused();expect(await page.locator('#marketRankAll').evaluate(e=>e.open)).toBe(false);
- expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
+ expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);await page.screenshot({path:'test-results/seoul-summary-'+test.info().project.name+'.png',fullPage:true});
 });

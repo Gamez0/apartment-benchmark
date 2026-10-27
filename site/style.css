@@ -147,3 +147,5 @@ body:not([data-route="candidates"]):not([data-route="market"]) .selection-dock{d
 @media(prefers-reduced-motion:reduce){.rank-spotlight{transition:none}}
 
 .rank-preview{position:relative}#marketRankRetry{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:1;max-width:calc(100% - 32px);white-space:normal}#marketRankRetry:not([hidden])~#marketRankTop .rank-empty{padding-bottom:88px}
+
+.spotlight-area{white-space:nowrap}
