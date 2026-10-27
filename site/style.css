@@ -149,3 +149,5 @@ body:not([data-route="candidates"]):not([data-route="market"]) .selection-dock{d
 .rank-preview{position:relative}#marketRankRetry{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:1;max-width:calc(100% - 32px);white-space:normal}#marketRankRetry:not([hidden])~#marketRankTop .rank-empty{padding-bottom:88px}
 
 .spotlight-area{white-space:nowrap}
+/* Keep the unit visible in native WebKit selects as well as Chromium. */
+@media(max-width:700px){.rank-toolbar .compact-period select{width:104px;min-width:104px;padding:8px 12px}}
