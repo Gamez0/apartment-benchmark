@@ -387,3 +387,6 @@
 - Clarify navigation oracle: confirming a location returns with history.back(), so browser Forward reopens the edit screen and browser Back returns to the preserved budget. The history regression follows that actual contract rather than creating a duplicate budget entry.
 
 - Extend the same recovery rule to an initial manifest failure: keep #/location and its visible retry action rather than sending the user to the unrelated apartment list. Add3 browser executions; final target123 including both initial and selected-district failure paths. No timeout increase or assertion removal.
+
+- f8cc88d / Actions40514259269 job122224183777:123/123 browser checks passed(3.5m), Pages success and independent134,332-comparison audit passed. Official source now825,817 trades/33,583 unit-area groups, observation2026-07-31 unchanged.
+- Public functional replay:purchase region change to구로동 retained synthetic input and source-button focus;390px moving route enters the dedicated question with no apartment list. Visual inspection found legacy selector specificity kept two picker columns on mobile despite the intended stack. Override specifically inside the location screen and remove redundant inner divider. Final CSS replay/public verification pending.
