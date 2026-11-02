@@ -177,3 +177,10 @@ body:not([data-route="candidates"]):not([data-route="market"]) .selection-dock{d
 .market-overview>.landing-illustration>svg{width:260px;max-width:90%;max-height:180px}
 @media(max-width:700px){.landing-screen>.market-overview{margin-bottom:auto}.market-overview>.landing-illustration{height:160px;margin:16px auto 10px}.market-overview>.landing-illustration>svg{max-height:160px}.landing-screen>.next-actions{margin-top:24px}}
 @media(max-width:380px){.market-overview>.landing-illustration{height:140px}.market-overview>.landing-illustration>svg{max-height:140px}}
+
+#referenceVisual{overflow:hidden}#referenceVisual>[hidden],#referenceIllustration[hidden],#referencePhotoCredit[hidden]{display:none!important}
+#referencePhoto{display:block;width:min(100%,320px);height:100%;object-fit:cover;border-radius:16px}
+.reference-illustration{display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.reference-illustration>svg{height:100%;width:auto;max-width:90%}
+.reference-photo-credit{min-height:29px;margin:0 0 12px;text-align:center;font-size:11px;line-height:1.5;color:#6b7890}
+.reference-photo-credit a{color:inherit;text-decoration:none;display:inline-block;padding:6px}

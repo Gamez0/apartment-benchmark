@@ -78,7 +78,20 @@ $('holdingAlternatives').innerHTML='<h3>당시 같은 예산의 대안 · 확보
 
 function returnBars(rate,bm){if(rate==null||bm==null)return '<p class="meta">상승률 비교 자료 부족</p>';const max=Math.max(Math.abs(rate),Math.abs(bm),1);return '<div class="return-bars">'+[['단지',rate],['시장 BM',bm]].map(([label,value])=>`<div><span>${label} ${fmt(value)}</span><div class="bar-track"><i style="width:${Math.abs(value)/max*100}%;background:${value<0?'#b54747':label==='단지'?'#234cda':'#7385a3'}"></i></div></div>`).join('')+'</div>';}
 
+function referencePhoto(){
+ const image=$('referencePhoto'),fallback=$('referenceIllustration'),frame=$('referenceVisual'),credit=$('referencePhotoCredit');
+ if(image?.tagName!=='IMG'||!fallback||!frame||!credit)return;
+ const group=baselineGroup();
+ const matches=!referenceKey||group?.dong==='신도림동'&&['동아2','신도림동아2차','신도림2차동아'].includes(group.name);
+ const source=matches?'assets/apartments/donga-2.jpg':'';
+ if(image.dataset.source===source)return;
+ image.dataset.source=source;image.hidden=true;fallback.hidden=false;credit.hidden=true;frame.dataset.state=source?'loading':'fallback';
+ image.onload=()=>{if(image.dataset.source!==source||!source)return;image.hidden=false;fallback.hidden=true;credit.hidden=false;frame.dataset.state='photo';};
+ image.onerror=()=>{if(image.dataset.source!==source)return;image.hidden=true;fallback.hidden=false;credit.hidden=true;frame.dataset.state='fallback';};
+ if(source)image.src=source;else{image.onload=null;image.onerror=null;image.removeAttribute('src');}
+}
 function referenceAuto(){
+ referencePhoto();
  $('referencePickerToggle').textContent=`${baselineTitle()} · ${baselineGroup()?.area||84.908}㎡ 기준 바꾸기`;
  const years=+$('period').value,region=$('region').value,dong=$('dong').value.trim();
  const c=Engine.compare(baselineRows(),data.asOf,years),bm=Engine.benchmark(data.benchmark.filter(t=>t.region===region),data.asOf,years);
