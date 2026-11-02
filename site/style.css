@@ -169,3 +169,5 @@ body:not([data-route="candidates"]):not([data-route="market"]) .selection-dock{d
 @media(max-width:360px){#purchaseResult .purchase-money{padding:14px 10px;gap:8px}#purchaseResult .purchase-money strong{font-size:23px}#purchaseResult .purchase-actions{grid-template-columns:1fr}#purchaseResult .purchase-actions>button{width:100%}}
 
 #purchaseResult .purchase-evidence>summary:after{content:'＋';margin-left:auto;padding-left:12px}#purchaseResult .purchase-evidence[open]>summary:after{content:'−'}
+
+@media(max-width:380px){#purchaseFlow .chart-controls{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}#purchaseFlow .chart-controls label{min-width:0;width:100%}#purchaseFlow .chart-controls select{min-width:0;width:100%;max-width:none}}
