@@ -194,3 +194,18 @@ h1,h2,h3,.flow-panel>summary{word-break:keep-all;text-wrap:balance}
 #purchaseResult .purchase-answer>.cash-basis{grid-column:1/-1;grid-row:2;margin:0}
 @media(min-width:701px){.card .card-badges:empty{display:block}.card .card-badges{min-height:36px;margin:0 0 14px}.card .card-badges:not(:empty){margin:0 0 14px}}
 @media(max-width:380px){.budget-mode a{font-size:12px;padding:8px 6px}.funding-assumption{gap:8px;flex-wrap:nowrap}.funding-assumption span{font-size:11px}.funding-assumption button{flex-shrink:0}}
+
+/* The destination answers the CTA before asking for another choice. */
+#marketRankFlow>.rank-answer-context{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 16px;color:#536179;font-size:13px}
+.rank-answer-context .compact-period{flex-shrink:0}
+.rank-answer-context select{width:84px;min-width:84px;font-size:14px}
+#marketRankFlow .rank-preview{margin:0}
+#marketRankFlow .rank-preview>h3.visually-hidden{margin:0}
+#marketRankFlow #marketRankStatus,#marketRankFlow #marketRankStatus:empty{min-height:44px;margin:8px 0 0}
+#marketRankFlow .rank-after-answer{margin:8px 0 0}
+#marketRankFlow .rank-sides{width:100%;background:transparent;padding:0;gap:8px}
+#marketRankFlow .rank-sides button{flex:1;border-color:#e4e9f2;font-size:13px;color:#536179}
+#marketRankFlow .rank-sides button[aria-pressed=true]{background:#eef3ff;border-color:#c6d3ff;color:#234cda}
+#marketRankFlow>#marketRankSettings{margin-top:20px;font-size:13px}
+#marketRankFlow>#marketRankSettings>summary{min-height:44px;display:flex;align-items:center;color:#536179}
+@media(max-width:700px){#marketRankFlow>.rank-answer-context{margin:0 0 12px}#marketRankFlow .rank-preview{margin:0}#marketRankFlow .rank-sides button{padding:8px 4px}}

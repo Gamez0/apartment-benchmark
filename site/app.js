@@ -259,7 +259,7 @@ async function loadMarketRank(){
  $('openNearby').disabled=true;
  const version=++marketRankVersion,dataset=datasetVersion,manifest=seoulManifest;
  $('marketRankBenchmark').textContent=`같은 ${$('period').value}년 서울 시장 ${fmt(Engine.benchmark(data.benchmark.filter(p=>p.region==='서울'),data.asOf,+$('period').value))}`;
- $('marketRankScope').textContent=`서울 전체 · ${$('areaScope').value==='all'?'전체 면적':'전용 75~95㎡'} · ${$('period').value}년`;
+ $('marketRankScope').textContent=`서울 전체 · ${$('areaScope').value==='all'?'전체 면적':'전용 75~95㎡'}`;
  marketRankPlaceholder();$('marketRankResults').innerHTML='';$('marketRankMore').hidden=true;$('marketRankRetry').hidden=true;$('marketRankStatus').setAttribute?.('data-ready','false');$('marketRankStatus').textContent='서울 25개구 자료를 불러오고 있어요…';
  marketRankRequest=(async()=>{try{
   if(!manifest)throw Error('공식 서울 자료 연결 후 다시 시도하세요.');
@@ -283,10 +283,10 @@ function renderMarketRank(){
  const context=[datasetVersion,$('period').value,$('areaScope').value].join('|');if(context!==marketRankContext){marketRankVisible=6;marketRankContext=context;}
  const years=+$('period').value,bm=Engine.benchmark(data.benchmark.filter(p=>p.region==='서울'),data.asOf,years),all=groups(true).filter(g=>g.region==='서울'&&withinArea(g)).map(g=>({...g,...groupCompare(g,years)})),ranked=Engine.marketRanks(all,bm,data.asOf,marketRankSide);
  $('marketRankBenchmark').textContent=`같은 ${years}년 서울 시장 ${fmt(bm)}`;
- $('marketRankScope').textContent=`서울 전체 · ${$('areaScope').value==='all'?'전체 면적':'전용 75~95㎡'} · ${years}년`;
+ $('marketRankScope').textContent=`서울 전체 · ${$('areaScope').value==='all'?'전체 면적':'전용 75~95㎡'}`;
  $('marketRankStatus').textContent='';$('marketRankStatus').setAttribute?.('data-ready','true');$('marketRankRetry').hidden=true;
  $('marketRankTop').setAttribute?.('aria-busy','false');
- $('marketTopHeading').textContent=marketRankSide==='high'?'서울보다 더 오른 세 곳':marketRankSide==='low'?'서울보다 덜 오른 세 곳':'가격이 떨어진 세 곳';
+ $('marketTopHeading').textContent=marketRankSide==='high'?'서울보다 더 오른 세 곳':marketRankSide==='low'?'서울보다 덜 오른 세 곳':'가격이 떨어진 세 곳';$('marketAnswerHeading').textContent=marketRankSide==='high'?'서울보다 더 오른 곳':marketRankSide==='low'?'서울보다 덜 오른 곳':'가격이 떨어진 곳';globalThis.FlowRouter?.refresh?.();
  $('marketRankTop').innerHTML=ranked.length?ranked.slice(0,3).map((g,i)=>`<button class="rank-spotlight ${marketRankSide}" data-rank-preview="${esc(g.key)}"><span class="spotlight-number" aria-hidden="true">${i+1}</span><span class="spotlight-identity"><strong>${esc(g.district)} ${esc(g.dong)}</strong><small>${esc(g.name)} · <span class="spotlight-area">${g.area}㎡</span></small></span><span class="spotlight-result"><small>${marketRankSide==='decline'?'가격 하락':'서울 대비'}</small><b>${marketRankSide==='decline'?fmt(g.rate):signed(g.excess)+'%p'}</b></span><span class="visually-hidden">${i+1}위 실제 거래 상세</span></button>`).join(''):`<p class="rank-empty">${bm==null?'이 기간의 서울 지수가 없어 비교할 수 없어요.':'이 조건에 맞는 표본이 없어요.'} 기간이나 면적을 바꿔보세요.</p>`;
  $('marketRankTop').querySelectorAll('[data-rank-preview]').forEach(b=>b.onclick=()=>{detailReturnId='marketRankResults';selected=b.dataset.rankPreview;detail();openFlow('detail');});
 
@@ -301,4 +301,4 @@ function renderMarketRank(){
 
 // Read-only decision summary; values never leave browser memory.
 function reviewCandidate(key,origin){const g=groups(true).find(g=>g.key===key);if(!g)return null;const c=groupCompare(g,+$('period').value),bm=Engine.benchmark(data.benchmark.filter(p=>p.region==='서울'),data.asOf,+$('period').value);let budget=null;if(origin==='move'&&switchContext){try{budget=Engine.switchBudget({sale:+$('switchSale').value,debt:+$('switchDebt').value,saleCost:+$('switchSaleCost').value,extra:+$('switchExtra').value,loan:+$('switchLoan').value,buyCost:+$('switchBuyCost').value}).budget;}catch{}}else if(origin==='budget'&&purchaseContext){try{budget=Engine.purchaseScenario({partner:0,...Object.fromEntries(Object.entries(purchaseFields).map(([k,id])=>[k,+$(id).value]))}).budget;}catch{}}return {...g,...c,budget,excess:c.rate==null||bm==null?null:c.rate-bm,years:+$('period').value,sale:origin==='move'&&budget!=null?+$('switchSale').value:null};}
-function openReviewDetail(key){selected=key;detailReturnId='shortlistPage';detail();openFlow('detail');}
+function openReviewDetail(key){const g=groups(true).find(g=>g.key===key);if(!g)return;selected=key;detailReturnId='shortlistPage';$('detailTitle').textContent=g.name+' · '+g.area+'㎡';openFlow('detail');detail();}
