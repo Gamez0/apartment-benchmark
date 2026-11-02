@@ -247,10 +247,10 @@ function fundingSummary(){const ltv=$('buyLtv').value||'—',rate=$('buyInterest
 for(const [panel,button] of [['purchaseFlow','openPurchase'],['nearbyFlow','openNearby'],['marketRankFlow','openMarketRank']])$(panel).ontoggle=()=>{$(button).setAttribute?.('aria-expanded',String($(panel).open));if(!$(panel).open){$(panel).hidden=true;$(button).focus?.({preventScroll:true});}};
 
 // Seoul-wide exploration loads published district summaries only after explicit intent.
-$('openMarketRank').onclick=()=>{openFlow('marketRankFlow');loadMarketRank();};
+$('openMarketRank').onclick=()=>{marketRankSide='high';marketRankVisible=6;openFlow('marketRankFlow');loadMarketRank();};
 $('marketRankRetry').onclick=loadMarketRank;
 $('marketRankMore').onclick=()=>{marketRankVisible+=6;renderMarketRank();};
-document.querySelectorAll?.('[data-rank-side]').forEach(b=>b.onclick=()=>{marketRankSide=b.dataset.rankSide;marketRankVisible=6;renderMarketRank();});
+document.querySelectorAll?.('[data-rank-side]').forEach(b=>b.onclick=()=>{marketRankSide=b.dataset.rankSide;marketRankVisible=6;renderMarketRank();if(document.body.dataset.route==='market'){$('marketAnswerHeading').tabIndex=-1;$('marketAnswerHeading').scrollIntoView({behavior:'instant',block:'start'});$('marketAnswerHeading').focus({preventScroll:true});}});
 $('moveArea').onchange=()=>{$('areaScope').value=$('moveArea').value;visibleCount=6;render();};
 $('marketRankArea').onchange=()=>{$('areaScope').value=$('marketRankArea').value;marketRankVisible=6;visibleCount=6;render();};
 async function loadMarketRank(){
