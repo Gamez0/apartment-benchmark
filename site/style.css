@@ -171,3 +171,9 @@ body:not([data-route="candidates"]):not([data-route="market"]) .selection-dock{d
 #purchaseResult .purchase-evidence>summary:after{content:'＋';margin-left:auto;padding-left:12px}#purchaseResult .purchase-evidence[open]>summary:after{content:'−'}
 
 @media(max-width:380px){#purchaseFlow .chart-controls{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}#purchaseFlow .chart-controls label{min-width:0;width:100%}#purchaseFlow .chart-controls select{min-width:0;width:100%;max-width:none}}
+
+/* The apartment visual identifies the subject before the relative result. */
+.market-overview>.landing-illustration{margin:18px auto 12px;height:180px}
+.market-overview>.landing-illustration>svg{width:260px;max-width:90%;max-height:180px}
+@media(max-width:700px){.landing-screen>.market-overview{margin-bottom:auto}.market-overview>.landing-illustration{height:160px;margin:16px auto 10px}.market-overview>.landing-illustration>svg{max-height:160px}.landing-screen>.next-actions{margin-top:24px}}
+@media(max-width:380px){.market-overview>.landing-illustration{height:140px}.market-overview>.landing-illustration>svg{max-height:140px}}
