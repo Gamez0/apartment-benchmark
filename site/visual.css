@@ -198,7 +198,7 @@ h1,h2,h3,.flow-panel>summary{word-break:keep-all;text-wrap:balance}
 /* The destination answers the CTA before asking for another choice. */
 #marketRankFlow>.rank-answer-context{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:4px 0 16px;color:#536179;font-size:13px}
 .rank-answer-context .compact-period{flex-shrink:0}
-.rank-answer-context select{width:84px;min-width:84px;font-size:14px}
+.rank-answer-context select{width:104px;min-width:104px;font-size:14px}
 #marketRankFlow .rank-preview{margin:0}
 #marketRankFlow .rank-preview>h3.visually-hidden{margin:0}
 #marketRankFlow #marketRankStatus,#marketRankFlow #marketRankStatus:empty{min-height:44px;margin:8px 0 0}
