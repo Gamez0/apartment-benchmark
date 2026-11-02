@@ -60,7 +60,7 @@ test('purchase budget filters actual summaries and invalidates when neighborhood
   const scenario=E.purchaseScenario({own:3,partner:0,reserve:0,loan:6,ltv:40,interest:4,years:30,monthly:0});
   const candidates=catalog('11530').units.filter(g=>g.dong==='신도림동'&&g.stats[1][1]>=3&&E.purchaseFit(g.stats[1][0],scenario));
   await expect(page.locator('#purchaseResult')).toContainText('5.00억');
-  await expect(page.locator('#purchaseResult .stats')).toContainText(candidates.length+'개');
+  await expect(page.locator('#purchaseResult .purchase-candidate')).toHaveCount(Math.min(3,candidates.length));if(!candidates.length)await expect(page.locator('#purchaseResult .empty')).toContainText('이 예산·면적 조건에 맞는 거래 표본이 없습니다.');
   // Exercise positive results and progressive disclosure as well as the zero-result budget.
   await page.locator('#buyOwn').fill('20');await page.locator('#purchaseCalculate').click();
   await expect(page.locator('#purchaseResult .purchase-candidate')).toHaveCount(3);
