@@ -5,7 +5,7 @@ from pathlib import Path
 
 site = Path('site')
 html = (site / 'index.html').read_text()
-for name in ('app.js', 'engine.js', 'style.css', 'router.js'):
+for name in ('app.js', 'engine.js', 'style.css', 'visual.css', 'router.js'):
     revision = hashlib.sha256((site / name).read_bytes()).hexdigest()[:20]
     html, count = re.subn(re.escape(name) + r'\?v=[A-Za-z0-9_-]+', name + '?v=' + revision, html)
     assert count == 1, ('asset reference missing or duplicated', name, count)
