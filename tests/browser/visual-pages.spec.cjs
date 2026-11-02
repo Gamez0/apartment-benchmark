@@ -21,4 +21,5 @@ test('every route has a readable visual review capture and the main journey keep
  }
  await page.locator('#heroEvidence > summary').click();await shot('evidence-settings');
  await page.goto('/#/advanced');await expect(page.locator('#openMarketRank')).toBeEnabled();await page.locator('#holdingPanel > summary').click();await shot('advanced-input');
+ if(info.project.name==='mobile-webkit-390'){await page.setViewportSize({width:440,height:956});await page.goto('/');await expect(page.locator('#referenceVisual')).toHaveAttribute('data-state','photo');await shot('home-440');}
 });

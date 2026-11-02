@@ -182,3 +182,15 @@ p{overflow-wrap:break-word}
  .purchase-panel .chart-controls{grid-template-columns:1fr}
  .spotlight-identity strong{font-size:15px}.spotlight-result b{font-size:20px}
 }
+
+/* Corrections found in the first complete screenshot review. */
+h1,h2,h3,.flow-panel>summary{word-break:keep-all;text-wrap:balance}
+#detailAnswer,#comparisonAnswer{word-break:keep-all}
+.budget-mode a{white-space:nowrap}
+#purchaseResult .purchase-answer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 14px;align-items:center;min-height:0;margin:24px 0 12px}
+#purchaseResult .purchase-answer>.budget-answer{grid-column:1;grid-row:1}
+#purchaseResult .purchase-answer>.budget-answer strong{font-size:32px;margin:4px 0}
+#purchaseResult .purchase-answer>button{grid-column:2;grid-row:1;margin:0;font-size:12px;padding:10px;max-width:120px}
+#purchaseResult .purchase-answer>.cash-basis{grid-column:1/-1;grid-row:2;margin:0}
+@media(min-width:701px){.card .card-badges:empty{display:block}.card .card-badges{min-height:36px;margin:0 0 14px}.card .card-badges:not(:empty){margin:0 0 14px}}
+@media(max-width:380px){.budget-mode a{font-size:12px;padding:8px 6px}.funding-assumption{gap:8px;flex-wrap:nowrap}.funding-assumption span{font-size:11px}.funding-assumption button{flex-shrink:0}}

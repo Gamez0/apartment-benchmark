@@ -146,9 +146,10 @@ function comparison(){
  $('comparisonLegend').innerHTML=series.map(s=>`<span class="legend-item"><i style="background:${s.color}"></i>${esc(s.label)} <b>${fmt(s.rate)}</b><small>${s.note}</small></span>`).join('');
  const baseRate=base?groupCompare(base,years).rate:null,confirmed=candidates.map(g=>({...g,...groupCompare(g,years)})).filter(g=>g.rate!=null);
  const referenceRate=comparisonOrigin==='marketRank'?Engine.benchmark(data.benchmark.filter(p=>p.region==='서울'),data.asOf,years):baseRate;$('comparisonHeading').textContent=comparisonOrigin==='marketRank'?'서울 시장과 얼마나 차이 났을까?':`${baselineTitle()}와 얼마나 차이 났을까?`;$('comparisonBack').textContent=comparisonOrigin==='marketRank'?'← 서울 전체 목록으로':'← 아파트 더 고르기';
+ if(!candidates.length&&comparisonOrigin!=='marketRank')$('comparisonHeading').textContent=`${baselineTitle()}, ${$('region').value}과 비교하면?`;
  const best=confirmed.sort((a,b)=>b.rate-a.rate)[0];
- $('comparisonAnswer').textContent=best&&referenceRate!=null?`${candidates.length>1?'선택한 후보 중 ':''}${best.name} · ${cardDifference(best.rate,referenceRate)} (${years}년)`:(candidates.length?'확정 상승률을 비교할 거래가 부족해요. 아래 흐름을 참고하세요.':'비교할 아파트를 고르면 기준 집과의 차이를 보여드려요.');
- $('comparisonSelected').innerHTML=candidates.map(g=>`<button data-remove="${esc(g.key)}">${esc(g.name)} ${g.area}㎡ ×</button>`).join('')||'<span class="meta">아파트 더 고르기에서 비교할 단지를 선택하세요.</span>';
+ $('comparisonAnswer').textContent=best&&referenceRate!=null?`${candidates.length>1?'선택한 후보 중 ':''}${best.name} · ${cardDifference(best.rate,referenceRate)} (${years}년)`:(candidates.length?'확정 상승률을 비교할 거래가 부족해요. 아래 흐름을 참고하세요.':`${baselineTitle()}와 ${$('region').value} 시장의 흐름이에요.`);
+ $('comparisonSelected').innerHTML=candidates.map(g=>`<button data-remove="${esc(g.key)}">${esc(g.name)} ${g.area}㎡ ×</button>`).join('')||'<span class="meta">아파트를 추가하면 최대 3곳까지 함께 비교해요.</span>';
  $('comparisonSelected').querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>toggleComparison(b.dataset.remove));
  $('comparisonPriceHistory').innerHTML='';
  if(base){const c=Engine.compare(base.rows,data.asOf,years);
