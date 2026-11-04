@@ -216,3 +216,8 @@ h1,h2,h3,.flow-panel>summary{word-break:keep-all;text-wrap:balance}
 .detail-load-state button{margin-top:16px;min-height:44px}
 #detail[data-state="error"]>#priceChart,#detail[data-state="error"]>#detailAnswer,#detail[data-state="error"]>h3,#detail[data-state="error"]>details,#detail[data-state="loading"]>details,#detail[data-state="loading"]>#detailAnswer,#detail[data-state="loading"]>h3{display:none}
 #detail[data-state="loading"]>#priceChart{min-height:160px;background:linear-gradient(180deg,#f6f8fc,#fff);border-radius:14px}
+
+.app-load-error{padding:20px;background:#fff;border:1px solid #e3e9f3;border-radius:16px;margin:0 0 20px;line-height:1.7}
+.app-load-error p{margin:0 0 12px}
+.detail-budget-next{display:block;width:100%;min-height:56px;background:#234cda;color:#fff;font-weight:650;border:0;border-radius:14px;margin:24px 0}
+.detail-budget-next[hidden]{display:none}
