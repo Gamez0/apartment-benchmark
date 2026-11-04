@@ -209,3 +209,10 @@ h1,h2,h3,.flow-panel>summary{word-break:keep-all;text-wrap:balance}
 #marketRankFlow>#marketRankSettings{margin-top:20px;font-size:13px}
 #marketRankFlow>#marketRankSettings>summary{min-height:44px;display:flex;align-items:center;color:#536179}
 @media(max-width:700px){#marketRankFlow>.rank-answer-context{margin:0 0 12px}#marketRankFlow .rank-preview{margin:0}#marketRankFlow .rank-sides button{padding:8px 4px}}
+
+/* Keep the selected apartment and a local recovery action through network failure. */
+.detail-load-state{padding:20px;border:1px solid #e3e9f3;border-radius:14px;background:#f6f8fc;margin:20px 0;line-height:1.7}
+.detail-load-state p{margin:0}
+.detail-load-state button{margin-top:16px;min-height:44px}
+#detail[data-state="error"]>#priceChart,#detail[data-state="error"]>#detailAnswer,#detail[data-state="error"]>h3,#detail[data-state="error"]>details,#detail[data-state="loading"]>details,#detail[data-state="loading"]>#detailAnswer,#detail[data-state="loading"]>h3{display:none}
+#detail[data-state="loading"]>#priceChart{min-height:160px;background:linear-gradient(180deg,#f6f8fc,#fff);border-radius:14px}
