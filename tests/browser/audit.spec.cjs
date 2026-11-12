@@ -94,9 +94,9 @@ test('incoherent pinned bootstrap blocks calculations and can recover by retry',
   const old=JSON.parse(fs.readFileSync('site/data.json','utf8'));old.revision='previous-build';
   await page.route(/\/data\.json\?/,route=>route.fulfill({json:old}));
   await page.route('**/seoul/bootstrap-*.json',route=>route.fulfill({json:{...old,revision:'wrong-build'}}));
-  await page.goto('/');await expect(page.locator('#scopeRetry')).toBeVisible();await expect(page.locator('#scopeStatus')).toContainText('버전이 다릅니다');
+  await page.goto('/');await expect(page).toHaveURL(/#\/home$/);await expect(page.locator('#bootError')).toBeVisible();await expect(page.locator('#bootRetry')).toBeVisible();await expect(page.locator('#scopeStatus')).toContainText('버전이 다릅니다');
   await expect(page.locator('#purchaseCalculate')).toBeDisabled();await expect(page.locator('#comparisonChart svg')).toHaveCount(0);
-  await page.unroute('**/seoul/bootstrap-*.json');await page.locator('#scopeRetry').click();
+  await page.unroute('**/seoul/bootstrap-*.json');await page.locator('#bootRetry').click();
   await expect(page.locator('#scopeStatus')).toContainText('공식 자료');await expect(page.locator('#purchaseCalculate')).toBeEnabled();
 });
 
