@@ -34,3 +34,23 @@ test('SYNTHETIC QA: visible mortgage and sale-proceeds arithmetic',async({page},
  expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
 });
 
+
+test('SYNTHETIC QA: zero sale budget offers one nearby edit action',async({page},info)=>{
+ await installMoveFixture(page);await page.goto('/#/move');
+ await expect(page.locator('#switchCalculate')).toBeEnabled();
+ await page.locator('#switchSale').fill('10');await page.locator('#switchDebt').fill('10');await page.locator('#switchExtra').fill('0');
+ await page.locator('#switchCalculate').click();
+ await expect(page.locator('#switchResult')).toContainText('남는 예산이 없어요');
+ await expect(page.locator('#switchError')).toBeEmpty();
+ await expect(page.locator('#switchResult button')).toHaveCount(1);
+ await expect(page.locator('#editEmptySwitch')).toBeVisible();
+ await expect(page.locator('#switchResult [data-review]')).toHaveCount(0);
+ await page.screenshot({path:'test-results/SYNTHETIC-zero-budget-'+info.project.name+'.png',fullPage:true});
+ await page.locator('#editEmptySwitch').click();await expect(page.locator('#switchSale')).toBeFocused();
+ await expect(page.locator('#switchSale')).toHaveValue('10');await expect(page.locator('#switchDebt')).toHaveValue('10');await expect(page.locator('#switchExtra')).toHaveValue('0');
+ await page.locator('#switchDebt').fill('9');await expect(page.locator('#switchResult')).toBeEmpty();await page.locator('#switchCalculate').click();
+ await expect(page.locator('#switchResult .stats')).toContainText('집 살 예산1.00억');
+ await page.locator('#switchDebt').fill('11');await page.locator('#switchCalculate').click();
+ await expect(page.locator('#switchError')).toContainText('매수 예산이 0 이하');await expect(page.locator('#switchResult')).toBeEmpty();
+});
+
