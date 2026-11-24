@@ -230,3 +230,15 @@ h1,h2,h3,.flow-panel>summary{word-break:keep-all;text-wrap:balance}
  body[data-review-dock="true"] .review-next p{margin:0 0 6px;line-height:1.4}
  body[data-review-dock="true"][data-route="budget"] #purchaseCalculate,body[data-review-dock="true"][data-route="move"] #switchCalculate{visibility:hidden}
 }
+
+/* Price discovery is separate from personal affordability. */
+.explore-input{max-width:520px;margin:24px 0}
+.explore-input label{display:flex;flex-direction:column;gap:8px;font-weight:600}
+.explore-input input{width:100%;box-sizing:border-box}
+#exploreCalculate{min-height:56px;width:100%;background:#234cda;color:#fff;font-weight:650;margin:16px 0}
+#exploreActualBudget{display:inline-flex;align-items:center;min-height:44px;font-size:14px}
+#exploreResult{scroll-margin-top:24px}
+#exploreResult>.switch-preview{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+#exploreResult article{padding:20px;background:#f6f8fc;border:1px solid #e3e9f3;border-radius:16px;min-width:0}
+#exploreResult article button{min-height:44px;margin:8px 4px 0 0}
+@media(max-width:700px){body[data-review-dock="true"][data-route="explore"] #exploreCalculate{visibility:hidden}}
