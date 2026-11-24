@@ -560,3 +560,10 @@
 - 검토수용후ready전환 mergeable:true와expectedhead확인병합, main36d54ce9666fc3e55377fa175cc69070d6da005d. 신규Pages진행중,공개반영확인전배포완료아님.
 - Figma67:424정상읽기/기존시안보존. 다음가치작은과제는explore초기PC만68:432좌입력/우예고2열반영. index/visual.css/browser검사범위,계산·라우팅·원천불변. PC열배치/일관폭/단일CTA,320390세로유지/넘침/선택복귀검증필요.
 - 다음담당:배포검증자가이번Pages로그+공개확인,디자인/개발이PC탐색한화면수정. 전체제품/Issue3완료아님.
+
+
+## 2026-11-25 · 모바일공백 공개확인·PC2열 PR6
+- 별도검증자 main배포45496983626/job138809963312 success,189passed3.2m확인. 공개PC15.25가격조회→후보담기/해제/재담기→정리→뒤로의가격/선택/조회결과/CTA초점보존 실제AX·이미지확인. PC계산버튼유지. 공개모바일직접은미검증,모바일공백증거는기존CI320390산출물.
+- 실제새산출물 https://github.com/Gamez0/apartment-benchmark/pull/6 draft5ec2d4d63f8b7d4048da4c3ef20bdb727d3cf7e6. Figma68:432정상읽기후초기PC탐색2열반영. 901이상좌입력/우다음행동안내gap48,900이하한열/aside숨김,결과전체폭/개인예산보조링크CTA위. index/visual.css/browser3파일만.
+- 작성자문법/ID중복/범위검사·별도검증자route/section호환/AX/PR5보존/회귀검사정적검토통과. app/router/engine변경없음. 실제렌더/브라우저CI/공개반영은미검증. 시안동기화완료로표시하지않음.
+- 다음담당검증자:PR6 CI및1280/1440·320390초기/결과이미지를Figma와직접대조,단일CTA/여백/가독성/선택해제복원확인후병합판단. 실패최대2회수정. 개인자금/원천정책불변,Issue3전체완료아님.
