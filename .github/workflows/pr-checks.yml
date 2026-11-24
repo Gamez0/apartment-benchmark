@@ -1,0 +1,30 @@
+name: Pull request checks
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: pr-checks-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/prepare_data.py
+      - run: node tests/engine.test.cjs
+      - run: node tests/priorities.test.cjs
+      - run: node tests/app.test.cjs
+      - run: node tests/comparison.test.cjs
+      - run: node tests/seoul.test.cjs
+      - run: python tests/finance.audit.py
+      - run: node --check site/app.js
+      - run: node --check tests/browser/move-input-clarity.spec.cjs
