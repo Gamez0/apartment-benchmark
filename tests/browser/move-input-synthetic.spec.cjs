@@ -44,6 +44,13 @@ test('SYNTHETIC QA: zero sale budget offers one nearby edit action',async({page}
  await expect(page.locator('#switchError')).toBeEmpty();
  await expect(page.locator('#switchResult button')).toHaveCount(1);
  await expect(page.locator('#editEmptySwitch')).toBeVisible();
+ await page.locator('#editEmptySwitch').scrollIntoViewIfNeeded();
+ const recovery=await page.locator('#editEmptySwitch').boundingBox();
+ expect(recovery.height).toBeGreaterThanOrEqual(44);
+ expect(recovery.y).toBeGreaterThanOrEqual(0);
+ expect(recovery.y+recovery.height).toBeLessThanOrEqual(page.viewportSize().height);
+ const reason=await page.locator('#switchResult .empty-budget p').boundingBox();
+ expect(recovery.y-(reason.y+reason.height)).toBeLessThanOrEqual(48);
  await expect(page.locator('#switchResult [data-review]')).toHaveCount(0);
  await page.screenshot({path:'test-results/SYNTHETIC-zero-budget-'+info.project.name+'.png',fullPage:true});
  await page.locator('#editEmptySwitch').click();await expect(page.locator('#switchSale')).toBeFocused();
