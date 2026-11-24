@@ -519,3 +519,12 @@
 - 개인 준비자금에 대표가격을 넣는 대신 별도 탐색가격 상태로 분리하는 설계를 독립 검토. current.price<=탐색가격과 기존 면적·지역·거래근거 조건만 적용하고 LTV/개인자금엔진에 넣지 않음. 구매가능/미래최적추천 표현금지.
 - 실제 Figma 산출물 https://www.figma.com/design/GmAVpUJZWWOQ1nSk9FulVG?node-id=67-424 . 기존budget19:496 보존,390×524 새시안. 합성정적예시/가격상한/단일'이 가격 안에서 보기'/개인자금설정 보조링크. 작성자 렌더후 root 독립 원본렌더로 한글·잘림·겹침과 주CTA 위계 확인. 동적구현/프로토타입/PC·320반응형은 미검증.
 - 다음 개발 완료조건: 공식 대표가격 기본값, 거래부족시 임의값 금지, 사용자수정 보존, 탐색값의own자동이전 금지, 공식후보 필터 독립대조, CTA→결과·상세복귀/PC320390 검증. 이번 시안은 합성예시이며 실제 서비스 동기화/Issue3완료 아님.
+
+
+## 2026-11-25 · 가격 탐색 구현 PR4
+- https://github.com/Gamez0/apartment-benchmark/pull/4 draft head691a22f4aac50c7bfd99baba5eb147fe44bb02a3. market→explore 별도 가격상한 탐색/공식대표가격 default/사용자수정보존/후보담기·정리·상세복귀. 개인own/loan·Engine불변, 합성QA는tests전용. 기존개인구매화면 유지.
+- 작성자 로컬 탐색VM+engine/priorities/comparison4suites·JS문법 통과. 별도검증자 탐색VM/comparison·문법 및 필터/자금분리/복귀/기존검사변경 검토에서 차단결함 미발견. 부분복원 data.json없어 app통합검사는로컬미실행. 브라우저/공식전체회귀/새화면실제렌더/공개배포는미검증, draft유지.
+- PR사전검사에 탐색VM/합성browser spec추가(배포권한없음). CI결과·캡처 검증 후에만 병합판단. 기존Pages45420788492 성공서비스는유지.
+- Figma PC https://www.figma.com/design/GmAVpUJZWWOQ1nSk9FulVG?node-id=68-432 신규1440×840, 기존모바일보존. 좌입력/단일CTA·우다음결과예고. 합성정적예시명시, 작성자렌더후root독립렌더잘림·겹침없음확인. 코드픽셀동기화완료아님.
+- 변경전 공개PC 별도검증: marketCTA→budget 빈자금으로입력안내/조회차단 AX·실이미지확인. 모바일직접미검증. 후속UX:explore조건(동네/면적/기간)을결과전에도명확히, 조건수정진입점 검토.
+- 다음담당 검증자:PR4 CI/6합성browser 및 공식전체결과·PC320390캡처확인, 실패최대2회수정후재검증. 통과뒤병합/Pages/공개여정확인. Issue3/전체제품미완료.
