@@ -544,3 +544,11 @@
 - Figma68:432정상읽기와branchCSS별도대조:시안PC좌입력/우예고2열은코드미반영,보조링크순서도차이. 기능릴리스차단아니나디자인동기화미완료.
 - 별도검증자의좁은릴리스수용판단후draft해제→mergeable:true확인→expectedhead병합. main090c8adaee0c9503bce46b6b3736de8723e69b4a. 공개배포/실데이터explore조작은아직미검증.
 - 다음담당:배포검증자가main Actions통과/공개home→market→explore→후보담기·상세복귀·개인입력분리확인. 디자인/개발은공백제거·PC2열대조후작은후속PR. Issue3전체완료아님.
+
+
+## 2026-11-25 · 가격 탐색 공개 릴리스와 모바일 공백 후속
+- 별도검증자 main배포45476568473/job138738246869 성공·186passed4.1m 확인. 원천825816거래/33583단지면적/134332비교 유지.
+- 공개PC home→market→explore 기본공식대표15.25→조회→후보담기→shortlist→실거래상세→닫기/뒤로의가격·선택·초점보존을AX·실제이미지로검증. 탐색상한과대표가격차이표시, 개인budget own/loan빈값유지 확인. 개인자금입력없음. 공개모바일직접은CUA viewport미지원으로미검증(기존CI320/390과구분).
+- https://gamez0.github.io/apartment-benchmark/#/explore 새가격탐색기능공개확인완료. 전체Issue3/전체제품완료아님.
+- 실제후속산출물 https://github.com/Gamez0/apartment-benchmark/pull/5 draft8fa5bf8:모바일explore+dock일때숨긴계산버튼슬롯제거(display:none),선택해제복원. 기존budget/move·PC불변. 2파일수정/3환경새회귀추가. 별도코드검토차단점없음·문법/범위검사통과,브라우저CI/실렌더/배포대기.
+- Figma68:432정상읽기유지,기존시안보존. PC2열미반영은계속후속. 다음담당검증자는PR5 CI/전후이미지·모바일슬롯감소/해제복원/CTA확인뒤병합판단,작성자는실패시최대2회수정.
