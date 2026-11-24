@@ -1,0 +1,69 @@
+name: Official-data PR validation
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: official-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/engine.test.cjs
+      - run: node tests/priorities.test.cjs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tests/import.test.py
+      - run: python scripts/prepare_data.py
+      - run: node tests/app.test.cjs
+      - run: node tests/comparison.test.cjs
+      - run: node tests/seoul.test.cjs
+      - run: python tests/seoul.test.py
+      - run: python tests/molit.test.py
+      - run: python tests/cache.test.py
+      - run: python tests/oracle.test.py
+      - run: python tests/finance.audit.py
+      - uses: actions/cache/restore@v4
+        with:
+          path: data/seoul-cache
+          key: seoul-months-v1-${{ github.run_id }}
+          restore-keys: seoul-months-v1-
+      - name: Collect official Seoul transactions
+        env:
+          MOLIT_API_KEY: ${{ secrets.MOLIT_API_KEY }}
+          MOLIT_API_ENDPOINT: ${{ secrets.MOLIT_API_ENDPOINT }}
+          FULL_REFRESH: 'false'
+        run: python scripts/collect_seoul.py
+      - run: python scripts/prepare_data.py
+      - run: node scripts/build_seoul.cjs
+      - run: python scripts/version_assets.py
+      - name: Independent raw-trade audit of every published unit
+        run: python scripts/audit_build.py
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Browser regression on generated official data
+        timeout-minutes: 15
+        run: >-
+          docker run --rm --shm-size=1g -e CI=1
+          -v "$GITHUB_WORKSPACE:/work" -w /work
+          mcr.microsoft.com/playwright:v1.64.1-noble@sha256:7852dc5a7d72f5fe458a597d690f6c42fbc8e9e26ddfa95f8e6ef552558d9bbf
+          /bin/bash -lc "npm run test:ui"
+      - name: Save browser test report and failure traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-pr-browser-report
+          path: |
+            playwright-report/
+            test-results/
+            audit-report/
+          if-no-files-found: ignore
+          retention-days: 14
