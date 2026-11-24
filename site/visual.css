@@ -243,3 +243,24 @@ h1,h2,h3,.flow-panel>summary{word-break:keep-all;text-wrap:balance}
 #exploreResult article button{min-height:44px;margin:8px 4px 0 0}
 @media(max-width:700px){body[data-review-dock="true"][data-route="explore"] #exploreCalculate{display:none}}
 
+
+
+/* Desktop discovery gives input and the next step distinct columns; mobile stays focused. */
+.explore-layout,.explore-main{min-width:0}
+#exploreHeading{font-size:24px;line-height:1.45;letter-spacing:-.6px;margin:0 0 16px}
+.explore-next{display:none}
+#exploreFlow .explore-input{margin-bottom:0}
+#exploreFlow #exploreActualBudget{display:flex;width:fit-content;margin:4px 0 12px}
+#exploreFlow #exploreCalculate{margin:0}
+#exploreFlow #exploreError:empty{margin:0}
+#exploreFlow #exploreResult:not(:empty){margin-top:32px}
+@media(min-width:901px){
+ .explore-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+ #exploreHeading{font-size:32px;line-height:1.3;max-width:400px;margin-bottom:24px}
+ #exploreFlow .explore-main>.meta{max-width:420px;margin:0}
+ #exploreFlow .explore-input{max-width:none;margin-top:28px}
+ .explore-next{display:block;color:var(--muted);font-size:16px;line-height:1.8}
+ .explore-next h3{font-size:22px;line-height:1.45;letter-spacing:-.4px;color:var(--ink);margin:0 0 24px}
+ .explore-next p{margin:0 0 24px}
+ .explore-next p:last-child{margin-bottom:0}
+}

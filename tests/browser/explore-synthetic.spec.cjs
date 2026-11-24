@@ -48,3 +48,32 @@ test('SYNTHETIC: mobile shortlist dock removes and restores the replaced calcula
  const restored=await page.locator('#exploreResult').evaluate(e=>e.getBoundingClientRect().top+scrollY);expect(Math.abs(restored-before.resultY)).toBeLessThanOrEqual(2);
  expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
 });
+
+
+
+test('SYNTHETIC: price discovery uses two desktop columns and a focused mobile column',async({page},info)=>{
+ const assertIsolated=await fixture(page);
+ const desktop=info.project.name==='desktop-chromium',widths=desktop?[1280,1440]:[page.viewportSize().width];
+ for(const width of widths){
+  if(desktop)await page.setViewportSize({width,height:900});
+  await page.goto('/#/explore');await expect(page.locator('#exploreCalculate')).toBeEnabled();await assertIsolated();
+  const main=page.locator('.explore-main'),aside=page.locator('.explore-next'),calculate=page.locator('#exploreCalculate');
+  await expect(page.locator('#exploreFlow button:visible')).toHaveCount(1);
+  expect(await page.locator('#exploreActualBudget').evaluate(e=>!!(e.compareDocumentPosition(document.querySelector('#exploreCalculate'))&Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);
+  const left=await main.boundingBox();
+  if(desktop){
+   await expect(aside).toBeVisible();const right=await aside.boundingBox();expect(right.x-(left.x+left.width)).toBeGreaterThanOrEqual(32);
+   const heading=await page.locator('#exploreHeading').boundingBox(),input=await page.locator('#explorePrice').boundingBox(),cta=await calculate.boundingBox();
+   expect(Math.abs(heading.x-left.x)).toBeLessThanOrEqual(2);expect(Math.abs(input.x-left.x)).toBeLessThanOrEqual(2);expect(Math.abs(cta.x-left.x)).toBeLessThanOrEqual(2);
+   expect(heading.y+heading.height).toBeLessThan(input.y);expect(input.y+input.height).toBeLessThan(cta.y);
+  }else{
+   await expect(aside).toBeHidden();await expect(page.getByRole('heading',{name:'다음은, 이 가격 안의 후보예요',exact:true})).toHaveCount(0);
+   const layout=await page.locator('.explore-layout').boundingBox();expect(Math.abs(left.width-layout.width)).toBeLessThanOrEqual(2);
+  }
+  await page.screenshot({path:'test-results/SYNTHETIC-explore-layout-'+info.project.name+'-'+width+'.png',fullPage:true});
+  await calculate.click();await expect(page.locator('#exploreResult [data-review]')).not.toHaveCount(0);
+  const layout=await page.locator('.explore-layout').boundingBox(),result=await page.locator('#exploreResult').boundingBox();
+  expect(Math.abs(result.x-layout.x)).toBeLessThanOrEqual(2);expect(Math.abs(result.width-layout.width)).toBeLessThanOrEqual(2);expect(result.y).toBeGreaterThanOrEqual(layout.y+layout.height);
+  expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
+ }
+});
