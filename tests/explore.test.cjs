@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+// Synthetic QA only. No fixture is published as market data.
+const elements=new Map();const el=id=>{if(!elements.has(id))elements.set(id,{value:({region:'서울',period:'1',budget:'0',search:'',sort:'excess',dong:'신도림동',areaScope:'similar'})[id]??'',checked:false,innerHTML:'',textContent:'',addEventListener(){},querySelectorAll(){return[]},scrollIntoView(){}});return elements.get(id)};
+const fixture={asOf:'2026-07-31',transactions:[['base','동아2',84.908,8,10],['lower','QA후보',84,6,9],['higher','QA상한초과',84,10,12]].flatMap(([id,name,area,old,now])=>['2025','2026'].flatMap((year,i)=>[1,2,3,4,5].map(day=>({id,name,area,region:'서울',district:'구로구',dong:'신도림동',date:year+'-07-0'+day,price:i?now:old})))),benchmark:[{region:'서울',month:'2025-07',value:100},{region:'서울',month:'2026-07',value:110}],rates:[]};
+const context={document:{getElementById:el},Engine:require('../site/engine'),fetch:()=>new Promise(()=>{}),console,fixture};vm.createContext(context);vm.runInContext(fs.readFileSync('site/app.js','utf8'),context);vm.runInContext('load(fixture)',context);
+assert.equal(el('explorePrice').value,'10.00');assert.equal(el('buyOwn').value,'');assert.equal(el('buyLoan').value,'');
+el('exploreCalculate').onclick();assert.equal(el('exploreError').textContent,'');assert.match(el('exploreResult').innerHTML,/QA후보/);assert.ok(!el('exploreResult').innerHTML.includes('QA상한초과'));assert.match(el('exploreResult').innerHTML,/개인 구매력이나 현재 매물 가격을 뜻하지/);
+el('explorePrice').value='9.5';el('explorePrice').oninput();assert.equal(el('exploreResult').innerHTML,'');vm.runInContext('render()',context);assert.equal(el('explorePrice').value,'9.5');el('exploreCalculate').onclick();assert.match(el('exploreResult').innerHTML,/9.50억/);assert.equal(el('buyOwn').value,'');
+el('explorePrice').value='';el('explorePrice').oninput();el('exploreCalculate').onclick();assert.match(el('exploreError').textContent,/0보다 크게/);assert.equal(el('exploreResult').innerHTML,'');
+vm.runInContext('explorePriceEdited=false;syncExploreDefault(null)',context);assert.equal(el('explorePrice').value,'');assert.match(el('explorePriceBasis').textContent,/거래가 부족/);
+console.log('Synthetic price exploration: official-price default, upper bound, personal funds separation, edit preservation and sparse recovery passed');

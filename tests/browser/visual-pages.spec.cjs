@@ -10,7 +10,7 @@ test('every route has a readable visual review capture and the main journey keep
  const hero=await page.evaluate(()=>{const box=id=>document.getElementById(id).getBoundingClientRect();return {period:box('heroPeriod').bottom,answer:box('referenceResult').top,card:document.querySelector('.market-overview').getBoundingClientRect().bottom,result:box('referenceResult').bottom};});
  expect(hero.answer-hero.period).toBeGreaterThanOrEqual(0);expect(hero.answer-hero.period).toBeLessThan(20);expect(hero.card-hero.result).toBeLessThanOrEqual(36);
  await shot('home');await page.locator('#openMarketRank').click();await expect(page.locator('#marketRankStatus')).toHaveAttribute('data-ready','true',{timeout:30000});await shot('market');
- await page.locator('#openPurchase').click();await shot('budget-input');
+ await page.locator('#openPurchase').click();await page.locator('#exploreActualBudget').click();await shot('budget-input');
  await page.locator('#buyOwn').fill('20');await page.locator('#buyLoan').fill('0');await page.locator('#purchaseCalculate').click();await expect(page.locator('.purchase-candidate')).toHaveCount(3);expect(await page.locator('.purchase-answer').evaluate(e=>getComputedStyle(e).display)).toBe('grid');const summary=await page.locator('.purchase-answer').evaluate(e=>{const a=e.querySelector('.budget-answer').getBoundingClientRect(),b=e.querySelector('button').getBoundingClientRect();return Math.abs((a.top+a.bottom)/2-(b.top+b.bottom)/2);});expect(summary).toBeLessThanOrEqual(2);await shot('budget-result');
  await page.locator('#purchaseScope').click();await shot('location');await page.locator('#scopeUseForPurchase').click();await expect(page.locator('#buyOwn')).toHaveValue('20');
  await page.locator('.budget-mode a[data-route="move"]').first().click();await shot('move-input');await page.locator('#switchExtra').fill('5');await page.locator('#switchCalculate').click();await expect(page.locator('.switch-preview article')).toHaveCount(3);await shot('move-result');
@@ -23,3 +23,4 @@ test('every route has a readable visual review capture and the main journey keep
  await page.goto('/#/advanced');await expect(page.locator('#openMarketRank')).toBeEnabled();await page.locator('#holdingPanel > summary').click();await shot('advanced-input');
  if(info.project.name==='mobile-webkit-390'){await page.setViewportSize({width:440,height:956});await page.goto('/');await expect(page.locator('#referenceVisual')).toHaveAttribute('data-state','photo');await shot('home-440');}
 });
+

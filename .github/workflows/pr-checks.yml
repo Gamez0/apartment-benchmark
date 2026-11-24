@@ -24,6 +24,7 @@ jobs:
       - run: node tests/priorities.test.cjs
       - run: node tests/app.test.cjs
       - run: node tests/comparison.test.cjs
+      - run: node tests/explore.test.cjs
       - run: node tests/seoul.test.cjs
       - run: python tests/finance.audit.py
       - run: node --check site/app.js
@@ -34,7 +35,7 @@ jobs:
           docker run --rm --shm-size=1g -e CI=1
           -v "$GITHUB_WORKSPACE:/work" -w /work
           mcr.microsoft.com/playwright:v1.64.1-noble@sha256:7852dc5a7d72f5fe458a597d690f6c42fbc8e9e26ddfa95f8e6ef552558d9bbf
-          /bin/bash -lc "npx playwright test tests/browser/move-input-synthetic.spec.cjs"
+          /bin/bash -lc "npx playwright test tests/browser/move-input-synthetic.spec.cjs tests/browser/explore-synthetic.spec.cjs"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
