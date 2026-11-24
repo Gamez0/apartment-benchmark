@@ -241,4 +241,5 @@ h1,h2,h3,.flow-panel>summary{word-break:keep-all;text-wrap:balance}
 #exploreResult>.switch-preview{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
 #exploreResult article{padding:20px;background:#f6f8fc;border:1px solid #e3e9f3;border-radius:16px;min-width:0}
 #exploreResult article button{min-height:44px;margin:8px 4px 0 0}
-@media(max-width:700px){body[data-review-dock="true"][data-route="explore"] #exploreCalculate{visibility:hidden}}
+@media(max-width:700px){body[data-review-dock="true"][data-route="explore"] #exploreCalculate{display:none}}
+

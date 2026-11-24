@@ -28,3 +28,23 @@ test('SYNTHETIC: CTA-only discovery keeps price exploration separate from cash',
  await assertIsolated();await page.locator('#exploreActualBudget').click();await expect(page).toHaveURL(/#\/budget$/);await expect(page.locator('#buyOwn')).toHaveValue('');await expect(page.locator('#buyLoan')).toHaveValue('');
 });
 test('SYNTHETIC: sparse baseline never invents a default price',async({page})=>{const assertIsolated=await fixture(page,{sparse:true});await page.goto('/#/explore');await expect(page.locator('#exploreCalculate')).toBeEnabled();await assertIsolated();await expect(page.locator('#explorePrice')).toHaveValue('');await expect(page.locator('#explorePriceBasis')).toContainText('거래가 부족');await page.locator('#exploreCalculate').click();await expect(page.locator('#exploreError')).toContainText('0보다 크게');await expect(page.locator('#exploreResult')).toBeEmpty();});
+
+
+
+test('SYNTHETIC: mobile shortlist dock removes and restores the replaced calculation slot',async({page},info)=>{
+ const assertIsolated=await fixture(page);await page.goto('/#/explore');await expect(page.locator('#exploreCalculate')).toBeEnabled();await assertIsolated();await page.locator('#exploreCalculate').click();
+ const calculate=page.locator('#exploreCalculate'),pick=page.locator('#exploreResult [data-review]').first();await expect(pick).toBeVisible();
+ const before=await page.evaluate(()=>({height:document.querySelector('#exploreCalculate').getBoundingClientRect().height,resultY:document.querySelector('#exploreResult').getBoundingClientRect().top+scrollY}));
+ await pick.click();await expect(page.locator('body')).toHaveAttribute('data-review-dock','true');
+ if(page.viewportSize().width<=700){
+  // visibility:hidden used to retain the button's entire layout slot above the result.
+  await expect(calculate).toHaveCSS('display','none');
+  const after=await page.locator('#exploreResult').evaluate(e=>e.getBoundingClientRect().top+scrollY);
+  expect(before.resultY-after).toBeGreaterThanOrEqual(before.height-2);
+  await expect(page.locator('#exploreFlow [data-review-open]')).toBeInViewport();
+ }else await expect(calculate).toBeVisible();
+ await page.screenshot({path:'test-results/SYNTHETIC-explore-dock-spacing-'+info.project.name+'.png',fullPage:true});
+ await pick.click();await expect(page.locator('body')).toHaveAttribute('data-review-dock','false');await expect(calculate).toBeVisible();
+ const restored=await page.locator('#exploreResult').evaluate(e=>e.getBoundingClientRect().top+scrollY);expect(Math.abs(restored-before.resultY)).toBeLessThanOrEqual(2);
+ expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
+});
