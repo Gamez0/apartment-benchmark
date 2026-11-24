@@ -552,3 +552,11 @@
 - https://gamez0.github.io/apartment-benchmark/#/explore 새가격탐색기능공개확인완료. 전체Issue3/전체제품완료아님.
 - 실제후속산출물 https://github.com/Gamez0/apartment-benchmark/pull/5 draft8fa5bf8:모바일explore+dock일때숨긴계산버튼슬롯제거(display:none),선택해제복원. 기존budget/move·PC불변. 2파일수정/3환경새회귀추가. 별도코드검토차단점없음·문법/범위검사통과,브라우저CI/실렌더/배포대기.
 - Figma68:432정상읽기유지,기존시안보존. PC2열미반영은계속후속. 다음담당검증자는PR5 CI/전후이미지·모바일슬롯감소/해제복원/CTA확인뒤병합판단,작성자는실패시최대2회수정.
+
+
+## 2026-11-25 · 모바일 탐색 공백 PR5 병합
+- 독립검증 head8fa5bf8:official45487132357/job138775401602 189passed3.6m,checks45487132322/job138775401260 15passed9.6s. PC320390 슬롯제거/복원회귀통과.
+- 정상artifact14963439144의spacing3이미지직접독립검토:모바일불필요계산버튼공백제거,PC버튼유지,후보/하단CTA가로잘림없음. 320fullpage고정dock가카드위겹쳐보이는특성있음;선택직후체감/끝스크롤접근/물리모바일직접미검증. 스냅샷으로일반화하지않음.
+- 검토수용후ready전환 mergeable:true와expectedhead확인병합, main36d54ce9666fc3e55377fa175cc69070d6da005d. 신규Pages진행중,공개반영확인전배포완료아님.
+- Figma67:424정상읽기/기존시안보존. 다음가치작은과제는explore초기PC만68:432좌입력/우예고2열반영. index/visual.css/browser검사범위,계산·라우팅·원천불변. PC열배치/일관폭/단일CTA,320390세로유지/넘침/선택복귀검증필요.
+- 다음담당:배포검증자가이번Pages로그+공개확인,디자인/개발이PC탐색한화면수정. 전체제품/Issue3완료아님.
