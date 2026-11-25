@@ -56,7 +56,8 @@ test('SYNTHETIC: price discovery uses two desktop columns and a focused mobile c
  const desktop=info.project.name==='desktop-chromium',widths=desktop?[1280,1440]:[page.viewportSize().width];
  for(const width of widths){
   if(desktop)await page.setViewportSize({width,height:900});
-  await page.goto('/#/explore');await expect(page.locator('#exploreCalculate')).toBeEnabled();await assertIsolated();
+  // Each width checks a fresh initial state; a same-hash visit may preserve prior results.
+  await page.goto('/#/explore');await page.reload();await expect(page.locator('#exploreCalculate')).toBeEnabled();await assertIsolated();await expect(page.locator('#exploreResult')).toBeEmpty();
   const main=page.locator('.explore-main'),aside=page.locator('.explore-next'),calculate=page.locator('#exploreCalculate');
   await expect(page.locator('#exploreFlow button:visible')).toHaveCount(1);
   expect(await page.locator('#exploreActualBudget').evaluate(e=>!!(e.compareDocumentPosition(document.querySelector('#exploreCalculate'))&Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);
@@ -72,7 +73,11 @@ test('SYNTHETIC: price discovery uses two desktop columns and a focused mobile c
   }
   await page.screenshot({path:'test-results/SYNTHETIC-explore-layout-'+info.project.name+'-'+width+'.png',fullPage:true});
   await calculate.click();await expect(page.locator('#exploreResult [data-review]')).not.toHaveCount(0);
-  const layout=await page.locator('.explore-layout').boundingBox(),result=await page.locator('#exploreResult').boundingBox();
+  // One synchronous snapshot prevents smooth scrolling between two geometry reads.
+  const {layout,result}=await page.evaluate(()=>{
+   const bounds=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};};
+   return {layout:bounds('.explore-layout'),result:bounds('#exploreResult')};
+  });
   expect(Math.abs(result.x-layout.x)).toBeLessThanOrEqual(2);expect(Math.abs(result.width-layout.width)).toBeLessThanOrEqual(2);expect(result.y).toBeGreaterThanOrEqual(layout.y+layout.height);
   expect(await page.locator('html').evaluate(e=>e.scrollWidth>e.clientWidth)).toBe(false);
  }
