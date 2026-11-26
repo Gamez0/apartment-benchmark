@@ -1,9 +1,9 @@
 {
   "cycle_id": "RE-20261126-01",
-  "phase": "DAY_1_COMPLETE",
+  "phase": "DAY_2_COMPLETE",
   "baseline_revision": "f607930f4c50111c8820567d5765e5de5280b70a",
   "plan_revision": "1.0",
-  "next_phase": "DAY_2",
+  "next_phase": "DAY_3",
   "independent_review": "passed with explicit acceptance criteria",
   "carried_pr": {
     "number": 6,
@@ -14,20 +14,25 @@
     "repository/Notion/Figma restored",
     "PC public journey operated",
     "PR6 CI and 4 viewport captures independently inspected",
-    "reference research and plan independent review"
+    "reference research and plan independent review",
+    "DAY2 exact head and gates independently checked; PR6 merged with expected head"
   ],
   "unresolved": [
     "public mobile direct interaction unavailable",
     "personal budget and move calculation not exercised this DAY1",
     "market CTA price/scope promise mismatch",
     "explore card hierarchy emphasizes price over market excess",
-    "shortlist external investigation bridge"
+    "shortlist external investigation bridge",
+    "slow network normal/Fast3G/Slow3G/offline baseline unmeasured",
+    "plain Korean copy across relative/absolute categories",
+    "detail duplicate #flowBack/#close both call router.back"
   ],
   "day2": [
     "Verify exact PR6 head, mergeability and approval gates; merge and deploy only if passing",
     "No new feature work; preserve official data and personal inputs separation"
   ],
   "day3": [
+    "Verify main Pages deployment and public PC two-column/mobile preserved, no completion without public check",
     "Public full journey including budget/move synthetic funds and return/focus",
     "Independent same-window BM1/3/5 oracle: dates, percent vs percentage points, sparse exclusion, estimates excluded",
     "PC/mobile captures and regression; Pages and exclusion policies; per-item pass/fail/unverified",
@@ -37,7 +42,8 @@
     "checks": "https://github.com/Gamez0/apartment-benchmark/actions/runs/45514962718",
     "official": "https://github.com/Gamez0/apartment-benchmark/actions/runs/45514962599",
     "artifact": 14976704881,
-    "figma": "https://www.figma.com/design/GmAVpUJZWWOQ1nSk9FulVG?node-id=68-432"
+    "figma": "https://www.figma.com/design/GmAVpUJZWWOQ1nSk9FulVG?node-id=68-432",
+    "deployment": "https://github.com/Gamez0/apartment-benchmark/actions/runs/45908259422"
   },
   "references": [
     {
@@ -64,5 +70,6 @@
       "url": "https://fredhelp.stlouisfed.org/fred/graphs/customize-a-fred-graph/edit-data-series/apply-units-transformation-to-data/",
       "status": "unavailable, no design claims"
     }
-  ]
+  ],
+  "execution_revision": "dd3a566091b92a9fb83ff7d5d13a2f2596ff60d3"
 }

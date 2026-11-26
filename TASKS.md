@@ -585,3 +585,12 @@
 - DAY2범위:PR6최종head/승인gate/mergeability/expectedhead확인→통과시병합·배포. 새기능0,수정잔여1회. DAY3:공개전체여정/합성자금분리/오류·빈결과·수정보존·초점,1/3/5동일거래창BM oracle·%/%p·추정제외·부족자료정확성,최종PC모바일이미지/Pages/취소·직거래·토지임대부제외정책. 항목별pass/fail/unverified,거래건수변동자체는실패아님. 실패미결인계.
 - 별도계획검수자가위조건으로실행가능판정. DAY2개발/릴리스1과제,DAY3별도검증자최종판단. 실제사용자연구/물리모바일검증완료로표시하지않음.
 - 참고조사: https://tossads.toss.im/insights/cta 읽음,행동·얻게될답명확성채택/광고긴박감·보상카피미차용. https://rt.molit.go.kr/ 홈읽음,공식거래출처·유형분리참고/밀집메뉴미차용. hogangnono.com·myzipplan.com/realprice403,FRED단위변환문서접근불가→미검증/우회없음. 추가금융시각화조사는다음계획후보,본서비스계산은기존공식oracle기준.
+
+
+## 2026-11-27 · RE-20261126-01 DAY2 완료/인계
+- 계획v1.0대로PR6릴리스1과제수행,새제품기능추가없음. 독립검증자exacthead73f305be/CI18·192성공유지/규칙목록·AGENTS확인. branchprotection403은없음으로단정안함. ready후mergeable:true→expectedhead병합 main dd3a566091b92a9fb83ff7d5d13a2f2596ff60d3.
+- Pages https://github.com/Gamez0/apartment-benchmark/actions/runs/45908259422 진행상태,공개확인/전체최종품질은DAY3. Figma68:432정상읽기/기존시안보존. 실제변경은기존PC2열PR,개인자금·엔진·거래정책불변.
+- 사용자3지적누락없이backlog:저속네트워크,전체쉬운문구,조립화면중복내비. 범위큰구현다음DAY1로보류. 기존테스트는단일catalog gate→503/retry와시장CTA위치≤4px등부분검증,전체Fast3G/Slow3G/offline미측정. 다음DAY1대역폭/지연을명시해최초표시/조작/요청/이동/복구·입력보존실측후계획. 측정불가는미검증으로유지.
+- 문구:high=양수상승+BM초과,low=보합포함상승+BM미만,decline=실제음수. '많이/조금'단순치환은시장하락경계왜곡가능;비교기준·기간과함께문맥별전후안검토.
+- 코드근거detail flowBack/close는둘다FlowRouter.back()동일history한단계복귀. 목적지가다른척설명하지않고다음계획에서통합/원포커스·스크롤·depth0home복귀검증. 점안내중복/기간위치/여백도조립화면대조포함.
+- 다음DAY3는저장계획대로최종공개여정·1/3/5BM oracle·공식제외정책·PC모바일최종캡처/회고. 오늘새3항목실네트워크측정/문구수정/내비통합은미수행,다음cycle우선후보. 상태CYCLE_STATE.json DAY2_COMPLETE→DAY3.
